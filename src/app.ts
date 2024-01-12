@@ -7,6 +7,6 @@ app.use(fileUpload());
 
 // Import routes
 import indexRouter from './routes/index.js';
-app.use('/', indexRouter);
+app.use('/', indexRouter);  
 
 export default app;

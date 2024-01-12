@@ -1,29 +1,62 @@
 import { Router } from 'express';
 import express from 'express';
-import { generateRandomBucketName, createS3Bucket } from '../aws/s3Client.js';
+
+
+import { generateRandomBucketName, createS3Bucket, uploadDir } from '../aws/s3Client.js';
+import { unzipToTmpDir, listZipfileContents, zipfileContains } from '../utils/zip.js';
+import AdmZip from 'adm-zip';
+import path from 'path';
 
 const router = Router();
 
-interface File {
-    name: string;
-    data: Buffer;
-    size: number;
-    mimetype: string;
-}
-
 router.post('/create_site', async (req, res) => {
-    // Handle zip file upload here
-    // TODO add API contract somewhere as middleware, this is insanity
-    const files : File = req.files.zipFile;
-    console.log(files);
-    const bucketName = generateRandomBucketName();
-    const bucketCreationResponse = await createS3Bucket(bucketName);
-    console.log(bucketCreationResponse);
+    try {
+        // Handle zip file upload here
+        // TODO add API contract somewhere as middleware, this is insanity
+        const contentRoot: string | undefined = req.body.contentRoot;
+        if (contentRoot === undefined){
+            // TODO autogenerate type conformity checks, and even better use generated types
+            console.log('1');
+            res.status(400).send({
+                error: "invalid_request_body", 
+                message: `Expected request body to contain indexhtmlPath. Request body: ${req.body}`
+            });
+            return;
+        }
 
-    res.send('Site creation endpoint');
+        const zipFile = new AdmZip(req.files.zipFile.data);
+
+        if (contentRoot !== "" && !zipfileContains(contentRoot, zipFile)){
+            res.status(400).send({ 
+                error: `content_root_not_found`,
+                message: `${contentRoot} does exist in the uploaded zip file.`,
+                zipFileEntries: listZipfileContents(zipFile)
+            });
+            return;
+        }
+
+        if (!zipfileContains(path.join(contentRoot, "index.html"), zipFile)){
+            res.status(400).send({ 
+                error: `index_html_not_found`,
+                message: `${contentRoot}/index.html does not exist in the uploaded zip file.`,
+                zipFileEntries: listZipfileContents(zipFile)
+            });
+            return;
+        }
+
+        const bucketName = generateRandomBucketName();
+        const bucketCreationResponse = await createS3Bucket(bucketName);
+        
+        const tmpDir = unzipToTmpDir(zipFile);
+        const uploadRoot = path.join(tmpDir, contentRoot);
+        await uploadDir(bucketName, uploadRoot, uploadRoot);
+        res.status(200).send({message: `Site created at ${bucketCreationResponse.Location}`});
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('An error occurred while creating the site');
+    }
 });
 
 router.use('/', express.static('frontend'));
-
 
 export default router;
