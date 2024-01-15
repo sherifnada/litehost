@@ -14,8 +14,17 @@
 </head>
 <body class="body">
     <div id="dropzone">
-        <p style="font-size:40px;color:white;margin-top:0px;margin-bottom:10px">Drop it like it's hot</p>
-        <p style="font-size:30px;color:white;margin-top:0px;margin-bottom:0px"">Drag and drop your file here</p>
+        <img class="floatingIcon zip" src="images/zip-icon.svg">
+        <img class="floatingIcon pdf" src="images/PDFIcon.svg">
+        <img class="floatingIcon folder" src="images/FolderIcon.svg">
+        <img class="floatingIcon file" src="images/FileIcon.svg">
+        <img class="floatingIcon image" src="images/ImageIcon.svg">
+        <div style="display: flex; align-items: center; justify-content: center; flex-direction: row;">
+          <img src="images/Upload icon.svg" width="15px">
+          <p style="font-size:40px;color:white;margin-top:0px;margin-bottom:10px;margin-left: 20px; margin-right: 20px;font-weight: 700;">Drop it like it's hot</p>
+          <img src="images/Upload icon.svg" width="15px">
+        </div>
+        <p style="font-size:30px;color:white;margin-top:0px;margin-bottom:0px;font-weight: 200;"">Drag and drop your file here</p>
     </div>
     <section class="arenawrapper">
         <div class="logoWrapper">
@@ -33,7 +42,7 @@
             <input id="fileUpload" type="file" name="zipFile" hidden>
             <label for="fileUpload" class="pluswrapper"><img src="images/plus-icon.svg" loading="lazy" width="120" alt=""></label>
             <input type="submit" value="Upload" />
-            <div class="infowrapper"><img src="images/zip-icon.svg" loading="lazy" alt="">
+            <div class="infowrapper"><img src="images/zip-icon.svg" loading="lazy" alt="" style="width: 40px;">
             <div class="text-block">*Zips only (for now)</div>
             </div>
             </form>

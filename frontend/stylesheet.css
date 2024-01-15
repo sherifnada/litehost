@@ -31,6 +31,38 @@ html,body{margin:0;padding:0}
   transition: 350ms;
 }
 
+.floatingIcon {
+  width: 150px;
+  position: fixed;
+}
+
+.zip {
+  top: 25%;
+  left: 15%;
+  transform: rotate(-20deg);
+}
+
+.image {
+  top: 15%;
+}
+
+.folder {
+  top: 25%;
+  right: 15%;
+  transform: rotate(20deg);
+}
+
+.file {
+  bottom: 15%;
+  left: 30%;
+  transform: rotate(20deg);
+}
+.pdf {
+  bottom: 15%;
+  right: 30%;
+  transform: rotate(-20deg);
+}
+
 .upload-container {
     background-color: #fff; /* Replace with the color of your box */
     border-radius: 10px; /* Rounded corners */
@@ -289,6 +321,10 @@ html,body{margin:0;padding:0}
   @media screen and (max-width: 767px) {
     .herowrapper {
       width: 80%;
+    }
+
+    .floatingIcon {
+      display: none;
     }
   
   @media screen and (max-width: 479px) {
