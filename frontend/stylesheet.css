@@ -19,17 +19,47 @@ html,body{margin:0;padding:0}
   justify-content: center;
   background: #5469fa;
   position: fixed;
-  display: none;
+  /*display: none;*/
   z-index: 1000;
   color: white;
   text-align: center;
   flex-direction: column;
+  pointer-events: none;
 }
 
 #dropzone:hover {
   background: #f87697;
-  transition: 350ms;
 }
+
+.floatingIcon {
+  width: 150px;
+  position: fixed;
+}
+
+.zip {
+  top: 30%;
+  left: 20%;
+}
+
+.image {
+  top: 20%;
+}
+
+.folder {
+  top: 30%;
+  right: 20%;
+}
+
+.file {
+  bottom: 20%;
+  left: 30%;
+}
+
+.pdf {
+  bottom: 20%;
+  right: 30%;
+}
+*/
 
 .upload-container {
     background-color: #fff; /* Replace with the color of your box */
@@ -117,8 +147,8 @@ html,body{margin:0;padding:0}
   .drag-over {
     background-color: red;
     transition: 200ms;
-
   }
+
   .subWrapper {
     overflow: hidden;
     max-width: 200px;

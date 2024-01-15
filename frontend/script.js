@@ -50,3 +50,21 @@ dropZone.addEventListener('dragleave', function(e) {
 });
 
 dropZone.addEventListener('drop', handleDrop);
+
+/*
+//This JS makes the FloatingIcons follow the mouse. I cant get it to work while dragging a file over the dropzone
+document.addEventListener('mousemove', (event) => {
+    if (window.innerWidth >= 768) { // Only apply effect on screens wider than 768px
+        const followElements = document.querySelectorAll('.floatingIcon');
+
+        followElements.forEach(el => {
+            const speed = 5; // Adjust this value to control the movement speed
+
+            const x = (event.pageX - window.innerWidth / 2) / speed;
+            const y = (event.pageY - window.innerHeight / 2) / speed;
+
+            el.style.transform = `translate(${x}px, ${y}px)`;
+        });
+    }
+});
+*/
