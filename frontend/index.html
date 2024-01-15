@@ -2,19 +2,49 @@
 <html>
 <head>
     <title>File Upload</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="stylesheet.css" rel="stylesheet" type="text/css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- need to make favicons
+    <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <link href="images/webclip.png" rel="apple-touch-icon">
+    -->
 </head>
-<body>
-    <h1> Welcome to the fast website builder! </h1>
-    <h2> Hey Sherif! I'm coding!</h2>
-    <form id="uploadForm" enctype="multipart/form-data">
-        Content Root: <input type="text" name="contentRoot"/> <br /><br />
-        <input type="file" name="zipFile" /><br /> <br />
-        <input type="submit" value="Upload" />
-    </form>
-    <br/><br/><br/>
-    <div id="response">
-
+<body class="body">
+    <div id="dropzone">
+        <p style="font-size:40px;color:white;margin-top:0px;margin-bottom:10px">Drop it like it's hot</p>
+        <p style="font-size:30px;color:white;margin-top:0px;margin-bottom:0px"">Drag and drop your file here</p>
     </div>
-    <script src="script.js"></script>
+    <section class="arenawrapper">
+        <div class="logoWrapper">
+          <div class="text-block-2">• ARENA •</div>
+        </div>
+        <div class="herowrapper">
+          <form class="uploadwrapper" id="uploadForm" enctype="multipart/form-data">
+            Content Root: <input type="text" name="contentRoot"/>
+            <div class="urlWrapper">
+                <div class="subDomainWrapper">
+                <input id="subDomain-text" type="text" placeholder="whateveryouwant" class="subDomainInput" autofocus>
+                </div>
+                <div class="rootDomain">.arena.com</div>
+            </div>
+            <input id="fileUpload" type="file" name="zipFile" hidden>
+            <label for="fileUpload" class="pluswrapper"><img src="images/plus-icon.svg" loading="lazy" width="120" alt=""></label>
+            <input type="submit" value="Upload" />
+            <div class="infowrapper"><img src="images/zip-icon.svg" loading="lazy" alt="">
+            <div class="text-block">*Zips only (for now)</div>
+            </div>
+            </form>
+        <div id="response">
+        </div>
+          <div class="titlewrapper">
+            <h1 class="h1">Launch anything.<br>Claim your arena.</h1>
+            <h2 class="h2">Quickly launch *anything* onto the internet with your own arena subdomain.</h2>
+          </div>
+        </div>
+    </section>
+    <script src="script.js"></script> 
 </body>
 </html>
