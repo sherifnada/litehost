@@ -2,12 +2,15 @@ import {BucketCannedACL, S3} from '@aws-sdk/client-s3';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as dotenv from 'dotenv';
+import getContentTypeFromFileName from '../utils/contentTypes.js';
 dotenv.config({path: "secrets/.env.prod"});
+
+const AWS_REGION = 'us-west-2';
 
 // Configure AWS with your credentials
 // It's recommended to configure credentials through environment variables or shared credential files
 const AWSConfig = {
-    region: 'us-west-2' // or your preferred region
+    region: AWS_REGION // or your preferred region
 };
 
 const s3 = new S3(AWSConfig);
@@ -41,7 +44,8 @@ async function uploadDir(bucketName: string, directory: string, rootDirectory: s
             const uploadParams = {
                 Bucket: bucketName,
                 Key: s3Key,
-                Body: fileContent
+                Body: fileContent,
+                ContentType: getContentTypeFromFileName(s3Key)
             };
 
             try {
@@ -55,13 +59,9 @@ async function uploadDir(bucketName: string, directory: string, rootDirectory: s
 }
 
 async function createS3Bucket(bucketName: string) {
-    const params = {
-        Bucket: bucketName,
-        
-    };
-
     try {
-        const data = await s3.createBucket(params);
+        console.log("creating bucket");
+        const data = await s3.createBucket({Bucket: bucketName});
         console.log(`Bucket created successfully. CreateBucket response: ${JSON.stringify(data)}`);
 
         
@@ -69,6 +69,7 @@ async function createS3Bucket(bucketName: string) {
         await s3.putBucketOwnershipControls({Bucket: bucketName, OwnershipControls: {Rules: [{ObjectOwnership: 'BucketOwnerPreferred'}]}});
         console.log(`Updated bucket ownership controls`);
 
+        // TODO prevent listing files
         await s3.putPublicAccessBlock({Bucket: bucketName, PublicAccessBlockConfiguration: {
             IgnorePublicAcls: false,
             BlockPublicAcls: false,
@@ -103,10 +104,11 @@ async function createS3Bucket(bucketName: string) {
             })
         };
 
+
         const putBucketPolicyResponse = await s3.putBucketPolicy(policyParams);
         console.log(`Bucket policy updated. Response: ${putBucketPolicyResponse}`);
 
-        return data;
+        return `http://${bucketName}.s3-website-${AWS_REGION}.amazonaws.com`;
     } catch (error) {
         console.error("Error creating the bucket:", error);
         throw error;

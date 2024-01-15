@@ -11,7 +11,6 @@ document.getElementById('uploadForm').addEventListener('submit', function(e) {
 });
 
 //Two things with this drap and drop functionality. (1) I'm not sure it's actually sending the file to the form. (2) The background goes away when you drag the file over the Dropzone text
-
 var dropZone = document.getElementById('dropzone');
 var fileInput = document.getElementById('fileUpload');
 
@@ -45,7 +44,6 @@ dropZone.addEventListener('dragenter', allowDrag);
 dropZone.addEventListener('dragover', allowDrag);
 
 dropZone.addEventListener('dragleave', function(e) {
-	console.log('dragleave');
     hideDropZone();
 });
 
