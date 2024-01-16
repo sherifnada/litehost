@@ -31,29 +31,36 @@
           <div class="text-block-2">• ARENA •</div>
         </div>
         <div class="herowrapper">
-          <form class="uploadwrapper" id="uploadForm" enctype="multipart/form-data">
+          <form class="uploadwrapper" ID="uploadForm" enctype="multipart/form-data">
             Content Root: <input type="text" name="contentRoot"/>
-            <div class="urlWrapper">
+            <div class="urlWrapper" id="urlWrapper">
                 <div class="subDomainWrapper">
                 <input id="subDomain-text" type="text" placeholder="whateveryouwant" class="subDomainInput" autofocus>
                 </div>
                 <div class="rootDomain">.arena.com</div>
             </div>
-            <input id="fileUpload" type="file" name="zipFile" hidden>
-            <label for="fileUpload" class="pluswrapper"><img src="images/plus-icon.svg" loading="lazy" width="120" alt=""></label>
-            <input type="submit" value="Upload" />
-            <div class="infowrapper"><img src="images/zip-icon.svg" loading="lazy" alt="" style="width: 40px;">
-            <div class="text-block">*Zips only (for now)</div>
+              <div id="responseWrapper">
+                <div id="response"></div>
+              </div>
+              <div id="FileUploadButton">
+                <input id="fileUpload" type="file" name="zipFile" hidden>
+                <label for="fileUpload" class="pluswrapper"><img src="images/plus-icon.svg" loading="lazy" width="120" alt=""></label>
+              </div>
+              <div id="LaunchButton">
+                <input id="launch" type="submit" value="Upload" hidden/>
+                <label for="launch" class="pluswrapper launch">Launch</label>
+              </div>
+              <div id="infoWrapper">
+                <div class="infowrapper"><img src="images/zip-icon.svg" loading="lazy" alt="" style="width: 40px;">
+                <div class="text-block">*Zips only (for now)</div>
+              </div>
             </div>
-            </form>
-        
+          </form>
           <div class="titlewrapper">
             <h1 class="h1">Launch anything.<br>Claim your arena.</h1>
             <h2 class="h2">Quickly launch *anything* onto the internet with your own arena subdomain.</h2>
           </div>
-        </div>
     </section>
-    <div id="response">
     </div>
     <script src="script.js"></script> 
 </body>
