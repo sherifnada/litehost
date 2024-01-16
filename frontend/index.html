@@ -32,7 +32,9 @@
         </div>
         <div class="herowrapper">
           <form class="uploadwrapper" ID="uploadForm" enctype="multipart/form-data">
-            Content Root: <input type="text" name="contentRoot"/>
+            <div class="contentRootWrapper">
+              Content Root: <input type="text" name="contentRoot"/>
+            </div>
             <div class="urlWrapper" id="urlWrapper">
                 <div class="subDomainWrapper">
                 <input id="subDomain-text" type="text" placeholder="whateveryouwant" class="subDomainInput" autofocus>
@@ -40,7 +42,17 @@
                 <div class="rootDomain">.arena.com</div>
             </div>
               <div id="responseWrapper">
-                <div id="response"></div>
+                <div id="response">
+                  <div class="successMessage" style="display:none;">
+                    Success!!!!!
+                    <!-- do whatever you want here to style the elemtn -->
+                  </div>
+                  <div class="failureMessage" style="display:none;">
+                    FAILURE :(
+                    <!-- do whatever you want to style here -->
+                  </div>
+
+                </div>
               </div>
               <div id="FileUploadButton">
                 <input id="fileUpload" type="file" name="zipFile" hidden>

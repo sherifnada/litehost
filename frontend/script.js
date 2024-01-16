@@ -19,15 +19,44 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     document.getElementById('uploadForm').addEventListener('submit', function(e) {
-        document.getElementById("response").innerText = "request submitted..";
+        // document.getElementById("response").innerText = "request submitted..";
         e.preventDefault();
         var formData = new FormData(this);
-        fetch('http://localhost:3000/create_site', {
-            method: 'POST',
-            body: formData
-        }).then(response => response.json())
-          .then(data => document.getElementById("response").innerText = JSON.stringify(data))
-          .catch(error => console.error('Error:', error));
+        
+        // COMMENT THIS BLOCK IN TO ACTUALLY INTERACT WITH THE SERVER
+        // fetch('http://localhost:3000/create_site', {
+        //     method: 'POST',
+        //     body: formData
+        // }).then(response => response.json())
+        //   .then(data => document.getElementById("response").innerText = JSON.stringify(data))
+        //   .catch(error => console.error('Error:', error));
+        // ----------------
+        const responseDiv = document.getElementById("response");
+
+        const isRequestSuccessful = true;
+        if (isRequestSuccessful){
+            console.log("mock success");
+            const response = {"status": 200, "websiteUrl": "https://mywebsite.com"};
+            
+            // add any code here to handle success
+        
+            // hides stuff from the form
+            document.querySelector("#response > div.successMessage").style.display = "flex";
+            document.getElementById("LaunchButton").style.display = 'none';
+            document.getElementById("urlWrapper").style.display = 'none';
+            document.querySelector("#uploadForm > .contentRootWrapper").style.display = 'none';
+        } else {
+            const response = {"status": 400, error: "bucket_creation_failure", message: "Failed to create S3 bucket! (this is a sample error message)"};
+            console.log("mock failure");
+
+
+            // add any code here to handle failure
+            // hides stuff from the form
+            document.querySelector("#response > div.failureMessage").style.display = "flex";
+            document.getElementById("LaunchButton").style.display = 'none';
+            document.getElementById("urlWrapper").style.display = 'none';
+            document.querySelector("#uploadForm > .contentRootWrapper").style.display = 'none';
+        }
     });
 
     
@@ -71,3 +100,4 @@ dropZone.addEventListener('dragleave', function(e) {
 
 dropZone.addEventListener('drop', handleDrop);
 */
+});
