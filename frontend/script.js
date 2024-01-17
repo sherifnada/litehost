@@ -33,31 +33,34 @@ document.addEventListener('DOMContentLoaded', function () {
         // ----------------
         const responseDiv = document.getElementById("response");
 
-        const isRequestSuccessful = true;
-        if (isRequestSuccessful){
-            console.log("mock success");
-            const response = {"status": 200, "websiteUrl": "https://mywebsite.com"};
+        setTimeout(() => {
+            const isRequestSuccessful = true;
+            if (isRequestSuccessful){
+                console.log("mock success");
+                const response = {"status": 200, "websiteUrl": "https://mywebsite.com"};
+                
+                // add any code here to handle success
             
-            // add any code here to handle success
-        
-            // hides stuff from the form
-            document.querySelector("#response > div.successMessage").style.display = "flex";
-            document.getElementById("LaunchButton").style.display = 'none';
-            document.getElementById("urlWrapper").style.display = 'none';
-            document.querySelector("#uploadForm > .contentRootWrapper").style.display = 'none';
-        } else {
-            const response = {"status": 400, error: "bucket_creation_failure", message: "Failed to create S3 bucket! (this is a sample error message)"};
-            console.log("mock failure");
-
-
-            // add any code here to handle failure
-            // hides stuff from the form
-            document.querySelector("#response > div.failureMessage").style.display = "flex";
-            document.getElementById("LaunchButton").style.display = 'none';
-            document.getElementById("urlWrapper").style.display = 'none';
-            document.querySelector("#uploadForm > .contentRootWrapper").style.display = 'none';
-        }
+                // hides stuff from the form
+                document.querySelector("#response > div.successMessage").style.display = "flex";
+                document.getElementById("LaunchButton").style.display = 'none';
+                document.getElementById("urlWrapper").style.display = 'none';
+                document.querySelector("#uploadForm > .contentRootWrapper").style.display = 'none';
+            } else {
+                const response = {"status": 400, error: "bucket_creation_failure", message: "Failed to create S3 bucket! (this is a sample error message)"};
+                console.log("mock failure");
+    
+    
+                // add any code here to handle failure
+                // hides stuff from the form
+                document.querySelector("#response > div.failureMessage").style.display = "flex";
+                document.getElementById("LaunchButton").style.display = 'none';
+                document.getElementById("urlWrapper").style.display = 'none';
+                document.querySelector("#uploadForm > .contentRootWrapper").style.display = 'none';
+            }
+        }, 2000); 
     });
+        
 
     
 /* this code is not working with the above JS. I think something about the fileUpload ID being two variables is the problem?
