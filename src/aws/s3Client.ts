@@ -115,37 +115,4 @@ async function createS3Bucket(bucketName: string) {
     }
 }
 
-// import { S3Client, ListBucketsCommand, ListObjectsCommand, DeleteObjectCommand, DeleteBucketCommand } from "@aws-sdk/client-s3";
-
-// // Initialize the S3 Client
-// const s3Client = new S3Client({ region: "your-region" });
-
-// async function deleteAllObjectsInBucket(bucketName: string) {
-//     const objects = await s3Client.send(new ListObjectsCommand({ Bucket: bucketName }));
-//     if (objects.Contents) {
-//         for (const object of objects.Contents) {
-//             await s3Client.send(new DeleteObjectCommand({ Bucket: bucketName, Key: object.Key! }));
-//         }
-//     }
-// }
-
-// async function deleteAllBuckets() {
-//     try {
-//         const buckets = await s3Client.send(new ListBucketsCommand({}));
-//         if (buckets.Buckets) {
-//             for (const bucket of buckets.Buckets) {
-//                 const bucketName = bucket.Name!;
-//                 await deleteAllObjectsInBucket(bucketName);
-//                 await s3Client.send(new DeleteBucketCommand({ Bucket: bucketName }));
-//                 console.log(`Deleted bucket: ${bucketName}`);
-//             }
-//         }
-//     } catch (error) {
-//         console.error("Error in deleting buckets:", error);
-//     }
-// }
-
-// deleteAllBuckets();
-
-
 export {generateRandomBucketName, createS3Bucket, uploadDir};

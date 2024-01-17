@@ -9,6 +9,11 @@ import path from 'path';
 
 const router = Router();
 
+
+router.get('/', async(req, res) => {
+    // TODO proxy 
+});
+
 router.post('/create_site', async (req, res) => {
     
     // TODO replace this with specific origins
