@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', function () {
             uploadForm.style.backgroundColor = '#f87697';
             infoWrapper.style.display = 'none';
             urlWrapper.style.backgroundColor = 'white';
+            document.querySelector("#uploadForm > .contentRootWrapper").style.display = 'none';
+
         }
     });
 
@@ -32,13 +34,27 @@ document.addEventListener('DOMContentLoaded', function () {
         //   .catch(error => console.error('Error:', error));
         // ----------------
         const responseDiv = document.getElementById("response");
+        document.querySelector("#response > div.formLoading").style.display = 'flex';
+        launchButton.style.display = 'none';
+        urlWrapper.style.display = 'none';
+        document.querySelector("#uploadForm > .contentRootWrapper").style.display = 'none';
 
         setTimeout(() => {
-            const isRequestSuccessful = true;
+            document.querySelector("#response > div.formLoading").style.display = 'none';
+
+            const isRequestSuccessful = false;
             if (isRequestSuccessful){
                 console.log("mock success");
-                const response = {"status": 200, "websiteUrl": "https://mywebsite.com"};
-                
+                const response = {"status": 200, "websiteUrl": "https://pipeweave.litehost.io"};
+                var websiteUrlDisplay = document.getElementById('websiteUrlDisplay');
+                websiteUrlDisplay.innerHTML = '';
+                var anchor = document.createElement('a');
+                anchor.setAttribute('href', response.websiteUrl);
+                anchor.setAttribute('target', '_blank');
+                anchor.innerText = response.websiteUrl;
+                websiteUrlDisplay.appendChild(anchor);
+
+
                 // add any code here to handle success
             
                 // hides stuff from the form
@@ -58,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById("urlWrapper").style.display = 'none';
                 document.querySelector("#uploadForm > .contentRootWrapper").style.display = 'none';
             }
-        }, 2000); 
+        }, 500); 
     });
         
 
