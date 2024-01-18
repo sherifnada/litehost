@@ -2,10 +2,11 @@ import { Router } from 'express';
 import express from 'express';
 
 
-import { generateRandomBucketName, createS3Bucket, uploadDir } from '../aws/s3Client.js';
+import { uploadDir } from '../aws/s3Client.js';
 import { unzipToTmpDir, listZipfileContents, zipfileContains } from '../utils/zip.js';
 import AdmZip from 'adm-zip';
 import path from 'path';
+import { HOSTING_BUCKET_NAME } from '../aws/constants.js';
 
 const router = Router();
 
@@ -54,19 +55,19 @@ router.post('/create_site', async (req, res) => {
             });
             return;
         }
-
-        const bucketName = generateRandomBucketName();
-        const bucketSiteUrl = await createS3Bucket(bucketName);
         
+        // const siteBucketDirectory = 
+        const bucketSiteUrl = "PLACEHOLDER VALUE";
         const tmpDir = unzipToTmpDir(zipFile);
         const uploadRoot = path.join(tmpDir, contentRoot);
-        await uploadDir(bucketName, uploadRoot, uploadRoot);
+        await uploadDir(HOSTING_BUCKET_NAME, siteBucketDirectory, uploadRoot, uploadRoot);
         res.status(200).send({message: `Site created at ${bucketSiteUrl}`});
     } catch (error) {
         console.error(error);
         res.status(500).send('An error occurred while creating the site');
     }
 });
+
 
 router.use('/', express.static('frontend'));
 
