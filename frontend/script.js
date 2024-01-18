@@ -20,61 +20,86 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    function hideFormInputs(){
+        document.getElementById("LaunchButton").style.display = 'none';
+        document.getElementById("urlWrapper").style.display = 'none';
+        document.querySelector("#uploadForm > .contentRootWrapper").style.display = 'none';
+    }
+
+    function displaySuccessMessage(websiteUrl){
+        var websiteUrlDisplay = document.getElementById('websiteUrlDisplay');
+        websiteUrlDisplay.innerHTML = '';
+        var anchor = document.createElement('a');
+        anchor.setAttribute('href', websiteUrl);
+        anchor.setAttribute('target', '_blank');
+        anchor.innerText = websiteUrl;
+        websiteUrlDisplay.appendChild(anchor);
+        document.querySelector("#response > div.successMessage").style.display = "flex";
+    }
+
+    function displayFailureMessage(failureMessage){
+        document.querySelector("#response > div.failureMessage").style.display = "flex";
+        document.getElementById("errorResponseMessage").innerText = failureMessage
+    }
+
+    function hideLoadingScreen(){
+        document.querySelector("#response > div.formLoading").style.display = 'none';
+    }
+
     document.getElementById('uploadForm').addEventListener('submit', function(e) {
         // document.getElementById("response").innerText = "request submitted..";
         e.preventDefault();
         var formData = new FormData(this);
-        
-        // COMMENT THIS BLOCK IN TO ACTUALLY INTERACT WITH THE SERVER
-        // fetch('http://localhost:3000/create_site', {
-        //     method: 'POST',
-        //     body: formData
-        // }).then(response => response.json())
-        //   .then(data => document.getElementById("response").innerText = JSON.stringify(data))
-        //   .catch(error => console.error('Error:', error));
-        // ----------------
-        const responseDiv = document.getElementById("response");
-        document.querySelector("#response > div.formLoading").style.display = 'flex';
         launchButton.style.display = 'none';
         urlWrapper.style.display = 'none';
         document.querySelector("#uploadForm > .contentRootWrapper").style.display = 'none';
-
-        setTimeout(() => {
-            document.querySelector("#response > div.formLoading").style.display = 'none';
-
-            const isRequestSuccessful = false;
-            if (isRequestSuccessful){
-                console.log("mock success");
-                const response = {"status": 200, "websiteUrl": "https://pipeweave.litehost.io"};
-                var websiteUrlDisplay = document.getElementById('websiteUrlDisplay');
-                websiteUrlDisplay.innerHTML = '';
-                var anchor = document.createElement('a');
-                anchor.setAttribute('href', response.websiteUrl);
-                anchor.setAttribute('target', '_blank');
-                anchor.innerText = response.websiteUrl;
-                websiteUrlDisplay.appendChild(anchor);
+        document.querySelector("#response > div.formLoading").style.display = 'flex';
+        
 
 
-                // add any code here to handle success
-            
-                // hides stuff from the form
-                document.querySelector("#response > div.successMessage").style.display = "flex";
-                document.getElementById("LaunchButton").style.display = 'none';
-                document.getElementById("urlWrapper").style.display = 'none';
-                document.querySelector("#uploadForm > .contentRootWrapper").style.display = 'none';
+        // COMMENT THIS BLOCK IN TO ACTUALLY INTERACT WITH THE SERVER
+        fetch('http://localhost:3000/create_site', {
+            method: 'POST',
+            body: formData
+        }).then(async response => {
+            hideLoadingScreen();
+            const data = await response.json();
+            hideFormInputs();
+
+            if (response.status >= 200 && response.status < 300){
+                displaySuccessMessage(data.websiteUrl);
+            } else if (response.status >= 400 < 500) {
+                displayFailureMessage(data.message);
             } else {
-                const response = {"status": 400, error: "bucket_creation_failure", message: "Failed to create S3 bucket! (this is a sample error message)"};
-                console.log("mock failure");
-    
-    
-                // add any code here to handle failure
-                // hides stuff from the form
-                document.querySelector("#response > div.failureMessage").style.display = "flex";
-                document.getElementById("LaunchButton").style.display = 'none';
-                document.getElementById("urlWrapper").style.display = 'none';
-                document.querySelector("#uploadForm > .contentRootWrapper").style.display = 'none';
+                displayFailureMessage("An Unknown error happened");
             }
-        }, 500); 
+        }).catch(error => {
+            console.error('Error:', error)
+            displayFailureMessage("An unknown error occurred");
+        });
+        // =========================================================
+        
+
+        // Comment this block in to mock interactions with the server
+        // setTimeout(() => {
+        //     document.querySelector("#response > div.formLoading").style.display = 'none';
+
+        //     const isRequestSuccessful = true;
+        //     if (isRequestSuccessful){
+        //         const response = {"status": 200, "websiteUrl": "https://pipeweave.litehost.io"};
+            
+        //         // hides stuff from the form
+        //         hideFormInputs();
+        //         displaySuccessMessage(response.websiteUrl);
+        //     } else {
+        //         const response = {"status": 400, error: "bucket_creation_failure", message: "Failed to create S3 bucket! (this is a sample error message)"};
+    
+        //         // hides stuff from the form
+        //         hideFormInputs();
+        //         displayFailureMessage(response.message);
+        //     }
+        // }, 500); 
+        // =========================================================
     });
         
 
