@@ -28,32 +28,71 @@
     </div>
     <section class="arenawrapper">
         <div class="logoWrapper">
-          <div class="text-block-2">• ARENA •</div>
+          <div class="text-block-2">• LITEHOST •</div>
         </div>
         <div class="herowrapper">
-          <form class="uploadwrapper" id="uploadForm" enctype="multipart/form-data">
-            Content Root: <input type="text" name="contentRoot"/>
-            <div class="urlWrapper">
+          <form class="uploadwrapper" ID="uploadForm" enctype="multipart/form-data">
+            <div class="contentRootWrapper">
+              Content Root: <input type="text" name="contentRoot"/>
+            </div>
+            <div class="urlWrapper" id="urlWrapper">
                 <div class="subDomainWrapper">
                 <input id="subDomain-text" type="text" placeholder="whateveryouwant" class="subDomainInput" autofocus>
                 </div>
-                <div class="rootDomain">.arena.com</div>
+                <div style="font: size 16px;px; margin-left: 2px;">.litehost.com</div>
             </div>
-            <input id="fileUpload" type="file" name="zipFile" hidden>
-            <label for="fileUpload" class="pluswrapper"><img src="images/plus-icon.svg" loading="lazy" width="120" alt=""></label>
-            <input type="submit" value="Upload" />
-            <div class="infowrapper"><img src="images/zip-icon.svg" loading="lazy" alt="" style="width: 40px;">
-            <div class="text-block">*Zips only (for now)</div>
+              <div id="responseWrapper">
+                <div id="response">
+                  <div class="responseWrapper formLoading" style="display:none;">
+                    <div>
+                      <p class="formUpdateHeader">✋ Hang tight ✋</p>
+                      <p class="formUpdateSubHeader">We're doing important things</p>
+                    </div>
+                    <div style="display: flex; flex-direction: column; height: 100%; align-items: center; justify-content: center;">
+                      <img class="gif" src="https://media.giphy.com/media/pFZTlrO0MV6LoWSDXd/giphy.gif">
+                    </div>
+                  </div>
+                  <div class="responseWrapper successMessage" style="display:none;">
+                    <div>
+                      <p class="formUpdateHeader">🚀 We're live 🚀</p>
+                      <div id="websiteUrlDisplay"></div>
+                    </div>
+                    <div style="display: flex; flex-direction: column; height: 100%; align-items: center; justify-content: center;">
+                      <img class="gif" src="https://media.giphy.com/media/ZKTNelSY55g4w/giphy.gif">
+                    </div>
+                  </div>
+                  <div class="responseWrapper failureMessage" style="display:none;">
+                    <div>
+                      <p class="formUpdateHeader">😬 Uh Oh... 🤔</p>
+                      <p class="formUpdateSubHeader">Something went wrong</p>
+                    </div>
+                    <div style="display: flex; flex-direction: column; height: 100%; align-items: center; justify-content: center;">
+                      <img class="gif" src="https://media.giphy.com/media/5Zesu5VPNGJlm/giphy.gif">
+                    </div>
+                    <p class="formUpdateSubHeader supportEmail">Email <a style="color:white;" href="mailto:support@litehost.io">support@litehost.io</a> to get help</p>
+                  </div>
+
+                </div>
+              </div>
+              <div id="FileUploadButton">
+                <input id="fileUpload" type="file" name="zipFile" hidden>
+                <label for="fileUpload" class="pluswrapper"><img src="images/plus-icon.svg" loading="lazy" width="120" alt=""></label>
+              </div>
+              <div id="LaunchButton">
+                <input id="launch" type="submit" value="Upload" hidden/>
+                <label for="launch" class="pluswrapper launch">Launch</label>
+              </div>
+              <div id="infoWrapper">
+                <div class="infowrapper"><img src="images/zip-icon.svg" loading="lazy" alt="" style="width: 40px;">
+                <div class="text-block">*Zips only (for now)</div>
+              </div>
             </div>
-            </form>
-        
+          </form>
           <div class="titlewrapper">
-            <h1 class="h1">Launch anything.<br>Claim your arena.</h1>
-            <h2 class="h2">Quickly launch *anything* onto the internet with your own arena subdomain.</h2>
+            <h1 class="h1">Launch anything.<br>See the lite.</h1>
+            <h2 class="h2">The fastest way to launch *anything* onto the internet (with SSL).</h2>
           </div>
-        </div>
     </section>
-    <div id="response">
     </div>
     <script src="script.js"></script> 
 </body>
