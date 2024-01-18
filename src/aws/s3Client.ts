@@ -6,11 +6,8 @@ import * as dotenv from 'dotenv';
 import getContentTypeFromFileName from '../utils/contentTypes.js';
 dotenv.config({path: "secrets/.env.prod"});
 
-// RjcdbUe8NFdNHLQ6
-// Configure AWS with your credentials
-// It's recommended to configure credentials through environment variables or shared credential files
 const AWSConfig = {
-    region: REGION // or your preferred region
+    region: REGION
 };
 
 const s3 = new S3(AWSConfig);
@@ -32,7 +29,7 @@ async function uploadDir(bucketName: string, bucketSubdirectory: string, directo
             const fileContent = fs.readFileSync(filePath);
 
             // Determine the S3 key (file path in S3)
-            const s3Key = filePath.substring(rootDirectory.length + 1); // +1 to remove the /
+            const s3Key = path.join(bucketSubdirectory, filePath.substring(rootDirectory.length + 1)); // +1 to remove the /
 
             // Upload file to S3
             const uploadParams = {
