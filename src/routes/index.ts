@@ -2,7 +2,7 @@ import { Router } from 'express';
 import express from 'express';
 
 
-import { uploadDir } from '../aws/s3Client.js';
+import { readFile, uploadDir } from '../aws/s3Client.js';
 import { unzipToTmpDir, listZipfileContents, zipfileContains } from '../utils/zip.js';
 import AdmZip from 'adm-zip';
 import path from 'path';
@@ -10,12 +10,6 @@ import { HOSTING_BUCKET_NAME } from '../aws/constants.js';
 import { ValidationError } from './errors.js';
 
 const router = Router();
-
-
-router.get('/', async(req, res) => {
-    // TODO proxy 
-});
-
 
 router.post('/create_site', async (req, res) => {
     // TODO add API contract somewhere as middleware, this validation is nuts
@@ -46,9 +40,33 @@ router.post('/create_site', async (req, res) => {
     }
 });
 
-router.use('/', express.static('frontend'));
+router.get('*', async(req, res, next) => {
+    const subdomain = extractSubdomainFromHost(req.headers.host);
+    if (subdomain){
+        const objectPath = req.originalUrl.split("?")[0];
+        const readFileOutput = await readFile(HOSTING_BUCKET_NAME, subdomain, objectPath);
+        res.status(200);
+        res.setHeader("Content-Type", readFileOutput.contentType);
+        res.send(readFileOutput.body);
+    } else {
+        next();
+    }
+});
 
+router.use("/", express.static("frontend"));
 
+function extractSubdomainFromHost(host: string){
+    const url = new URL("http://" + host);
+    const hostname = url.hostname;
+    const parts = hostname.split('.');
+
+    // contains exactly one subdomain
+    if (parts.length === 3 && parts[0] !== "www") {
+        return parts[0];
+    } else {
+        return null;
+    }
+}
 
 function validateSubdomain(body: any){
     const subdomain : string = body.subdomain;

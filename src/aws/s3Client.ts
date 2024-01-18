@@ -12,6 +12,21 @@ const AWSConfig = {
 
 const s3 = new S3(AWSConfig);
 
+interface GetObjectResponse {
+    body: string,
+    contentType?: string
+}
+
+async function readFile(bucketName: string, bucketSubdirectory: string, objectKey: string) {
+    const fullObjectKey = path.join(bucketSubdirectory, objectKey)
+    console.log(fullObjectKey);
+    const object = await s3.getObject({Bucket: bucketName, Key: fullObjectKey});
+    return {
+        body: await object.Body.transformToString('utf-8'),
+        contentType: object.ContentType
+    };
+}
+
 async function uploadDir(bucketName: string, bucketSubdirectory: string, directory: string, rootDirectory: string) {
     /**
      * 
@@ -50,4 +65,4 @@ async function uploadDir(bucketName: string, bucketSubdirectory: string, directo
     }
 }
 
-export {uploadDir};
+export {uploadDir, readFile, GetObjectResponse};
