@@ -18,7 +18,9 @@ router.post('/create_site', async (req, res) => {
         // validate the uploaded file is a zip file
         res.setHeader("Access-Control-Allow-Origin", "*");
         validateSubdomain(req.body);
+        assertZipFile(req);
         validateContentRoot(req.body);
+
         const contentRoot: string = req.body.contentRoot;
         const zipFile = new AdmZip(req.files.zipFile.data);
         validateZipContents(contentRoot, zipFile);
@@ -43,7 +45,11 @@ router.get('*', async(req, res, next) => {
     try {
         const subdomain = extractSubdomainFromHost(req.headers.host);
         if (subdomain){
-            const objectPath = req.originalUrl.split("?")[0];
+            let objectPath = req.originalUrl.split("?")[0];
+            if (!isRequestForFile(objectPath) && objectPath.endsWith("/")){
+                objectPath = path.join(objectPath, "index.html");
+            }
+
             const readFileOutput = await readFile(HOSTING_BUCKET_NAME, subdomain, objectPath);
             res.status(200);
             res.setHeader("Content-Type", readFileOutput.contentType);
@@ -63,6 +69,10 @@ router.get('*', async(req, res, next) => {
 });
 
 router.use("/", express.static("frontend"));
+
+function isRequestForFile(path: string){
+    return /\.[^./]+$/.test(path);
+}
 
 function extractSubdomainFromHost(host: string){
     const url = new URL("http://" + host);
@@ -127,6 +137,22 @@ function validateZipContents(contentRoot: string, zipFile: AdmZip){
             message: `${contentRoot}/index.html does not exist in the uploaded zip file.`,
             zipFileEntries: listZipfileContents(zipFile)
         });
+    }
+}
+
+function assertZipFile(req){
+    if (! req.files || !req.files.zipFile){
+        throw new ValidationError(400, {
+            error: "no_files_uploaded",
+            message: "The input must contain exactly a single file"
+        });
+    }
+
+    if (req.files.zipFile.mimetype !== "application/zip"){
+        throw new ValidationError(400, {
+            error: "file_not_zipfile",
+            message: "The uploaded file is not a zipfile. Please upload a zipfile."
+        })
     }
 }
 
