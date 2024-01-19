@@ -36,21 +36,30 @@ router.post('/create_site', async (req, res) => {
             console.error(error);
             res.status(500).send('An error occurred while creating the site');
         }
-        
+       
     }
 });
 
 router.get('*', async(req, res, next) => {
-    const subdomain = extractSubdomainFromHost(req.headers.host);
-    if (subdomain){
-        const objectPath = req.originalUrl.split("?")[0];
-        const readFileOutput = await readFile(HOSTING_BUCKET_NAME, subdomain, objectPath);
-        res.status(200);
-        res.setHeader("Content-Type", readFileOutput.contentType);
-        res.send(readFileOutput.body);
-    } else {
-        next();
+    try {
+        const subdomain = extractSubdomainFromHost(req.headers.host);
+        if (subdomain){
+            const objectPath = req.originalUrl.split("?")[0];
+            const readFileOutput = await readFile(HOSTING_BUCKET_NAME, subdomain, objectPath);
+            res.status(200);
+            // console.log(readFileOutput.body);
+            res.setHeader("Content-Type", readFileOutput.contentType);
+            readFileOutput.body.pipe(res);
+            // res.send(readFileOutput.body);
+            console.log(`${objectPath}, content-type: ${readFileOutput.contentType}, content-encoding: ${readFileOutput.contentEncoding}`);
+        } else {
+            next();
+        }
+    } catch(error) {
+        console.log("failed to retrieve");
+        console.log(error);
     }
+    
 });
 
 router.use("/", express.static("frontend"));
