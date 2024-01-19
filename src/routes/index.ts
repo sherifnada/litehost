@@ -18,13 +18,15 @@ router.post('/create_site', async (req, res) => {
         // validate the uploaded file is a zip file
         res.setHeader("Access-Control-Allow-Origin", "*");
         validateSubdomain(req.body);
+        assertZipFile(req);
         validateContentRoot(req.body);
+
         const contentRoot: string = req.body.contentRoot;
         const zipFile = new AdmZip(req.files.zipFile.data);
         validateZipContents(contentRoot, zipFile);
         
         const subdomain = req.body.subdomain;
-        const bucketSiteUrl = "https://placeholderwebsite.com";
+        const bucketSiteUrl = `https://${subdomain}.litehost.io`;
         const tmpDir = unzipToTmpDir(zipFile);
         const uploadRoot = path.join(tmpDir, contentRoot);
         await uploadDir(HOSTING_BUCKET_NAME, subdomain, uploadRoot, uploadRoot);
@@ -135,6 +137,22 @@ function validateZipContents(contentRoot: string, zipFile: AdmZip){
             message: `${contentRoot}/index.html does not exist in the uploaded zip file.`,
             zipFileEntries: listZipfileContents(zipFile)
         });
+    }
+}
+
+function assertZipFile(req){
+    if (! req.files || !req.files.zipFile){
+        throw new ValidationError(400, {
+            error: "no_files_uploaded",
+            message: "The input must contain exactly a single file"
+        });
+    }
+
+    if (req.files.zipFile.mimetype !== "application/zip"){
+        throw new ValidationError(400, {
+            error: "file_not_zipfile",
+            message: "The uploaded file is not a zipfile. Please upload a zipfile."
+        })
     }
 }
 
