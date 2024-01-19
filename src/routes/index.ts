@@ -24,7 +24,7 @@ router.post('/create_site', async (req, res) => {
         validateZipContents(contentRoot, zipFile);
         
         const subdomain = req.body.subdomain;
-        const bucketSiteUrl = "https://placeholderwebsite.com";
+        const bucketSiteUrl = `https://${subdomain}.litehost.io`;
         const tmpDir = unzipToTmpDir(zipFile);
         const uploadRoot = path.join(tmpDir, contentRoot);
         await uploadDir(HOSTING_BUCKET_NAME, subdomain, uploadRoot, uploadRoot);
@@ -36,21 +36,30 @@ router.post('/create_site', async (req, res) => {
             console.error(error);
             res.status(500).send('An error occurred while creating the site');
         }
-        
     }
 });
 
 router.get('*', async(req, res, next) => {
-    const subdomain = extractSubdomainFromHost(req.headers.host);
-    if (subdomain){
-        const objectPath = req.originalUrl.split("?")[0];
-        const readFileOutput = await readFile(HOSTING_BUCKET_NAME, subdomain, objectPath);
-        res.status(200);
-        res.setHeader("Content-Type", readFileOutput.contentType);
-        res.send(readFileOutput.body);
-    } else {
-        next();
+    try {
+        const subdomain = extractSubdomainFromHost(req.headers.host);
+        if (subdomain){
+            const objectPath = req.originalUrl.split("?")[0];
+            const readFileOutput = await readFile(HOSTING_BUCKET_NAME, subdomain, objectPath);
+            res.status(200);
+            res.setHeader("Content-Type", readFileOutput.contentType);
+            readFileOutput.body.pipe(res);
+        } else {
+            next();
+        }
+    } catch(error) {
+        if (error.name === "NoSuchKey") {
+            res.status(404).send("File does not exist");
+        } else {
+            res.status(500).send("An unkonwn error happened");
+        }
+        
     }
+    
 });
 
 router.use("/", express.static("frontend"));
