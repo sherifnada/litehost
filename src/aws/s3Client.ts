@@ -13,16 +13,15 @@ const AWSConfig = {
 const s3 = new S3(AWSConfig);
 
 interface GetObjectResponse {
-    body: string,
+    body: any,
     contentType?: string
 }
 
 async function readFile(bucketName: string, bucketSubdirectory: string, objectKey: string) {
     const fullObjectKey = path.join(bucketSubdirectory, objectKey)
-    console.log(fullObjectKey);
     const object = await s3.getObject({Bucket: bucketName, Key: fullObjectKey});
     return {
-        body: await object.Body.transformToString('utf-8'),
+        body: await object.Body,
         contentType: object.ContentType
     };
 }
@@ -45,7 +44,7 @@ async function uploadDir(bucketName: string, bucketSubdirectory: string, directo
 
             // Determine the S3 key (file path in S3)
             const s3Key = path.join(bucketSubdirectory, filePath.substring(rootDirectory.length + 1)); // +1 to remove the /
-            console.log(s3Key);
+
             // Upload file to S3
             const uploadParams = {
                 Bucket: bucketName,

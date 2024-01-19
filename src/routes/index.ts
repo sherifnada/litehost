@@ -41,19 +41,36 @@ router.post('/create_site', async (req, res) => {
 });
 
 router.get('*', async(req, res, next) => {
-    const subdomain = extractSubdomainFromHost(req.headers.host);
-    if (subdomain){
-        const objectPath = req.originalUrl.split("?")[0];
-        const readFileOutput = await readFile(HOSTING_BUCKET_NAME, subdomain, objectPath);
-        res.status(200);
-        res.setHeader("Content-Type", readFileOutput.contentType);
-        res.send(readFileOutput.body);
-    } else {
-        next();
+    try {
+        const subdomain = extractSubdomainFromHost(req.headers.host);
+        if (subdomain){
+            let objectPath = req.originalUrl.split("?")[0];
+            if (!isRequestForFile(objectPath) && objectPath.endsWith("/")){
+                objectPath = path.join(objectPath, "index.html");
+            }
+
+            const readFileOutput = await readFile(HOSTING_BUCKET_NAME, subdomain, objectPath);
+            res.status(200);
+            res.setHeader("Content-Type", readFileOutput.contentType);
+            readFileOutput.body.pipe(res);
+        } else {
+            next();
+        }
+    } catch(error) {
+        if (error.name === "NoSuchKey") {
+            res.status(404).send("File does not exist");
+        } else {
+            res.status(500).send("An unkonwn error happened");
+        }
+        
     }
 });
 
 router.use("/", express.static("frontend"));
+
+function isRequestForFile(path: string){
+    return /\.[^./]+$/.test(path);
+}
 
 function extractSubdomainFromHost(host: string){
     const url = new URL("http://" + host);

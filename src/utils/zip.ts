@@ -1,5 +1,4 @@
 import AdmZip from "adm-zip";
-import { IZipEntry } from "adm-zip";
 
 import { tmpdir } from "os";
 import * as path from "path";
