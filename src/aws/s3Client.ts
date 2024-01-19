@@ -15,14 +15,17 @@ const s3 = new S3(AWSConfig);
 interface GetObjectResponse {
     body: any,
     contentType?: string
+    contentEncoding?: string,
 }
 
-async function readFile(bucketName: string, bucketSubdirectory: string, objectKey: string) {
+async function readFile(bucketName: string, bucketSubdirectory: string, objectKey: string): Promise<GetObjectResponse> {
     const fullObjectKey = path.join(bucketSubdirectory, objectKey)
     const object = await s3.getObject({Bucket: bucketName, Key: fullObjectKey});
+    
     return {
-        body: await object.Body,
-        contentType: object.ContentType
+        body: object.Body,
+        contentType: object.ContentType,
+        contentEncoding: object.ContentEncoding, 
     };
 }
 

@@ -38,7 +38,6 @@ router.post('/create_site', async (req, res) => {
             console.error(error);
             res.status(500).send('An error occurred while creating the site');
         }
-        
     }
 });
 
@@ -66,6 +65,7 @@ router.get('*', async(req, res, next) => {
         }
         
     }
+    
 });
 
 router.use("/", express.static("frontend"));
