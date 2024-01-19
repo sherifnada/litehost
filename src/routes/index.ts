@@ -50,7 +50,6 @@ router.get('*', async(req, res, next) => {
             // console.log(readFileOutput.body);
             res.setHeader("Content-Type", readFileOutput.contentType);
             readFileOutput.body.pipe(res);
-            // res.send(readFileOutput.body);
             console.log(`${objectPath}, content-type: ${readFileOutput.contentType}, content-encoding: ${readFileOutput.contentEncoding}`);
         } else {
             next();

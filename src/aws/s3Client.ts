@@ -4,7 +4,6 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as dotenv from 'dotenv';
 import getContentTypeFromFileName from '../utils/contentTypes.js';
-import { isBooleanObject } from 'util/types';
 dotenv.config({path: "secrets/.env.prod"});
 
 const AWSConfig = {
@@ -19,11 +18,11 @@ interface GetObjectResponse {
     contentEncoding?: string,
 }
 
-async function readFile(bucketName: string, bucketSubdirectory: string, objectKey: string): GetObjectResponse {
+async function readFile(bucketName: string, bucketSubdirectory: string, objectKey: string): Promise<GetObjectResponse> {
     const fullObjectKey = path.join(bucketSubdirectory, objectKey)
     console.log(fullObjectKey);
     const object = await s3.getObject({Bucket: bucketName, Key: fullObjectKey});
-    object.Body.transformToWebStream
+    
     return {
         body: object.Body,
         contentType: object.ContentType,
