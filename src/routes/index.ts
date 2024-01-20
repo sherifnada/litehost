@@ -26,7 +26,7 @@ router.post('/create_site', async (req: Request, res) => {
         validateZipContents(contentRoot, zipFile);
         
         const subdomain = req.body.subdomain;
-        const bucketSiteUrl = "https://placeholderwebsite.com";
+        const bucketSiteUrl = `https://${subdomain}.litehost.io`;
         const tmpDir = unzipToTmpDir(zipFile);
         const uploadRoot = path.join(tmpDir, contentRoot);
         await uploadDir(HOSTING_BUCKET_NAME, subdomain, uploadRoot, uploadRoot);
@@ -43,16 +43,27 @@ router.post('/create_site', async (req: Request, res) => {
 });
 
 router.get('*', async(req, res, next) => {
-    const subdomain = extractSubdomainFromHost(req.headers.host);
-    if (subdomain){
-        const objectPath = req.originalUrl.split("?")[0];
-        const readFileOutput = await readFile(HOSTING_BUCKET_NAME, subdomain, objectPath);
-        res.status(200);
-        res.setHeader("Content-Type", readFileOutput.contentType);
-        res.send(readFileOutput.body);
-    } else {
-        next();
-    }
+    try {
+        const subdomain = extractSubdomainFromHost(req.headers.host);
+        if (subdomain){
+            let objectPath = req.originalUrl.split("?")[0];
+            if (!isRequestForFile(objectPath) && objectPath.endsWith("/")){
+                objectPath = path.join(objectPath, "index.html");
+            }
+
+            const readFileOutput = await readFile(HOSTING_BUCKET_NAME, subdomain, objectPath);
+            res.status(200);
+            res.setHeader("Content-Type", readFileOutput.contentType);
+            readFileOutput.body.pipe(res);
+        } else {
+            next();
+        }
+    } catch(error) {
+        if (error.name === "NoSuchKey") {
+            res.status(404).send("File does not exist");
+        } else {
+            res.status(500).send("An unkonwn error happened");
+        }
 });
 
 router.use("/", express.static("frontend"));
@@ -68,6 +79,10 @@ function extractSubdomainFromHost(host: string){
     } else {
         return null;
     }
+}
+
+function isRequestForFile(path: string){
+    return /\.[^./]+$/.test(path);
 }
 
 function validateSubdomain(body: any){
@@ -122,6 +137,23 @@ function validateZipContents(contentRoot: string, zipFile: AdmZip){
         });
     }
 }
+
+function assertZipFile(req){
+    if (! req.files || !req.files.zipFile){
+        throw new ValidationError(400, {
+            error: "no_files_uploaded",
+            message: "The input must contain exactly a single file"
+        });
+    }
+
+    if (req.files.zipFile.mimetype !== "application/zip"){
+        throw new ValidationError(400, {
+            error: "file_not_zipfile",
+            message: "The uploaded file is not a zipfile. Please upload a zipfile."
+        })
+    }
+}
+
 
 
 export default router;
