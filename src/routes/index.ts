@@ -1,5 +1,6 @@
-import { Router } from 'express';
+import { Router, Request} from 'express';
 import express from 'express';
+
 
 
 import { readFile, uploadDir } from '../aws/s3Client.js';
@@ -8,21 +9,20 @@ import AdmZip from 'adm-zip';
 import path from 'path';
 import { HOSTING_BUCKET_NAME } from '../aws/constants.js';
 import { ValidationError } from './errors.js';
+import { UploadedFile } from 'express-fileupload';
 
 const router = Router();
 
-router.post('/create_site', async (req, res) => {
+router.post('/create_site', async (req: Request, res) => {
     // TODO add API contract somewhere as middleware, this validation is nuts
     try {
         // TODO replace this with specific origins
         // validate the uploaded file is a zip file
         res.setHeader("Access-Control-Allow-Origin", "*");
         validateSubdomain(req.body);
-        assertZipFile(req);
         validateContentRoot(req.body);
-
         const contentRoot: string = req.body.contentRoot;
-        const zipFile = new AdmZip(req.files.zipFile.data);
+        const zipFile = new AdmZip((req.files.zipFile as UploadedFile).data);
         validateZipContents(contentRoot, zipFile);
         
         const subdomain = req.body.subdomain;
@@ -38,6 +38,7 @@ router.post('/create_site', async (req, res) => {
             console.error(error);
             res.status(500).send('An error occurred while creating the site');
         }
+        
     }
 });
 
@@ -63,16 +64,9 @@ router.get('*', async(req, res, next) => {
         } else {
             res.status(500).send("An unkonwn error happened");
         }
-        
-    }
-    
 });
 
 router.use("/", express.static("frontend"));
-
-function isRequestForFile(path: string){
-    return /\.[^./]+$/.test(path);
-}
 
 function extractSubdomainFromHost(host: string){
     const url = new URL("http://" + host);
@@ -85,6 +79,10 @@ function extractSubdomainFromHost(host: string){
     } else {
         return null;
     }
+}
+
+function isRequestForFile(path: string){
+    return /\.[^./]+$/.test(path);
 }
 
 function validateSubdomain(body: any){
@@ -155,6 +153,7 @@ function assertZipFile(req){
         })
     }
 }
+
 
 
 export default router;
