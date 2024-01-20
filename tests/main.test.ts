@@ -1,3 +1,5 @@
 describe('helo', () => {
-  console.log("success");
+  test('world', () => {
+    expect(true).toBe(true);
+  })
 });
