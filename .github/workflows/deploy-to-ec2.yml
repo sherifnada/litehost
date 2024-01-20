@@ -17,23 +17,27 @@ jobs:
     - name: Save Docker image
       run: docker save litehost > litehost.tar
 
-    - name: Copy Docker image to EC2
-      uses: appleboy/scp-action@master
-      with:
-        host: ec2-18-191-82-62.us-east-2.compute.amazonaws.com
-        username: ec2-user
-        key: ${{ secrets.LITEHOST_HOST_RSA_KEY }}
-        source: "litehost.tar"
-        target: "/tmp"
+    - name: Copy docker image and secrets to EC2 instance
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.LITEHOST_HOST_RSA_KEY }}
+        DOTENV_FILE: ${{ secrets.DOTENV_PROD }}
+      run: |
+        echo "$SSH_PRIVATE_KEY" > mysshkey
+        chmod 600 mysshkey
+        scp -o StrictHostKeyChecking=no -i mysshkey litehost.tar ubuntu@ec2-18-217-17-33.us-east-2.compute.amazonaws.com:/tmp/litehost.tar
+        mkdir secrets
+        echo "$DOTENV_FILE" > secrets/.env.prod
+        scp -r -o StrictHostKeyChecking=no -i mysshkey secrets ubuntu@ec2-18-217-17-33.us-east-2.compute.amazonaws.com:~/secrets
+        
+
 
     - name: Deploy to EC2
       uses: appleboy/ssh-action@master
       with:
-        host: ec2-18-191-82-62.us-east-2.compute.amazonaws.com
-        username: ec2-user
+        host: ec2-18-217-17-33.us-east-2.compute.amazonaws.com
+        username: ubuntu
         key: ${{ secrets.LITEHOST_HOST_RSA_KEY }}
         script: |
-          docker load < /tmp/litehost.tar
-          echo "${{ secrets.dotenv_prod }}" > ~/secrets/.env.prod
-          docker stop litehost || true
-          docker run --rm -d -p 8080:3000 --name litehost -v $(pwd)/secrets:/usr/src/app/secrets litehost
+          sudo docker load < /tmp/litehost.tar
+          sudo docker stop litehost || true
+          sudo docker run --rm -d -p 8080:3000 --name litehost -v $(pwd)/secrets:/usr/src/app/secrets litehost
