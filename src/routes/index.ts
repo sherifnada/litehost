@@ -21,6 +21,8 @@ router.post('/create_site', async (req: Request, res) => {
         res.setHeader("Access-Control-Allow-Origin", "*");
         validateSubdomain(req.body);
         validateContentRoot(req.body);
+        assertZipFile(req);
+
         const contentRoot: string = req.body.contentRoot;
         const zipFile = new AdmZip((req.files.zipFile as UploadedFile).data);
         validateZipContents(contentRoot, zipFile);
@@ -64,6 +66,7 @@ router.get('*', async(req, res, next) => {
         } else {
             res.status(500).send("An unkonwn error happened");
         }
+    }
 });
 
 router.use("/", express.static("frontend"));
@@ -150,7 +153,7 @@ function assertZipFile(req){
         throw new ValidationError(400, {
             error: "file_not_zipfile",
             message: "The uploaded file is not a zipfile. Please upload a zipfile."
-        })
+        });
     }
 }
 
