@@ -1,5 +1,6 @@
-import { Router } from 'express';
+import { Router, Request} from 'express';
 import express from 'express';
+
 
 
 import { readFile, uploadDir } from '../aws/s3Client.js';
@@ -8,25 +9,24 @@ import AdmZip from 'adm-zip';
 import path from 'path';
 import { HOSTING_BUCKET_NAME } from '../aws/constants.js';
 import { ValidationError } from './errors.js';
+import { UploadedFile } from 'express-fileupload';
 
 const router = Router();
 
-router.post('/create_site', async (req, res) => {
+router.post('/create_site', async (req: Request, res) => {
     // TODO add API contract somewhere as middleware, this validation is nuts
     try {
         // TODO replace this with specific origins
         // validate the uploaded file is a zip file
         res.setHeader("Access-Control-Allow-Origin", "*");
         validateSubdomain(req.body);
-        assertZipFile(req);
         validateContentRoot(req.body);
-
         const contentRoot: string = req.body.contentRoot;
-        const zipFile = new AdmZip(req.files.zipFile.data);
+        const zipFile = new AdmZip((req.files.zipFile as UploadedFile).data);
         validateZipContents(contentRoot, zipFile);
         
         const subdomain = req.body.subdomain;
-        const bucketSiteUrl = `https://${subdomain}.litehost.io`;
+        const bucketSiteUrl = "https://placeholderwebsite.com";
         const tmpDir = unzipToTmpDir(zipFile);
         const uploadRoot = path.join(tmpDir, contentRoot);
         await uploadDir(HOSTING_BUCKET_NAME, subdomain, uploadRoot, uploadRoot);
@@ -38,41 +38,24 @@ router.post('/create_site', async (req, res) => {
             console.error(error);
             res.status(500).send('An error occurred while creating the site');
         }
+        
     }
 });
 
 router.get('*', async(req, res, next) => {
-    try {
-        const subdomain = extractSubdomainFromHost(req.headers.host);
-        if (subdomain){
-            let objectPath = req.originalUrl.split("?")[0];
-            if (!isRequestForFile(objectPath) && objectPath.endsWith("/")){
-                objectPath = path.join(objectPath, "index.html");
-            }
-
-            const readFileOutput = await readFile(HOSTING_BUCKET_NAME, subdomain, objectPath);
-            res.status(200);
-            res.setHeader("Content-Type", readFileOutput.contentType);
-            readFileOutput.body.pipe(res);
-        } else {
-            next();
-        }
-    } catch(error) {
-        if (error.name === "NoSuchKey") {
-            res.status(404).send("File does not exist");
-        } else {
-            res.status(500).send("An unkonwn error happened");
-        }
-        
+    const subdomain = extractSubdomainFromHost(req.headers.host);
+    if (subdomain){
+        const objectPath = req.originalUrl.split("?")[0];
+        const readFileOutput = await readFile(HOSTING_BUCKET_NAME, subdomain, objectPath);
+        res.status(200);
+        res.setHeader("Content-Type", readFileOutput.contentType);
+        res.send(readFileOutput.body);
+    } else {
+        next();
     }
-    
 });
 
 router.use("/", express.static("frontend"));
-
-function isRequestForFile(path: string){
-    return /\.[^./]+$/.test(path);
-}
 
 function extractSubdomainFromHost(host: string){
     const url = new URL("http://" + host);
@@ -137,22 +120,6 @@ function validateZipContents(contentRoot: string, zipFile: AdmZip){
             message: `${contentRoot}/index.html does not exist in the uploaded zip file.`,
             zipFileEntries: listZipfileContents(zipFile)
         });
-    }
-}
-
-function assertZipFile(req){
-    if (! req.files || !req.files.zipFile){
-        throw new ValidationError(400, {
-            error: "no_files_uploaded",
-            message: "The input must contain exactly a single file"
-        });
-    }
-
-    if (req.files.zipFile.mimetype !== "application/zip"){
-        throw new ValidationError(400, {
-            error: "file_not_zipfile",
-            message: "The uploaded file is not a zipfile. Please upload a zipfile."
-        })
     }
 }
 
