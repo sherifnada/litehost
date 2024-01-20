@@ -38,6 +38,6 @@ jobs:
         username: ubuntu
         key: ${{ secrets.LITEHOST_HOST_RSA_KEY }}
         script: |
-          docker load < /tmp/litehost.tar
-          docker stop litehost || true
-          docker run --rm -d -p 8080:3000 --name litehost -v $(pwd)/secrets:/usr/src/app/secrets litehost
+          sudo docker load < /tmp/litehost.tar
+          sudo docker stop litehost || true
+          sudo docker run --rm -d -p 8080:3000 --name litehost -v $(pwd)/secrets:/usr/src/app/secrets litehost
