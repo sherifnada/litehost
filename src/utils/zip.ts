@@ -1,5 +1,4 @@
 import AdmZip from "adm-zip";
-import { IZipEntry } from "adm-zip";
 
 import { tmpdir } from "os";
 import * as path from "path";
@@ -20,7 +19,7 @@ function listZipfileContents(zipfile: AdmZip, keepMacMetadata: boolean = false):
 }
 
 function zipfileContains(fullFilePath: string, zipFile: AdmZip): boolean {
-    for (let name of listZipfileContents(zipFile)){
+    for (const name of listZipfileContents(zipFile)){
         if (name == fullFilePath || name === `${fullFilePath}/`) return true;
     }
     return false;

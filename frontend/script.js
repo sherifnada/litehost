@@ -1,33 +1,32 @@
 document.addEventListener('DOMContentLoaded', function () {
-    var nameYourSub = document.getElementById('nameYourSub');
-    var uploadStep = document.querySelectorAll('.uploadStep');
-    var fileUpload = document.getElementById('fileUpload');
-    var launchStep = document.querySelectorAll('.launchStep');
-    var createAccountStep = document.querySelectorAll('.createAccountStep');
-    var uploadingStep = document.querySelectorAll('.uploadingStep');
-    var successStep = document.querySelectorAll('.successStep');
-    var failStep = document.querySelectorAll('.failStep');
-    var dropZone = document.getElementById('dropZone')
+    const nameYourSub = document.getElementById('nameYourSub');
+    const uploadStep = document.querySelectorAll('.uploadStep');
+    const fileUpload = document.getElementById('fileUpload');
+    const launchStep = document.querySelectorAll('.launchStep');
+    const createAccountStep = document.querySelectorAll('.createAccountStep');
+    const uploadingStep = document.querySelectorAll('.uploadingStep');
+    const successStep = document.querySelectorAll('.successStep');
+    const failStep = document.querySelectorAll('.failStep');
+    const dropZone = document.getElementById('dropZone')
 
-    function replaceHiddenWithFlex(Loop){
-        Loop.classList.replace("hidden", "flex");
+    function replaceHiddenWithFlex(el){
+        el.classList.replace("hidden", "flex");
     }
 
-    function replaceFlexWithHidden(Loop){
-        console.log(Loop)
-        Loop.classList.replace("flex", "hidden");
+    function replaceFlexWithHidden(el){
+        el.classList.replace("flex", "hidden");
     }
 
     // Listen for changes in the file input
     fileUpload.addEventListener('change', function() {
-        if(fileUpload.files.length > 0) {
+        if(fileUpload.files.length === 1) {
             uploadStep.forEach(replaceFlexWithHidden);
             launchStep.forEach(replaceHiddenWithFlex);
         }
     });
 
     // LaunchStep completed – flex on CreateAccountStep
-
+    // 
     
     
     // CreateAccountStep completed - hide LaunchStep and flex on UploadingStep
@@ -69,14 +68,35 @@ document.addEventListener('DOMContentLoaded', function () {
 //         document.querySelector("#response > div.formLoading").style.display = 'none';
 //     }
 
-//     document.getElementById('uploadForm').addEventListener('submit', function(e) {
-//         // document.getElementById("response").innerText = "request submitted..";
-//         e.preventDefault();
-//         var formData = new FormData(this);
-//         launchButton.style.display = 'none';
-//         urlWrapper.style.display = 'none';
-//         document.querySelector("#uploadForm > .contentRootWrapper").style.display = 'none';
-//         document.querySelector("#response > div.formLoading").style.display = 'flex';
+    document.getElementById('uploadForm').addEventListener('submit', function(e) {
+        // document.getElementById("response").innerText = "request submitted..";
+        e.preventDefault();
+        var formData = new FormData(this);
+        // TODO only do this if they're not logged in
+        launchStep.forEach(el => el.classList.add("hidden"));
+        nameYourSub.classList.add("hidden");
+        
+        createAccountStep.forEach(el => el.classList.remove("hidden"));
+
+        // TODO remove after adding check for being logged in
+        setTimeout(() => {
+            createAccountStep.forEach(el => el.classList.add("hidden"));
+            uploadingStep.forEach(el => el.classList.remove("hidden"));
+            setTimeout(() => {
+                uploadingStep.forEach(el => el.classList.add("hidden"));
+                const isRequestSuccessful = true;
+                if (isRequestSuccessful){
+                    successStep.forEach(el => el.classList.remove("hidden"));
+                    const response = {"status": 200, "websiteUrl": "https://pipeweave.litehost.io"};
+                    document.getElementById("success-url").innerText = response.websiteUrl;
+                } else {
+                    failStep.forEach(el => el.classList.remove("hidden"));
+                    const response = {"status": 400, error: "bucket_creation_failure", message: "Failed to create S3 bucket! (this is a sample error message)"};
+       
+                    // hides stuff from the form
+                }
+            }, 4000); 
+        }, 2000)
         
 
 
@@ -85,10 +105,7 @@ document.addEventListener('DOMContentLoaded', function () {
         //     method: 'POST',
         //     body: formData
         // }).then(async response => {
-        //     hideLoadingScreen();
         //     const data = await response.json();
-        //     hideFormInputs();
-
         //     if (response.status >= 200 && response.status < 300){
         //         displaySuccessMessage(data.websiteUrl);
         //     } else if (response.status >= 400 < 500) {
@@ -97,31 +114,13 @@ document.addEventListener('DOMContentLoaded', function () {
         //         displayFailureMessage("An Unknown error happened");
         //     }
         // }).catch(error => {
-        //     console.error('Error:', error)
         //     displayFailureMessage("An unknown error occurred");
         // });
         // =========================================================
         
 
         // Comment this block in to mock interactions with the server
-        setTimeout(() => {
-             document.querySelector("#response > div.formLoading").style.display = 'none';
-
-             const isRequestSuccessful = true;
-             if (isRequestSuccessful){
-                 const response = {"status": 200, "websiteUrl": "https://pipeweave.litehost.io"};
-            
-                 // hides stuff from the form
-                 hideFormInputs();
-                 displaySuccessMessage(response.websiteUrl);
-             } else {
-                 const response = {"status": 400, error: "bucket_creation_failure", message: "Failed to create S3 bucket! (this is a sample error message)"};
-    
-                 // hides stuff from the form
-                 hideFormInputs();
-                 displayFailureMessage(response.message);
-             }
-         }, 5000); 
+        
         // =========================================================
     });
         
