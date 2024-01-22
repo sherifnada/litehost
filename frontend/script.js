@@ -40,34 +40,6 @@ document.addEventListener('DOMContentLoaded', function () {
     //Flex on ID=dropZone when file is dragged and dropped
 
 
-
-
-//     function hideFormInputs(){
-//         document.getElementById("LaunchButton").style.display = 'none';
-//         document.getElementById("urlWrapper").style.display = 'none';
-//         document.querySelector("#uploadForm > .contentRootWrapper").style.display = 'none';
-//     }
-
-//     function displaySuccessMessage(websiteUrl){
-//         var websiteUrlDisplay = document.getElementById('websiteUrlDisplay');
-//         websiteUrlDisplay.innerHTML = '';
-//         var anchor = document.createElement('a');
-//         anchor.setAttribute('href', websiteUrl);
-//         anchor.setAttribute('target', '_blank');
-//         anchor.innerText = websiteUrl;
-//         websiteUrlDisplay.appendChild(anchor);
-//         document.querySelector("#response > div.successMessage").style.display = "flex";
-//     }
-
-//     function displayFailureMessage(failureMessage){
-//         document.querySelector("#response > div.failureMessage").style.display = "flex";
-//         document.getElementById("errorResponseMessage").innerText = failureMessage
-//     }
-
-//     function hideLoadingScreen(){
-//         document.querySelector("#response > div.formLoading").style.display = 'none';
-//     }
-
     document.getElementById('uploadForm').addEventListener('submit', function(e) {
         // document.getElementById("response").innerText = "request submitted..";
         e.preventDefault();
@@ -100,22 +72,22 @@ document.addEventListener('DOMContentLoaded', function () {
         
 
 
-        // // COMMENT THIS BLOCK IN TO ACTUALLY INTERACT WITH THE SERVER
-        // fetch('http://localhost:3000/create_site', {
-        //     method: 'POST',
-        //     body: formData
-        // }).then(async response => {
-        //     const data = await response.json();
-        //     if (response.status >= 200 && response.status < 300){
-        //         displaySuccessMessage(data.websiteUrl);
-        //     } else if (response.status >= 400 < 500) {
-        //         displayFailureMessage(data.message);
-        //     } else {
-        //         displayFailureMessage("An Unknown error happened");
-        //     }
-        // }).catch(error => {
-        //     displayFailureMessage("An unknown error occurred");
-        // });
+        // COMMENT THIS BLOCK IN TO ACTUALLY INTERACT WITH THE SERVER
+        fetch('http://localhost:3000/create_site', {
+            method: 'POST',
+            body: formData
+        }).then(async response => {
+            const data = await response.json();
+            if (response.status >= 200 && response.status < 300){
+
+            } else if (response.status >= 400 < 500) {
+
+            } else {
+
+            }
+        }).catch(error => {
+
+        });
         // =========================================================
         
 

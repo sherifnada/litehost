@@ -21,9 +21,7 @@ router.post('/create_site', async (req: Request, res) => {
         assertZipFile(req);
 
         // in zipFile, find the content root i.e the shallowest directory which contains an index.html file. 
-        // If no such directory exists then raise a ValidationError
-        
-        
+        // If no such directory exists then raise a ValidationError        
         const zipFile = new AdmZip((req.files.zipFile as UploadedFile).data);
         const contentRoot: string = inferContentRoot(zipFile);
         console.log(`contentRoot: ${contentRoot}`);
@@ -32,7 +30,7 @@ router.post('/create_site', async (req: Request, res) => {
         const bucketSiteUrl = `https://${subdomain}.litehost.io`;
         const tmpDir = unzipToTmpDir(zipFile);
         const uploadRoot = path.join(tmpDir, contentRoot);
-        await uploadDir(HOSTING_BUCKET_NAME, subdomain, uploadRoot, uploadRoot);
+        // await uploadDir(HOSTING_BUCKET_NAME, subdomain, uploadRoot, uploadRoot);
         res.status(200).send({message: `Site created at ${bucketSiteUrl}`, websiteUrl: bucketSiteUrl});
     } catch (error) {
         if (error instanceof ValidationError){
@@ -90,7 +88,7 @@ function isRequestForFile(path: string){
 }
 
 function validateSubdomain(body: any){
-    const subdomain : string = body.subdomain;
+    const subdomain : string = body?.subdomain;
     if (!subdomain) {
         throw new ValidationError(
             400, 
