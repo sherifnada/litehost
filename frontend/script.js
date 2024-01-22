@@ -32,16 +32,13 @@ document.addEventListener('DOMContentLoaded', function () {
         // TODO only do this if they're not logged in
         launchStep.forEach(el => el.classList.add("hidden"));
         nameYourSub.classList.add("hidden");
-        
-        // TODO remove after adding check for being logged in
-        createAccountStep.forEach(el => el.classList.remove("hidden"));
-
-        
         const urlParams = new URLSearchParams(window.location.search);
         const debug = urlParams.get('debug');
 
         if (debug === 'true') {
             // Debug mode actions here
+            // TODO remove after adding check for being logged in
+            createAccountStep.forEach(el => el.classList.remove("hidden"));
             setTimeout(() => {
                 createAccountStep.forEach(el => el.classList.add("hidden"));
                 uploadingStep.forEach(el => el.classList.remove("hidden"));
@@ -63,7 +60,12 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             // Normal mode actions here
             // TODO show createAccountStep if not logged in
-             uploadingStep.forEach(el => el.classList.remove("hidden"));
+            const loggedIn = true; // TODO
+            if (!loggedIn){
+                // TODO remove after adding check for being logged in
+                createAccountStep.forEach(el => el.classList.remove("hidden"));
+            } 
+            uploadingStep.forEach(el => el.classList.remove("hidden"));
             fetch('http://localhost:3000/create_site', {
                 method: 'POST',
                 body: formData
