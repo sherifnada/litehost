@@ -1,4 +1,6 @@
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js';
+firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
+
 document.getElementById("login-with-google").addEventListener("click", () => {
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
