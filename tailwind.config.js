@@ -12,7 +12,6 @@ export default {
           '450': '450px',
           '200': '200px',
           '160': '160px',
-<<<<<<< HEAD
           '130': '130px',
           '150': '150px',
           '100': '100px',
@@ -25,15 +24,6 @@ export default {
           '38': '38px',
           '30': '30px',
           '25': '25px',
-=======
-          '150': '150px',
-          '100': '100px',
-          '80': '80px',
-          '50': '50px',
-          '40': '40px',
-          '38': '38px',
-          '30': '30px',
->>>>>>> 2923e2a1c57a76729935c9e3040646c6ad2db959
           '20': '20px',
           '15': '15px',
           '12': '12px',
@@ -46,10 +36,7 @@ export default {
         },
         dropShadow: {
           'pink': '0 7px 0px rgba(250, 195, 209, 1)',
-<<<<<<< HEAD
           'pinkwide': '3 7px 3px rgba(250, 195, 209, 1)',
-=======
->>>>>>> 2923e2a1c57a76729935c9e3040646c6ad2db959
           'blue': '0 7px 0px rgba(135, 150, 255, 1)',
         },
       },
@@ -80,10 +67,7 @@ export default {
         100: '#F87697',
         50: '#FAC3D1',
       },
-<<<<<<< HEAD
       'webflow': '#146EF5',
-=======
->>>>>>> 2923e2a1c57a76729935c9e3040646c6ad2db959
     },
     backgroundImage: {
       'zag-pattern': "url('images/zag-background.svg')",
