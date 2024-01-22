@@ -51,43 +51,53 @@ document.addEventListener('DOMContentLoaded', function () {
         createAccountStep.forEach(el => el.classList.remove("hidden"));
 
         // TODO remove after adding check for being logged in
-        setTimeout(() => {
-            createAccountStep.forEach(el => el.classList.add("hidden"));
-            uploadingStep.forEach(el => el.classList.remove("hidden"));
+        const urlParams = new URLSearchParams(window.location.search);
+        const debug = urlParams.get('debug');
+
+        if (debug === 'true') {
+            // Debug mode actions here
             setTimeout(() => {
-                uploadingStep.forEach(el => el.classList.add("hidden"));
-                const isRequestSuccessful = true;
-                if (isRequestSuccessful){
-                    successStep.forEach(el => el.classList.remove("hidden"));
-                    const response = {"status": 200, "websiteUrl": "https://pipeweave.litehost.io"};
-                    document.getElementById("success-url").innerText = response.websiteUrl;
+                createAccountStep.forEach(el => el.classList.add("hidden"));
+                uploadingStep.forEach(el => el.classList.remove("hidden"));
+                setTimeout(() => {
+                    uploadingStep.forEach(el => el.classList.add("hidden"));
+                    const isRequestSuccessful = true;
+                    if (isRequestSuccessful){
+                        successStep.forEach(el => el.classList.remove("hidden"));
+                        const response = {"status": 200, "websiteUrl": "https://pipeweave.litehost.io"};
+                        document.getElementById("success-url").innerText = response.websiteUrl;
+                    } else {
+                        failStep.forEach(el => el.classList.remove("hidden"));
+                        const response = {"status": 400, error: "bucket_creation_failure", message: "Failed to create S3 bucket! (this is a sample error message)"};
+           
+                        // hides stuff from the form
+                    }
+                }, 4000); 
+            }, 2000)
+        } else {
+            // Normal mode actions here
+             // COMMENT THIS BLOCK IN TO ACTUALLY INTERACT WITH THE SERVER
+            fetch('http://localhost:3000/create_site', {
+                method: 'POST',
+                body: formData
+            }).then(async response => {
+                const data = await response.json();
+                if (response.status >= 200 && response.status < 300){
+
+                } else if (response.status >= 400 < 500) {
+
                 } else {
-                    failStep.forEach(el => el.classList.remove("hidden"));
-                    const response = {"status": 400, error: "bucket_creation_failure", message: "Failed to create S3 bucket! (this is a sample error message)"};
-       
-                    // hides stuff from the form
+
                 }
-            }, 4000); 
-        }, 2000)
+            }).catch(error => {
+
+            });
+        }
+        
         
 
 
-        // COMMENT THIS BLOCK IN TO ACTUALLY INTERACT WITH THE SERVER
-        fetch('http://localhost:3000/create_site', {
-            method: 'POST',
-            body: formData
-        }).then(async response => {
-            const data = await response.json();
-            if (response.status >= 200 && response.status < 300){
-
-            } else if (response.status >= 400 < 500) {
-
-            } else {
-
-            }
-        }).catch(error => {
-
-        });
+       
         // =========================================================
         
 
