@@ -31,7 +31,7 @@ router.post('/create_site', async (req: Request, res) => {
         const bucketSiteUrl = `https://${subdomain}.litehost.io`;
         const tmpDir = unzipToTmpDir(zipFile);
         const uploadRoot = path.join(tmpDir, contentRoot);
-        await uploadDir(HOSTING_BUCKET_NAME, subdomain, uploadRoot, uploadRoot);
+        // await uploadDir(HOSTING_BUCKET_NAME, subdomain, uploadRoot, uploadRoot);
         res.status(200).send({message: `Site created at ${bucketSiteUrl}`, websiteUrl: bucketSiteUrl});
     } catch (error) {
         if (error instanceof ValidationError){
