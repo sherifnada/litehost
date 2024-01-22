@@ -38,10 +38,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-    //Flex on ID dropZone when file is dragged and dropped
+    //Flex on ID=dropZone when file is dragged and dropped
 
 
-    
+
 
 //     function hideFormInputs(){
 //         document.getElementById("LaunchButton").style.display = 'none';
