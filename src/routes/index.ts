@@ -120,13 +120,13 @@ function inferContentRoot(zipFile: AdmZip): string {
         let dirsAtThisDepth = 0;
 
         // first get all entries which have an index.html
-        entryPaths.filter(entryPath => entryPath.endsWith("/index.html"))
+        entryPaths.filter(entryPath => entryPath.endsWith("index.html"))
         // then keep track of # of entries at this depth
         .forEach(entryPath => {
             const entryDepth = entryPath.split('/').length - 1;
             if (entryDepth < shallowestDepth) {
                 shallowestDepth = entryDepth;
-                shallowestDir = entryPath.replace('/index.html', '');
+                shallowestDir = entryPath.replace(/\/?index\.html$/, '');
                 anyContentRootFound = true;
                 dirsAtThisDepth = 1;
             } else if (entryDepth === shallowestDepth){
