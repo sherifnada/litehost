@@ -1,99 +1,253 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
-    <title>File Upload</title>
-    <meta content="width=device-width, initial-scale=1" name="viewport">
-    <link href="stylesheet.css" rel="stylesheet" type="text/css">
+    <title>Litehost is the fastest way to launch and host a website with SSL</title>
+    <meta charset="UTF-8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./output.css" rel="stylesheet">
     <!-- need to make favicons
     <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
-    <link href="images/webclip.png" rel="apple-touch-icon">
-    -->
+    <link href="images/webclip.png" rel="apple-touch-icon"> -->
 </head>
-<body class="body">
-    <div id="dropzone">
-        <img class="floatingIcon zip" src="images/zip-icon.svg">
-        <img class="floatingIcon pdf" src="images/PDFIcon.svg">
-        <img class="floatingIcon folder" src="images/FolderIcon.svg">
-        <img class="floatingIcon file" src="images/FileIcon.svg">
-        <img class="floatingIcon image" src="images/ImageIcon.svg">
-        <div style="display: flex; align-items: center; justify-content: center; flex-direction: row;">
-          <img src="images/Upload icon.svg" width="15px">
-          <p style="font-size:40px;color:white;margin-top:0px;margin-bottom:10px;margin-left: 20px; margin-right: 20px;font-weight: 700;">Drop it like it's hot</p>
-          <img src="images/Upload icon.svg" width="15px">
-        </div>
-        <p style="font-size:30px;color:white;margin-top:0px;margin-bottom:0px;font-weight: 200;"">Drag and drop your file here</p>
+<body>
+<!-- FULL PAGE HERO WRAPPER START-->
+    <div class="bg-blue-100 bg-zag-pattern w-full pb-100">
+<!-- DRAG AND DROP START -->
+<div id="dropZone" class="w-full h-full items-center justify-center bg-pink-100 fixed z-50 text-white-100 text-center flex-col hidden">
+    <img class="w-150 fixed rotate-neg20 top-25% left-15%" src="images/zip-icon-blue.svg">
+    <img class="w-150 fixed rotate-neg20 bottom-15% right-30%" src="images/PDFIcon.svg">
+    <img class="w-150 fixed rotate-20 top-25% right-15%" src="images/FolderIcon.svg">
+    <img class="w-150 fixed rotate-20 bottom-15% left-30%" src="images/FileIcon.svg">
+    <img class="w-150 fixed top-15%" src="images/ImageIcon.svg">
+    <div class="flex items-center justify-center flex-row">
+      <img src="images/Upload icon.svg" width="15px">
+      <p class="text-4xl text-white-100 mb-10 mx-20 font-bold">Drop it like it's hot</p>
+      <img src="images/Upload icon.svg" width="15px">
     </div>
-    <section class="arenawrapper">
-        <div class="logoWrapper">
-          <div class="text-block-2">• LITEHOST •</div>
+    <p class="text-2xl font-normal"">Drag and drop your file here</p>
+</div>
+<!-- DRAG AND DROP END -->
+<!-- NAV START -->
+        <nav class="flex flex-row justify-between bg-transparent h-160 px-7 items-center font-normal">
+            <div class="mr-80">
+                <div class="bg-blue-50 rounded-full flex justify-center items-center w-80 h-80">
+                    <img src="images/logo-block.svg" alt="Litehost logo" width="36">
+                </div>
+            </div>
+            <div class="flex flex-col items-center gap-3">
+                <div class="flex justify-center items-center gap-x-3">
+                    <p class="text-white-100">Build on</p>
+                    <div class="flex gap-x-2">
+                        <div class="bg-white-100 flex items-center justify-center w-38 h-38 rounded-full"><img src="images/webflow.svg" alt="webflow logo"></div>
+                        <div class="bg-white-100 flex items-center justify-center w-38 h-38 rounded-full"><img src="images/wix.svg" alt="wix logo"></div>
+                        <div class="bg-white-100 flex items-center justify-center w-38 h-38 rounded-full"><img src="images/wordpress.svg" alt="wordpress logo"></div>
+                    </div>
+                    <p class="text-white-100">Host here</p>
+                </div>
+                <div class="rounded-full bg-white-100 px-20 py-5 font-bold text-blue-100">Free forever for subdomains made before February 28th</div>
+            </div>
+            <!-- *** Google button needs work *** -->
+            <div>
+                <script src="https://accounts.google.com/gsi/client" async></script>
+                <div id="g_id_onload"
+                    data-client_id="YOUR_GOOGLE_CLIENT_ID"
+                    data-login_uri="https://your.domain/your_login_endpoint"
+                    data-auto_prompt="false">
+                </div>
+                <div class="g_id_signin"
+                    data-type="standard"
+                    data-size="large"
+                    data-theme="outline"
+                    data-text="sign_in_with"
+                    data-shape="pill"
+                    data-logo_alignment="left"
+                    data-ux_mode="popup">
+                </div>
+            </div>
+        </nav>
+<!-- NAV END -->
+<!-- HERO SECTION START -->
+            <!-- **** width needs work **** -->
+        <div class="w-full pt-50">
+            <div class="flex flex-row w-3/4 mx-auto">
+                <!-- UPLOAD FORM START-->
+                <!-- **** width needs work **** -->
+                <form class="min-w-450 bg-white-100 rounded-xl">
+                    <!-- STEP DIRECTIONS START -->
+                    <!-- STEP 1+2 | NAME YOUR SUB START -->
+                    <div id="nameYourSub" class="border-b-2 border-white-50 p-40 rounded-t-xl">
+                        <div class="flex flex-col items-center gap-20">
+                            <div class="flex flex-col items-center gap-5 font-normal">
+                                <p class="text-3xl font-bold">Name your subdomain</p>
+                                <p class="text-xl">The world is your oyster.</p>
+                            </div>
+                            <div class="flex flex-row">
+                                <!-- Input styling could be improved -->
+                                <input id="subDomain-text" type="text" class="bg-white-50 border-blue-100 border-t-2 border-b-2 border-l-2 px-2 py-2 rounded-l-lg focus:ring-pink-100 text-right w-160" placeholder="anythingyouwant"></input>
+                                <div class="bg-white-100 border-blue-100 border-2 px-2 py-2 rounded-r-lg font-bold text-blue-100">.litehost.io</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- STEP 1+2 | NAME YOUR SUB END -->
+                    <!-- CREATE AN ACCOUNT START -->
+                    <div class="createAccountStep border-b-2 border-white-50 p-40 rounded-t-xl hidden">
+                        <div class="flex flex-col items-center gap-20">
+                            <div class="flex flex-col items-center gap-5 font-normal">
+                                <p class="text-3xl font-bold">Create an account</p>
+                                <p class="text-xl">Let's get to know each other.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- CREATE AN ACCOUNT END -->
+                    <!-- STEP 3 | UPLOADING START -->
+                    <div class="uploadingStep border-b-2 border-white-50 p-40 rounded-t-xl hidden">
+                        <div class="flex flex-col items-center gap-20">
+                            <div class="flex flex-col items-center gap-5 font-normal">
+                                <p class="text-3xl font-bold">✋ Hang tight ✋</p>
+                                <p class="text-xl">We're doing important things.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- STEP 3 | UPLOADING END -->
+                    <!-- STEP 4 | SUCCESS START -->
+                    <div class="successStep border-b-2 border-white-50 p-40 rounded-t-xl hidden">
+                        <div class="flex flex-col items-center gap-20">
+                            <div class="flex flex-col items-center gap-5 font-normal">
+                                <p class="text-3xl font-bold">🗣️ We're live 👀</p>
+                                <p class="text-xl">Go forth and conquer!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- STEP 4 | SUCCESS END -->
+                    <!-- STEP 5 | FAIL START -->
+                    <div class="failStep border-b-2 border-white-50 p-40 rounded-t-xl hidden">
+                        <div class="flex flex-col items-center gap-20">
+                            <div class="flex flex-col items-center gap-5 font-normal">
+                                <p class="text-3xl font-bold">🤔 Uh oh 🤔</p>
+                                <p class="text-xl">It looks like something broke.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- STEP 5 | FAIL END -->
+                    <!-- STEP DIRECTIONS END -->
+                    <!-- CENTER CONTENT START -->
+                    <!-- STEP 1 | UPLOAD BUTTON START -->
+                    <div class="uploadStep flex flex-col py-50 items-center gap-30">
+                        <input type="file" id="fileUpload" name="zipFile" hidden>
+                        <label for="fileUpload" class="bg-pink-100 rounded-full w-200 h-200 flex items-center justify-center drop-shadow-pink cursor-pointer"><img src="images/plus-icon.svg"></label>
+                        <div class="text-grey text-xl font-normal">Upload a file</div>
+                    </div>
+                    <!-- STEP 1 | UPLOAD BUTTON END -->
+                    <!-- STEP 2 | LAUNCH BUTTON START -->
+                    <div class="launchStep flex-col py-50 items-center gap-30 hidden">
+                        <input id="launch" type="submit" value="Upload" hidden>
+                        <label for="launch" class="bg-blue-100 rounded-full w-200 h-200 drop-shadow-blue cursor-pointer flex items-center justify-center">
+                            <p class="font-bold text-3xl text-white-100">Launch</p>
+                        </label>
+                    </div>
+                    <!-- STEP 2 | LAUNCH BUTTON END -->
+                    <!-- CREATE AN ACCOUNT START-->
+                    <!-- *** Google button needs work *** -->
+                    <div class="createAccountStep flex-col py-50 items-center gap-30 hidden">
+                        <script src="https://accounts.google.com/gsi/client" async></script>
+                        <div id="g_id_onload"
+                            data-client_id="YOUR_GOOGLE_CLIENT_ID"
+                            data-login_uri="https://your.domain/your_login_endpoint"
+                            data-auto_prompt="false">
+                        </div>
+                        <div class="g_id_signin"
+                            data-type="standard"
+                            data-size="large"
+                            data-theme="outline"
+                            data-text="sign_in_with"
+                            data-shape="pill"
+                            data-logo_alignment="left"
+                            data-ux_mode="popup">
+                        </div>
+                    </div>
+                    <!-- CREATE AN ACCOUNT END -->
+                    <!-- STEP 3 | UPLOADING START -->
+                    <div class= "uploadingStep flex-col py-50 items-center gap-30 px-40 hidden">
+                        <img class="rounded-sm" src="https://media.giphy.com/media/pFZTlrO0MV6LoWSDXd/giphy.gif">
+                    </div>
+                    <!-- STEP 3 | UPLOADING END -->
+                    <!-- STEP 4 | SUCCESS START -->
+                    <div class= "successStep flex-col py-50 items-center gap-30 px-40 hidden">
+                        <img class="rounded-sm w-full" src="https://media.giphy.com/media/ZKTNelSY55g4w/giphy.gif">
+                    </div>
+                    <!-- STEP 4 | SUCCESS END -->
+                    <!-- STEP 5 | FAIL START -->
+                    <div class= "failStep flex-col py-50 items-center gap-30 px-40 hidden">
+                        <img class="rounded-sm w-full" src="https://media.giphy.com/media/5Zesu5VPNGJlm/giphy.gif">
+                    </div>
+                    <!-- STEP 5 | FAIL END -->
+                    <!-- CENTER CONTENT END -->
+                    <!-- ADDITIONAL INFO START -->
+                    <!-- STEP 1 | ZIP INFO - PINK START-->
+                    <div>
+                        <div class="uploadStep p-40 flex flex-row justify-center gap-10 items-center bg-white-50 rounded-b-xl">
+                            <img src="images/zip-icon-pink.svg" width="30px">
+                            <p class="font-normal text-xl text-pink-100">ZIPs only (for now)</p>
+                        </div>
+                    </div>
+                    <!-- STEP 1 | ZIP INFO - PINK END -->
+                    <!-- STEP 2 | ZIP INFO - BLUE START -->
+                    <div>
+                        <div class="launchStep p-40 flex-row justify-center gap-10 items-center bg-white-50 rounded-b-xl hidden">
+                            <img src="images/zip-icon-blue.svg" width="30px">
+                            <p class="font-normal text-xl text-blue-100">ZIPs only (for now)</p>
+                        </div>
+                    </div>
+                    <!-- STEP 2 | ZIP INFO - BLUE END -->
+                    <!-- STEP 3 | SUCCESS START -->
+                    <div>
+                        <div class="successStep p-40 flex-row justify-center gap-10 items-center bg-white-50 rounded-b-xl hidden">
+                            <p class="font-normal text-xl text-black-100 text-center">Success placeholder</p>
+                        </div>
+                    </div>
+                    <!-- STEP 3 | SUCCESS END -->
+                    <!-- STEP 4 | FAIL START -->
+                    <div>
+                        <div class="failStep p-40 flex-row justify-center gap-10 items-center bg-white-50 rounded-b-xl hidden">
+                            <p class="font-normal text-xl text-black-100 text-center">Start a chat with us to get this solved, or email us at <a class="underline" href="support@litehost.io">support@litehost.io</a>.</p>
+                        </div>
+                    </div>
+                    <!-- STEP 34| FAIL END -->
+                    <!-- ADDITIONAL INFO END -->
+                </form>
+                <!-- UPLOAD FORM END -->
+                <!-- LITEHOST INFORMATION START -->
+                <div class="flex flex-col items-center justify-center font-normal ml-50 text-white-100 gap-40">
+                    <div class="flex flex-col gap-15">
+                        <h1 class="text-5xl font-bold">Launch anything online, instantly.</h1>
+                        <h2 class="text-2xl ">Setting up hosting for websites sucks, and website builders charge an 💪 and a 🦵 for the same thing AWS gives you out of the box. Litehost gives you even more, for less.</h2>
+                    </div>
+                    <div class="grid grid-cols-2 gap-20 w-full">
+                        <div class="text-lg">
+                            <h3 class="font-bold mb-0 leading-none">Dead Simple</h3>
+                            <p>Just upload a zip file. Re-upload to overwrite.</p>
+                        </div>
+                        <div class="text-lg">
+                            <h3 class="font-bold mb-0 leading-none">SSL included</h3>
+                            <p>Litehost includes SSL by default</p>
+                        </div>
+                        <div class="text-lg">
+                            <h3 class="font-bold mb-0 leading-none">Global CDN</h3>
+                            <p>All sites are served as close as possible to users.</p>
+                        </div>
+                        <div class="text-lg">
+                            <h3 class="font-bold mb-0 leading-none">Advanced caching</h3>
+                            <p>Every launch instantly updates global caches</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- LITEHOST INFORMATION END -->
+            </div>
         </div>
-        <div class="herowrapper">
-          <form class="uploadwrapper" ID="uploadForm" enctype="multipart/form-data">
-            <div class="contentRootWrapper">
-              Content Root: <input type="text" name="contentRoot"/>
-            </div>
-            <div class="urlWrapper" id="urlWrapper">
-                <div class="subDomainWrapper">
-                <input id="subDomain-text" name="subdomain" type="text" placeholder="whateveryouwant" class="subDomainInput" autofocus>
-                </div>
-                <div style="font: size 16px; margin-left: 2px;">.litehost.com</div>
-            </div>
-              <div id="responseWrapper">
-                <div id="response">
-                  <div class="responseWrapper formLoading" style="display:none;">
-                    <div>
-                      <p class="formUpdateHeader">✋ Hang tight ✋</p>
-                      <p class="formUpdateSubHeader">We're doing important things</p>
-                    </div>
-                    <div style="display: flex; flex-direction: column; height: 100%; align-items: center; justify-content: center;">
-                      <img class="gif" src="https://media.giphy.com/media/pFZTlrO0MV6LoWSDXd/giphy.gif">
-                    </div>
-                  </div>
-                  <div class="responseWrapper successMessage" style="display:none;">
-                    <div>
-                      <p class="formUpdateHeader">🚀 We're live 🚀</p>
-                      <div id="websiteUrlDisplay"></div>
-                    </div>
-                    <div style="display: flex; flex-direction: column; height: 100%; align-items: center; justify-content: center;">
-                      <img class="gif" src="https://media.giphy.com/media/ZKTNelSY55g4w/giphy.gif">
-                    </div>
-                  </div>
-                  <div class="responseWrapper failureMessage" style="display:none;">
-                    <div>
-                      <p class="formUpdateHeader">😬 Uh Oh... 🤔</p>
-                      <p class="formUpdateSubHeader">Something went wrong</p>
-                      <p id="errorResponseMessage" class="formUpdateSubHeader"></p>
-                    </div>
-                    <div style="display: flex; flex-direction: column; height: 100%; align-items: center; justify-content: center;">
-                      <img class="gif" src="https://media.giphy.com/media/5Zesu5VPNGJlm/giphy.gif">
-                    </div>
-                    <p class="formUpdateSubHeader supportEmail">Email <a style="color:white;" href="mailto:support@litehost.io">support@litehost.io</a> to get help</p>
-                  </div>
-
-                </div>
-              </div>
-              <div id="FileUploadButton">
-                <input id="fileUpload" type="file" name="zipFile" hidden>
-                <label for="fileUpload" class="pluswrapper"><img src="images/plus-icon.svg" loading="lazy" width="120" alt=""></label>
-              </div>
-              <div id="LaunchButton">
-                <input id="launch" type="submit" value="Upload" hidden/>
-                <label for="launch" class="pluswrapper launch">Launch</label>
-              </div>
-              <div id="infoWrapper">
-                <div class="infowrapper"><img src="images/zip-icon.svg" loading="lazy" alt="" style="width: 40px;">
-                <div class="text-block">*Zips only (for now)</div>
-              </div>
-            </div>
-          </form>
-          <div class="titlewrapper">
-            <h1 class="h1">Launch anything.<br>See the lite.</h1>
-            <h2 class="h2">The fastest way to launch *anything* onto the internet (with SSL).</h2>
-          </div>
-    </section>
+<!-- HERO SECTION END -->
     </div>
     <script src="script.js"></script> 
 </body>
