@@ -72,10 +72,10 @@
 <!-- HERO SECTION START -->
             <!-- **** width needs work **** -->
         <div class="w-full pt-50">
-            <div class="flex flex-row w-3/4 mx-auto">
+            <div class="flex flex-row w-3/4 mx-auto" >
                 <!-- UPLOAD FORM START-->
                 <!-- **** width needs work **** -->
-                <form class="min-w-450 bg-white-100 rounded-xl">
+                <form id="uploadForm" class="min-w-450 bg-white-100 rounded-xl" enctype="multipart/form-data">
                     <!-- STEP DIRECTIONS START -->
                     <!-- STEP 1+2 | NAME YOUR SUB START -->
                     <div id="nameYourSub" class="border-b-2 border-white-50 p-40 rounded-t-xl">
@@ -205,7 +205,7 @@
                     <!-- STEP 3 | SUCCESS START -->
                     <div>
                         <div class="successStep p-40 flex-row justify-center gap-10 items-center bg-white-50 rounded-b-xl hidden">
-                            <p class="font-normal text-xl text-black-100 text-center">Success placeholder</p>
+                            <p id="success-url" class="font-normal text-xl text-black-100 text-center">Success placeholder</p>
                         </div>
                     </div>
                     <!-- STEP 3 | SUCCESS END -->
