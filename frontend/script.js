@@ -25,49 +25,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // LaunchStep completed – flex on CreateAccountStep
-    // 
-    
-    
-    // CreateAccountStep completed - hide LaunchStep and flex on UploadingStep
-
-
-
-    // UploadingStep finishes - hide UploadingStep and flex on successStep or failStep
-
-
-
-    //Flex on ID=dropZone when file is dragged and dropped
-
-
-
-
-//     function hideFormInputs(){
-//         document.getElementById("LaunchButton").style.display = 'none';
-//         document.getElementById("urlWrapper").style.display = 'none';
-//         document.querySelector("#uploadForm > .contentRootWrapper").style.display = 'none';
-//     }
-
-//     function displaySuccessMessage(websiteUrl){
-//         var websiteUrlDisplay = document.getElementById('websiteUrlDisplay');
-//         websiteUrlDisplay.innerHTML = '';
-//         var anchor = document.createElement('a');
-//         anchor.setAttribute('href', websiteUrl);
-//         anchor.setAttribute('target', '_blank');
-//         anchor.innerText = websiteUrl;
-//         websiteUrlDisplay.appendChild(anchor);
-//         document.querySelector("#response > div.successMessage").style.display = "flex";
-//     }
-
-//     function displayFailureMessage(failureMessage){
-//         document.querySelector("#response > div.failureMessage").style.display = "flex";
-//         document.getElementById("errorResponseMessage").innerText = failureMessage
-//     }
-
-//     function hideLoadingScreen(){
-//         document.querySelector("#response > div.formLoading").style.display = 'none';
-//     }
-
     document.getElementById('uploadForm').addEventListener('submit', function(e) {
         // document.getElementById("response").innerText = "request submitted..";
         e.preventDefault();
@@ -75,53 +32,60 @@ document.addEventListener('DOMContentLoaded', function () {
         // TODO only do this if they're not logged in
         launchStep.forEach(el => el.classList.add("hidden"));
         nameYourSub.classList.add("hidden");
-        
-        createAccountStep.forEach(el => el.classList.remove("hidden"));
+        const urlParams = new URLSearchParams(window.location.search);
+        const debug = urlParams.get('debug');
 
-        // TODO remove after adding check for being logged in
-        setTimeout(() => {
-            createAccountStep.forEach(el => el.classList.add("hidden"));
-            uploadingStep.forEach(el => el.classList.remove("hidden"));
+        if (debug === 'true') {
+            // Debug mode actions here
+            // TODO remove after adding check for being logged in
+            createAccountStep.forEach(el => el.classList.remove("hidden"));
             setTimeout(() => {
+                createAccountStep.forEach(el => el.classList.add("hidden"));
+                uploadingStep.forEach(el => el.classList.remove("hidden"));
+                setTimeout(() => {
+                    uploadingStep.forEach(el => el.classList.add("hidden"));
+                    const isRequestSuccessful = true;
+                    if (isRequestSuccessful){
+                        successStep.forEach(el => el.classList.remove("hidden"));
+                        const response = {"status": 200, "websiteUrl": "https://pipeweave.litehost.io"};
+                        document.getElementById("success-url").innerText = response.websiteUrl;
+                    } else {
+                        failStep.forEach(el => el.classList.remove("hidden"));
+                        const response = {"status": 400, error: "bucket_creation_failure", message: "Failed to create S3 bucket! (this is a sample error message)"};
+           
+                        // hides stuff from the form
+                    }
+                }, 4000); 
+            }, 2000)
+        } else {
+            // Normal mode actions here
+            // TODO show createAccountStep if not logged in
+            const loggedIn = true; // TODO
+            if (!loggedIn){
+                // TODO remove after adding check for being logged in
+                createAccountStep.forEach(el => el.classList.remove("hidden"));
+            } 
+            uploadingStep.forEach(el => el.classList.remove("hidden"));
+            fetch('http://localhost:3000/create_site', {
+                method: 'POST',
+                body: formData
+            }).then(async response => {
                 uploadingStep.forEach(el => el.classList.add("hidden"));
-                const isRequestSuccessful = true;
-                if (isRequestSuccessful){
+                const data = await response.json();
+                if (response.status >= 200 && response.status < 300){
                     successStep.forEach(el => el.classList.remove("hidden"));
-                    const response = {"status": 200, "websiteUrl": "https://pipeweave.litehost.io"};
-                    document.getElementById("success-url").innerText = response.websiteUrl;
+                    document.getElementById("success-url").innerText = data.websiteUrl;
+                } else if (response.status >= 400 < 500) {
+                    failStep.forEach(el => el.classList.remove("hidden"));
+                    // TODO show actual error message
                 } else {
                     failStep.forEach(el => el.classList.remove("hidden"));
-                    const response = {"status": 400, error: "bucket_creation_failure", message: "Failed to create S3 bucket! (this is a sample error message)"};
-       
-                    // hides stuff from the form
+                    // TODO show generic error message
                 }
-            }, 4000); 
-        }, 2000)
-        
+            }).catch(error => {
 
-
-        // // COMMENT THIS BLOCK IN TO ACTUALLY INTERACT WITH THE SERVER
-        // fetch('http://localhost:3000/create_site', {
-        //     method: 'POST',
-        //     body: formData
-        // }).then(async response => {
-        //     const data = await response.json();
-        //     if (response.status >= 200 && response.status < 300){
-        //         displaySuccessMessage(data.websiteUrl);
-        //     } else if (response.status >= 400 < 500) {
-        //         displayFailureMessage(data.message);
-        //     } else {
-        //         displayFailureMessage("An Unknown error happened");
-        //     }
-        // }).catch(error => {
-        //     displayFailureMessage("An unknown error occurred");
-        // });
-        // =========================================================
-        
-
-        // Comment this block in to mock interactions with the server
-        
-        // =========================================================
+            });
+        }
     });
         
 

@@ -1,10 +1,8 @@
 import { Router, Request} from 'express';
 import express from 'express';
 
-
-
 import { readFile, uploadDir } from '../aws/s3Client.js';
-import { unzipToTmpDir, listZipfileContents, zipfileContains } from '../utils/zip.js';
+import { unzipToTmpDir, listZipfileContents } from '../utils/zip.js';
 import AdmZip from 'adm-zip';
 import path from 'path';
 import { HOSTING_BUCKET_NAME } from '../aws/constants.js';
@@ -20,18 +18,19 @@ router.post('/create_site', async (req: Request, res) => {
         // validate the uploaded file is a zip file
         res.setHeader("Access-Control-Allow-Origin", "*");
         validateSubdomain(req.body);
-        validateContentRoot(req.body);
         assertZipFile(req);
 
-        const contentRoot: string = req.body.contentRoot;
+        // in zipFile, find the content root i.e the shallowest directory which contains an index.html file. 
+        // If no such directory exists then raise a ValidationError        
         const zipFile = new AdmZip((req.files.zipFile as UploadedFile).data);
-        validateZipContents(contentRoot, zipFile);
+        const contentRoot: string = inferContentRoot(zipFile);
+        console.log(`contentRoot: ${contentRoot}`);
         
         const subdomain = req.body.subdomain;
         const bucketSiteUrl = `https://${subdomain}.litehost.io`;
         const tmpDir = unzipToTmpDir(zipFile);
         const uploadRoot = path.join(tmpDir, contentRoot);
-        // await uploadDir(HOSTING_BUCKET_NAME, subdomain, uploadRoot, uploadRoot);
+        await uploadDir(HOSTING_BUCKET_NAME, subdomain, uploadRoot, uploadRoot);
         res.status(200).send({message: `Site created at ${bucketSiteUrl}`, websiteUrl: bucketSiteUrl});
     } catch (error) {
         if (error instanceof ValidationError){
@@ -89,7 +88,7 @@ function isRequestForFile(path: string){
 }
 
 function validateSubdomain(body: any){
-    const subdomain : string = body.subdomain;
+    const subdomain : string = body?.subdomain;
     if (!subdomain) {
         throw new ValidationError(
             400, 
@@ -111,34 +110,43 @@ function validateSubdomain(body: any){
     }
 }
 
-function validateContentRoot(body: any){
-    const contentRoot: string | undefined = body.contentRoot;
-        if (contentRoot === undefined){
-            // TODO autogenerate type conformity checks, and even better use generated types
+function inferContentRoot(zipFile: AdmZip): string {
+        const entryPaths = listZipfileContents(zipFile);
+        let anyContentRootFound = false;
+        let shallowestDepth = Number.MAX_VALUE;
+        let shallowestDir = "";
+        let dirsAtThisDepth = 0;
 
-            throw new ValidationError(400,{
-                error: "invalid_request_body", 
-                message: `Expected request body to contain indexhtmlPath. Request body: ${JSON.stringify(body)}`
+        // first get all entries which have an index.html
+        entryPaths.filter(entryPath => entryPath.endsWith("index.html"))
+        // then keep track of # of entries at this depth
+        .forEach(entryPath => {
+            const entryDepth = entryPath.split('/').length - 1;
+            if (entryDepth < shallowestDepth) {
+                shallowestDepth = entryDepth;
+                shallowestDir = entryPath.replace(/\/?index\.html$/, '');
+                anyContentRootFound = true;
+                dirsAtThisDepth = 1;
+            } else if (entryDepth === shallowestDepth){
+                dirsAtThisDepth++;
+            }
+        });
+
+        if (!anyContentRootFound) {
+            throw new ValidationError(400, {
+                error: "invalid_content_root",
+                message: 'We could not find an index.html file in your uploaded zip file. Please upload a zip file containing an index.html'
             });
         }
-}
 
-function validateZipContents(contentRoot: string, zipFile: AdmZip){
-    if (contentRoot !== "" && !zipfileContains(contentRoot, zipFile)){
-        throw new ValidationError(400, { 
-            error: `content_root_not_found`,
-            message: `${contentRoot} does not exist in the uploaded zip file.`,
-            zipFileEntries: listZipfileContents(zipFile)
-        });
-    }
+        if (dirsAtThisDepth > 1){
+            throw new ValidationError(400, {
+                error: "ambiguous_content_root",
+                message: 'Ambiguous content root. The uploaded zip file cannot have two index.html files at the same depths.'
+            })
+        }
 
-    if (!zipfileContains(path.join(contentRoot, "index.html"), zipFile)){
-        throw new ValidationError(400, { 
-            error: `index_html_not_found`,
-            message: `${contentRoot}/index.html does not exist in the uploaded zip file.`,
-            zipFileEntries: listZipfileContents(zipFile)
-        });
-    }
+        return shallowestDir;
 }
 
 function assertZipFile(req){
@@ -158,5 +166,7 @@ function assertZipFile(req){
 }
 
 
+
+export {inferContentRoot}; 
 
 export default router;
