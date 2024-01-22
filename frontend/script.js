@@ -25,21 +25,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // LaunchStep completed – flex on CreateAccountStep
-    // 
-    
-    
-    // CreateAccountStep completed - hide LaunchStep and flex on UploadingStep
-
-
-
-    // UploadingStep finishes - hide UploadingStep and flex on successStep or failStep
-
-
-
-    //Flex on ID=dropZone when file is dragged and dropped
-
-
     document.getElementById('uploadForm').addEventListener('submit', function(e) {
         // document.getElementById("response").innerText = "request submitted..";
         e.preventDefault();
@@ -48,9 +33,10 @@ document.addEventListener('DOMContentLoaded', function () {
         launchStep.forEach(el => el.classList.add("hidden"));
         nameYourSub.classList.add("hidden");
         
+        // TODO remove after adding check for being logged in
         createAccountStep.forEach(el => el.classList.remove("hidden"));
 
-        // TODO remove after adding check for being logged in
+        
         const urlParams = new URLSearchParams(window.location.search);
         const debug = urlParams.get('debug');
 
@@ -76,34 +62,28 @@ document.addEventListener('DOMContentLoaded', function () {
             }, 2000)
         } else {
             // Normal mode actions here
-             // COMMENT THIS BLOCK IN TO ACTUALLY INTERACT WITH THE SERVER
+            // TODO show createAccountStep if not logged in
+             uploadingStep.forEach(el => el.classList.remove("hidden"));
             fetch('http://localhost:3000/create_site', {
                 method: 'POST',
                 body: formData
             }).then(async response => {
+                uploadingStep.forEach(el => el.classList.add("hidden"));
                 const data = await response.json();
                 if (response.status >= 200 && response.status < 300){
-
+                    successStep.forEach(el => el.classList.remove("hidden"));
+                    document.getElementById("success-url").innerText = data.websiteUrl;
                 } else if (response.status >= 400 < 500) {
-
+                    failStep.forEach(el => el.classList.remove("hidden"));
+                    // TODO show actual error message
                 } else {
-
+                    failStep.forEach(el => el.classList.remove("hidden"));
+                    // TODO show generic error message
                 }
             }).catch(error => {
 
             });
         }
-        
-        
-
-
-       
-        // =========================================================
-        
-
-        // Comment this block in to mock interactions with the server
-        
-        // =========================================================
     });
         
 
