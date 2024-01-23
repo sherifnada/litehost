@@ -3,6 +3,10 @@ export default {
   content: ["./frontend/**/*.{html,js}"],
   theme: {
       extend: {
+        scale: {
+          '102': '1.02',
+          '98': '0.98',
+        },
         rotate: {
           '20': '20deg',
           'neg20': '-20deg',
@@ -38,8 +42,11 @@ export default {
         },
         dropShadow: {
           'pink': '0 7px 0px rgba(250, 195, 209, 1)',
-          'pinkwide': '3 7px 3px rgba(250, 195, 209, 1)',
+          'pinkhover': '0 9px 0px rgba(250, 195, 209, 1)',
+          'pinkpress': '0 3px 0px rgba(250, 195, 209, 1)',
           'blue': '0 7px 0px rgba(135, 150, 255, 1)',
+          'bluehover': '0 9px 0px rgba(135, 150, 255, 1)',
+          'bluepress': '0 3px 0px rgba(135, 150, 255, 1)',
         },
       },
     fontFamily: {
