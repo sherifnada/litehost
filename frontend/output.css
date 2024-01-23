@@ -704,6 +704,10 @@ video {
   display: none;
 }
 
+.h-100 {
+  height: 100px;
+}
+
 .h-130 {
   height: 130px;
 }
@@ -1228,6 +1232,10 @@ video {
 
 .leading-normal {
   line-height: 1.5;
+}
+
+.leading-3 {
+  line-height: .75rem;
 }
 
 .text-black-100 {
