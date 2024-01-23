@@ -43,24 +43,6 @@ router.post('/create_site', async (req: Request, res) => {
     }
 });
 
-router.post('/session_login', async (req, res)=>{
-    try{
-        const body = parseSessionLoginBody(req);
-
-        console.log("session login!!");
-        console.log(req.headers);
-        res.status(200).send();
-    }catch(error){
-        if (error instanceof ValidationError){
-            res.status(error.status).send(error.body);
-        } else {
-            console.error(error);
-            res.status(500).send('An error occurred while creating the site');
-        }
-    }
-    
-})
-
 router.get('*', async(req, res, next) => {
     try {
         const subdomain = extractSubdomainFromHost(req.headers.host);
@@ -87,20 +69,6 @@ router.get('*', async(req, res, next) => {
 });
 
 router.use("/", express.static("frontend"));
-
-
-interface SessionLoginBody {
-    idToken: string
-}
-
-function parseSessionLoginBody(request: express.Request): SessionLoginBody {
-    if (!request.body?.idToken || !request.body.idToken.toString){
-        throw new ValidationError(400, {error: "invalid_request_body", message: "Expected idToken string parameter in request body."});
-    }
-
-    return {idToken: request.body.idToken.toString()};
-} 
-
 
 function extractSubdomainFromHost(host: string){
     const url = new URL("http://" + host);
