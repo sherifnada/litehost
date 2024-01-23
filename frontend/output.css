@@ -1162,6 +1162,10 @@ video {
   text-align: right;
 }
 
+.font-open-sans {
+  font-family: Open Sans, sans-serif;
+}
+
 .text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
@@ -1208,6 +1212,14 @@ video {
 
 .font-normal {
   font-weight: 200;
+}
+
+.font-300 {
+  font-weight: 300;
+}
+
+.font-400 {
+  font-weight: 400;
 }
 
 .leading-5 {
