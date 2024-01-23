@@ -88,6 +88,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             } 
 
             uploadingStep.forEach(el => el.classList.remove("hidden"));
+            // TODO sometimes it seems we upload the files for a website twice. Probably something wonky happening with the waitForUserLogin step above
             fetch('/create_site', {
                 method: 'POST',
                 body: formData
@@ -119,18 +120,9 @@ document.addEventListener('DOMContentLoaded', async function () {
     async function signInWithGoogle(){
         const provider = new firebase.auth.GoogleAuthProvider();
         try {
-            // await firebase.auth().signInWithPopup(provider);
+            await firebase.auth().signInWithPopup(provider);
         } catch(error){
             // TODO Handle Errors here https://firebase.google.com/docs/reference/js/v8/firebase.auth.Auth#signinwithpopupf
-            console.log("auth error");
-            throw error;
-        }
-    }
-
-    async function finishAuth(){
-        try{
-            console.log("finishAuth callback called successfully");
-        } catch(error) {
             throw error;
         }
     }
@@ -147,15 +139,15 @@ document.addEventListener('DOMContentLoaded', async function () {
             const unsubscribe = firebase.auth().onAuthStateChanged(user => {
                 if (user) {
                     // If a user is logged in, resolve the promise with the user information
-                    resolve(user);
                     unsubscribe();
+                    resolve(user);
                 }
             });
         });
     }
       
 
-    document.querySelectorAll(".g_id_signin").forEach(div => div.addEventListener("click", async () => signInWithGoogle()));
+    document.querySelectorAll(".login-with-google").forEach(el => el.addEventListener("click",  signInWithGoogle));
 
 // ================ END FIREBASE ====================
 
