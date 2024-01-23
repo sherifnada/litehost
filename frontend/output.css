@@ -668,6 +668,14 @@ video {
   margin-top: 4rem;
 }
 
+.mt-20 {
+  margin-top: 20px;
+}
+
+.mt-5 {
+  margin-top: 5px;
+}
+
 .mt-6 {
   margin-top: 1.5rem;
 }
