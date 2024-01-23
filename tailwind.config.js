@@ -78,10 +78,12 @@ export default {
         50: '#FAC3D1',
       },
       'webflow': '#146EF5',
+      'wix': '#FBBD71',
     },
     backgroundImage: {
       'zag-pattern': "url('images/zag-background.svg')",
     },
-  plugins: [],
+  plugins: [
+  ],
   }
 }
