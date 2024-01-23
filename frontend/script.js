@@ -45,10 +45,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 setTimeout(() => {
                     uploadingStep.forEach(el => el.classList.add("hidden"));
                     const isRequestSuccessful = true;
-                    if (isRequestSuccessful){
+                    if (isRequestSuccessful) {
                         successStep.forEach(el => el.classList.remove("hidden"));
                         const response = {"status": 200, "websiteUrl": "https://pipeweave.litehost.io"};
-                        document.getElementById("success-url").innerText = response.websiteUrl;
+                        const successUrlElement = document.getElementById("success-url");
+                        successUrlElement.innerHTML = '';
+                        const link = document.createElement('a');
+                        link.href = response.websiteUrl;
+                        link.target = '_blank';
+                        link.textContent = response.websiteUrl;
+                    
+                        successUrlElement.appendChild(link);
                     } else {
                         failStep.forEach(el => el.classList.remove("hidden"));
                         const response = {"status": 400, error: "bucket_creation_failure", message: "Failed to create S3 bucket! (this is a sample error message)"};
@@ -87,18 +94,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
     }); 
-
-// Mouse follow movement -- not working (works in codepen, there is something in the JS that is breaking this)
-// document.addEventListener('mousemove', (event) => {
-//     const followEls = document.querySelectorAll('.follow-mouse');
-//     followEls.forEach(el => {
-//         const speed = 5; // Adjust this value to control the movement speed
-//         const x = (window.innerWidth / 2 - event.pageX) / speed;
-//         const y = (window.innerHeight / 2 - event.pageY) / speed;
-
-//         el.style.transform = `translate(${x}px, ${y}px)`;
-//     });
-// });   
 
 // /* this code is not working with the above JS. I think something about the fileUpload ID being two variables is the problem?
 // //Two things with this drap and drop functionality. (1) I'm not sure it's actually sending the file to the form. (2) The background goes away when you drag the file over the dropZone text

@@ -151,7 +151,7 @@
                     <!-- STEP 2 | LAUNCH BUTTON END -->
                     <!-- CREATE AN ACCOUNT START-->
                     <!-- *** Google button needs work *** -->
-                    <div class="createAccountStep flex flex-col h-300 justify-center items-center gap-30 px-40 hidden">
+                    <div class="createAccountStep flex-col h-300 justify-center items-center gap-30 px-40 hidden">
                         <div class="flex flex-col h-300 justify-center items-center gap-30 px-40">
                             <script src="https://accounts.google.com/gsi/client" async></script>
                             <div id="g_id_onload"
@@ -159,7 +159,7 @@
                                 data-login_uri="https://your.domain/your_login_endpoint"
                                 data-auto_prompt="false">
                             </div>
-                            <div class="g_id_signin"
+                            <div class="g_id_signin w-full"
                                 data-type="standard"
                                 data-size="large"
                                 data-theme="outline"
@@ -177,8 +177,10 @@
                     </div>
                     <!-- STEP 3 | UPLOADING END -->
                     <!-- STEP 4 | SUCCESS START -->
-                    <div class= "successStep flex flex-col h-300 justify-center items-center gap-30 px-40 hidden">
-                        <img class="rounded-sm w-full max-w-450" src="https://media.giphy.com/media/ZKTNelSY55g4w/giphy.gif">
+                    <div>
+                        <div class="successStep px-40 h-130 flex flex-col justify-center items-center hidden bg-white-100 border-b-2 border-white-50">
+                            <p id="success-url" class="bg-white-100 border-blue-100 border-2 px-2 py-2 rounded-lg font-bold text-blue-100 animate-pulse w-full truncate"></p>
+                        </div>
                     </div>
                     <!-- STEP 4 | SUCCESS END -->
                     <!-- STEP 5 | FAIL START -->
@@ -218,12 +220,16 @@
 
                     <!-- STEP 2 | ZIP INFO - BLUE END -->
                     <!-- STEP 3 | SUCCESS START -->
-                    <div>
-                        <div class="successStep px-40 h-130 flex flex-col justify-center items-center bg-white-50 rounded-b-xl hidden">
-                            <p id="success-url" class="font-normal text-xl text-black-100 text-center leading-normal">Success placeholder</p>
-                        </div>
+                    <div class= "successStep flex flex-col h-300 justify-center items-center gap-30 p-40 hidden">
+                        <img class="rounded-sm h-full w-full max-w-450 text-center" src="https://media.giphy.com/media/ZKTNelSY55g4w/giphy.gif">
                     </div>
                     <!-- STEP 3 | SUCCESS END -->
+                    <div>
+                        <div class="successStep px-40 h-130 flex flex-col justify-center items-center bg-white-50 rounded-b-xl hidden">
+                            <p class="font-bold text-xl">Want to update your site?</p>
+                            <p class="font-normal text-lg mt-5 leading-6">Sign in, type in your subdomain, and reload your zip.</p>
+                        </div>
+                    </div>
                     <!-- STEP 4 | FAIL START -->
                     <div>
                         <div class="failStep px-40 h-130 flex flex-col justify-center items-center bg-white-50 rounded-b-xl hidden">
