@@ -3,6 +3,10 @@ export default {
   content: ["./frontend/**/*.{html,js}"],
   theme: {
       extend: {
+        scale: {
+          '102': '1.02',
+          '98': '0.98',
+        },
         rotate: {
           '20': '20deg',
           'neg20': '-20deg',
@@ -10,13 +14,16 @@ export default {
         spacing: {
           '600':'600px',
           '450': '450px',
+          '300': '300px',
+          '225': '225px',
           '200': '200px',
           '160': '160px',
-          '130': '130px',
           '150': '150px',
+          '130': '130px',
           '100': '100px',
           '90': '90px',
           '80': '80px',
+          '75': '75px',
           '70': '70px',
           '50': '50px',
           '45': '45px',
@@ -36,8 +43,11 @@ export default {
         },
         dropShadow: {
           'pink': '0 7px 0px rgba(250, 195, 209, 1)',
-          'pinkwide': '3 7px 3px rgba(250, 195, 209, 1)',
+          'pinkhover': '0 9px 0px rgba(250, 195, 209, 1)',
+          'pinkpress': '0 3px 0px rgba(250, 195, 209, 1)',
           'blue': '0 7px 0px rgba(135, 150, 255, 1)',
+          'bluehover': '0 9px 0px rgba(135, 150, 255, 1)',
+          'bluepress': '0 3px 0px rgba(135, 150, 255, 1)',
         },
       },
     fontFamily: {
