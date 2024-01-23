@@ -52,9 +52,12 @@ export default {
       },
     fontFamily: {
       'sans': ['Lexend','sans-serif'],
+      'open-sans': ['Open Sans', 'sans-serif'],
     },
     fontWeight: {
       'normal': '200',
+      '300': 300,
+      '400': 400,
       'bold': '600',
     },
     colors: {
