@@ -11,20 +11,15 @@ const firebaseConfig = {
   };
 
   // Initialize Firebase
-  // TODO don't save any state on the client side
 firebase.initializeApp(firebaseConfig);
+
+
+await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 
 async function signInWithGoogle(){
     const provider = new firebase.auth.GoogleAuthProvider();
     try {
-        const result = await firebase.auth().signInWithPopup(provider);
-        const idToken = await result.user.getIdToken(true);
-        const authResult = await fetch('/session_login', {
-            method: 'POST', // or 'POST'
-            headers: {
-              'Authorization': `Bearer ${idToken}`,
-            }
-          });
+        await firebase.auth().signInWithPopup(provider);
         callback(); 
     } catch(error){
         // TODO Handle Errors here https://firebase.google.com/docs/reference/js/v8/firebase.auth.Auth#signinwithpopupf

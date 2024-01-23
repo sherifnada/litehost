@@ -1,4 +1,17 @@
-document.addEventListener('DOMContentLoaded', function () {
+const firebaseConfig = {
+    apiKey: "AIzaSyDX0tTmeX5iCWILENwfZKT-SU1lfBn9P0M",
+    authDomain: "litehost-io-e7bdd.firebaseapp.com",
+    projectId: "litehost-io-e7bdd",
+    storageBucket: "litehost-io-e7bdd.appspot.com",
+    messagingSenderId: "994834323379",
+    appId: "1:994834323379:web:c34a969c3a25cb77149dc6",
+    measurementId: "G-HNLDD4X11K"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
+document.addEventListener('DOMContentLoaded', async function () {
     const nameYourSub = document.getElementById('nameYourSub');
     const uploadStep = document.querySelectorAll('.uploadStep');
     const fileUpload = document.getElementById('fileUpload');
@@ -25,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    document.getElementById('uploadForm').addEventListener('submit', function(e) {
+    document.getElementById('uploadForm').addEventListener('submit', async function(e) {
         // document.getElementById("response").innerText = "request submitted..";
         e.preventDefault();
         var formData = new FormData(this);
@@ -41,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
             createAccountStep.forEach(el => el.classList.remove("hidden"));
             setTimeout(() => {
                 createAccountStep.forEach(el => el.classList.add("hidden"));
-                uploadingStep.forEach(el => el.classList.remove("hidden"));
+
                 setTimeout(() => {
                     uploadingStep.forEach(el => el.classList.add("hidden"));
                     const isRequestSuccessful = true;
@@ -60,13 +73,15 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             // Normal mode actions here
             // TODO show createAccountStep if not logged in
-            const loggedIn = true; // TODO
+            const loggedIn = firebase.auth().currentUser;
             if (!loggedIn){
-                // TODO remove after adding check for being logged in
                 createAccountStep.forEach(el => el.classList.remove("hidden"));
+                await waitForUserLogin();
+                createAccountStep.forEach(el => el.classList.add("hidden"));
             } 
+
             uploadingStep.forEach(el => el.classList.remove("hidden"));
-            fetch('http://localhost:3000/create_site', {
+            fetch('/create_site', {
                 method: 'POST',
                 body: formData
             }).then(async response => {
@@ -87,6 +102,57 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
     });
+
+    // ================ FIREBASE ====================    
+
+
+
+    await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+
+    async function signInWithGoogle(){
+        const provider = new firebase.auth.GoogleAuthProvider();
+        try {
+            await firebase.auth().signInWithPopup(provider);
+        } catch(error){
+            // TODO Handle Errors here https://firebase.google.com/docs/reference/js/v8/firebase.auth.Auth#signinwithpopupf
+            console.log("auth error");
+            throw error;
+        }
+    }
+
+    async function finishAuth(){
+        try{
+            console.log("finishAuth callback called successfully");
+        } catch(error) {
+            throw error;
+        }
+    }
+
+    function waitForUserLogin() {
+        return new Promise((resolve, reject) => {
+            // if already logged in then exit
+            if (firebase.auth().currentUser){
+                resolve(firebase.auth().currentUser);
+                return;
+            }
+        
+            // Otherwise wait for authentication state changes
+            const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+                if (user) {
+                    // If a user is logged in, resolve the promise with the user information
+                    resolve(user);
+                    unsubscribe();
+                }
+            });
+        });
+    }
+      
+
+    document.getElementById("login-with-google").addEventListener("click", async () => signInWithGoogle());
+
+// ================ END FIREBASE ====================
+
+
         
 
     
