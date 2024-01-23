@@ -14,19 +14,10 @@ const firebaseConfig = {
   // TODO don't save any state on the client side
 firebase.initializeApp(firebaseConfig);
 
-async function signInWithGoogle(callback){
+async function signInWithGoogle(){
     const provider = new firebase.auth.GoogleAuthProvider();
     try {
-        callback(await firebase.auth().signInWithPopup(provider)); 
-    } catch(error){
-        // TODO Handle Errors here https://firebase.google.com/docs/reference/js/v8/firebase.auth.Auth#signinwithpopupf
-        console.log("auth error");
-        throw error;
-    }
-}
-
-async function finishAuth(result){
-    try{
+        const result = await firebase.auth().signInWithPopup(provider);
         const idToken = await result.user.getIdToken(true);
         const authResult = await fetch('/session_login', {
             method: 'POST', // or 'POST'
@@ -34,8 +25,18 @@ async function finishAuth(result){
               'Authorization': `Bearer ${idToken}`,
             }
           });
-        
-        // TODO hide stuff
+        callback(); 
+    } catch(error){
+        // TODO Handle Errors here https://firebase.google.com/docs/reference/js/v8/firebase.auth.Auth#signinwithpopupf
+        console.log("auth error");
+        throw error;
+    }
+}
+
+async function finishAuth(){
+    try{
+        console.log("finishAuth callback called successfully");
+        // TODO hide UI elements
     } catch(error) {
         throw error;
     }
