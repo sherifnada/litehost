@@ -68,6 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
             uploadingStep.forEach(el => el.classList.remove("hidden"));
             fetch('http://localhost:3000/create_site', {
                 method: 'POST',
+                headers: {Authorization: `Bearer ${'h'}`},
                 body: formData
             }).then(async response => {
                 uploadingStep.forEach(el => el.classList.add("hidden"));

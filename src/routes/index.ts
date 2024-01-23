@@ -8,10 +8,37 @@ import path from 'path';
 import { HOSTING_BUCKET_NAME } from '../aws/constants.js';
 import { ValidationError } from './errors.js';
 import { UploadedFile } from 'express-fileupload';
+import * as firebaseAdmin from 'firebase-admin';
 
 const router = Router();
 
-router.post('/create_site', async (req: Request, res) => {
+function parseBearerToken(token: string): string | undefined {
+    const split = token?.split(" ");
+    if (split && split.length === 2){
+        return split[1];
+    }
+
+    return undefined;
+}
+
+async function validateUserSignedIn(req, res, next) {
+    const idToken = parseBearerToken(req.headers?.authorization);
+    if (!idToken){
+        res.status(401).send({error: "auth", message: "Expected a bearer token"});
+        return;
+    }
+
+    try {
+        // TODO unit test this
+        const decodedToken  = await firebaseAdmin.auth().verifyIdToken(idToken);
+        req.userToken = decodedToken;
+        next();
+    } catch(error){
+        res.status(401).send({error: "auth", message: "Invalid auth token"})
+    }
+}
+
+router.post('/create_site', validateUserSignedIn, async (req: Request, res) => {
     // TODO add API contract somewhere as middleware, this validation is nuts
     try {
         // TODO replace this with specific origins
@@ -70,7 +97,7 @@ router.get('*', async(req, res, next) => {
 
 router.use("/", express.static("frontend"));
 
-function extractSubdomainFromHost(host: string){
+function extractSubdomainFromHost(host: string) {
     const url = new URL("http://" + host);
     const hostname = url.hostname;
     const parts = hostname.split('.');
@@ -167,6 +194,7 @@ function assertZipFile(req){
 
 
 
-export {inferContentRoot}; 
+// exports for tests
+export {inferContentRoot, validateUserSignedIn}; 
 
 export default router;
