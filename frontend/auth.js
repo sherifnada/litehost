@@ -1,29 +1,47 @@
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js';
-firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
+// ================ FIREBASE ====================
 
-document.getElementById("login-with-google").addEventListener("click", () => {
-    const auth = getAuth();
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider)
-    .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        console.log('success');
-        console.log(result);
-        const token = credential.accessToken;
-        // The signed-in user info.
-        const user = result.user;
-        console.log(result.user);
-        // IdP data available using getAdditionalUserInfo(result)
-        // ...
-    }).catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
-    });
-})
+const firebaseConfig = {
+    apiKey: "AIzaSyDX0tTmeX5iCWILENwfZKT-SU1lfBn9P0M",
+    authDomain: "litehost-io-e7bdd.firebaseapp.com",
+    projectId: "litehost-io-e7bdd",
+    storageBucket: "litehost-io-e7bdd.appspot.com",
+    messagingSenderId: "994834323379",
+    appId: "1:994834323379:web:c34a969c3a25cb77149dc6",
+    measurementId: "G-HNLDD4X11K"
+  };
+
+  // Initialize Firebase
+  // TODO don't save any state on the client side
+firebase.initializeApp(firebaseConfig);
+
+async function signInWithGoogle(callback){
+    const provider = new firebase.auth.GoogleAuthProvider();
+    try {
+        callback(await firebase.auth().signInWithPopup(provider)); 
+    } catch(error){
+        // TODO Handle Errors here https://firebase.google.com/docs/reference/js/v8/firebase.auth.Auth#signinwithpopupf
+        console.log("auth error");
+        throw error;
+    }
+}
+
+async function finishAuth(result){
+    try{
+        const idToken = await result.user.getIdToken(true);
+        const authResult = await fetch('/session_login', {
+            method: 'POST', // or 'POST'
+            headers: {
+              'Authorization': `Bearer ${idToken}`,
+            }
+          });
+        
+        // TODO hide stuff
+    } catch(error) {
+        throw error;
+    }
+}
+
+document.getElementById("login-with-google").addEventListener("click", async () => signInWithGoogle(finishAuth));
+
+// ================ END FIREBASE ====================
+

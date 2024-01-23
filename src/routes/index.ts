@@ -43,8 +43,10 @@ router.post('/create_site', async (req: Request, res) => {
     }
 });
 
-router.post('/sessionLogin', async (req, res)=>{
-    
+router.post('/session_login', async (req, res)=>{
+    console.log("session login!!");
+    console.log(req.headers);
+    res.status(200).send();
 })
 
 router.get('*', async(req, res, next) => {
