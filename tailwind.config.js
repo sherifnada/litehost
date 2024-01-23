@@ -52,6 +52,7 @@ export default {
       },
     fontFamily: {
       'sans': ['Lexend','sans-serif'],
+      'open-sans': ['"Open Sans"', 'sans-serif'],
     },
     fontWeight: {
       'normal': '200',
