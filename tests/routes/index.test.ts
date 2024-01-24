@@ -89,20 +89,13 @@ describe('inferContentRoot', () => {
 
 // AUTHENTICATION
 // Mock firebaseAdmin and its functions
-import * as firebaseAdmin from 'firebase-admin';
-// jest.mock('firebase-admin', () => ({
-//   auth: jest.fn().mockReturnValue({
-//     verifyIdToken: jest.fn(),
-//   }),
-// }));
-jest.mock('firebase-admin', () => ({
-    auth: jest.fn().mockReturnValue({
+import {getAuth} from 'firebase-admin/auth';
+
+jest.mock('firebase-admin/auth', () => ({
+    getAuth: jest.fn().mockReturnValue({
         verifyIdToken: jest.fn()
-      })
     })
-);
-  // Import the mock firebaseAdmin
-  
+}));
   
   // Utility function to create mock request
   const createMockRequest = (authorizationHeader?: string): Partial<Request> => ({
@@ -126,7 +119,7 @@ jest.mock('firebase-admin', () => ({
       const next: NextFunction = jest.fn();
   
       // Mocking verifyIdToken to simulate an error
-      (firebaseAdmin.auth().verifyIdToken as jest.Mock).mockRejectedValue(new Error('Invalid token'));
+      (getAuth().verifyIdToken as jest.Mock).mockRejectedValue(new Error('Invalid token'));
   
       // Call your middleware function
       await validateUserSignedIn(req, res, next);
@@ -175,13 +168,16 @@ jest.mock('firebase-admin', () => ({
         const next = jest.fn();
       
         // Mock verifyIdToken to resolve
-        (firebaseAdmin.auth().verifyIdToken as jest.Mock).mockResolvedValue({ uid: '12345' });
+        (getAuth().verifyIdToken as jest.Mock).mockResolvedValue({ uid: '12345' });
       
         // Execute
         await validateUserSignedIn(req, res, next);
       
         // Assert
+        console.log(req);
+        expect(res.status).not.toHaveBeenCalled();
         expect(req).toHaveProperty('userToken');
+        
         expect(next).toHaveBeenCalled();
       });
       

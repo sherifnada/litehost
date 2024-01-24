@@ -8,7 +8,16 @@ import path from 'path';
 import { HOSTING_BUCKET_NAME } from '../aws/constants.js';
 import { ValidationError } from './errors.js';
 import { UploadedFile } from 'express-fileupload';
-import * as firebaseAdmin from 'firebase-admin';
+import { readFileSync } from 'fs';
+// import * as admin from 'firebase-admin';
+// const admin = (await import('firebase-admin')).default;
+import {initializeApp, cert} from 'firebase-admin/app';
+import {getAuth} from 'firebase-admin/auth';
+
+const firebaseKey = JSON.parse(readFileSync(path.join(process.cwd(), 'secrets/firebase-svcaccount-key.json')).toString());
+const firebaseApp = initializeApp({
+    credential: cert(firebaseKey),
+});
 
 const router = Router();
 
@@ -30,7 +39,8 @@ async function validateUserSignedIn(req, res, next) {
 
     try {
         // TODO unit test this
-        const decodedToken  = await firebaseAdmin.auth().verifyIdToken(idToken);
+        const auth = getAuth(firebaseApp);
+        const decodedToken  = await auth.verifyIdToken(idToken);
         req.userToken = decodedToken;
         next();
     } catch(error){
@@ -66,7 +76,6 @@ router.post('/create_site', validateUserSignedIn, async (req: Request, res) => {
             console.error(error);
             res.status(500).send('An error occurred while creating the site');
         }
-        
     }
 });
 
