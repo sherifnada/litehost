@@ -91,6 +91,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             // TODO sometimes it seems we upload the files for a website twice. Probably something wonky happening with the waitForUserLogin step above
             fetch('/create_site', {
                 method: 'POST',
+                headers: {Authorization: `Bearer ${await firebase.auth().currentUser.getIdToken(true)}`},
                 body: formData
             }).then(async response => {
                 uploadingStep.forEach(el => el.classList.add("hidden"));
@@ -127,7 +128,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
     }
 
-    function waitForUserLogin() {
+    async function waitForUserLogin() {
         return new Promise((resolve, reject) => {
             // if already logged in then exit
             if (firebase.auth().currentUser){
@@ -141,6 +142,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                     // If a user is logged in, resolve the promise with the user information
                     unsubscribe();
                     resolve(user);
+                    return;
                 }
             });
         });
