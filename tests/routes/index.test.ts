@@ -1,13 +1,22 @@
-import { inferContentRoot } from '../../src/routes/index.js';
+import { createRouter } from '../../src/routes/index.js';
 import { Request, Response, NextFunction } from 'express';
-import { validateUserSignedIn } from '../../src/routes/index.js';
+import {App} from 'firebase-admin/app';
 import AdmZip from 'adm-zip';
+
+import {getAuth} from 'firebase-admin/auth';
+jest.mock('firebase-admin/auth', () => ({
+    getAuth: jest.fn().mockReturnValue({
+        verifyIdToken: jest.fn()
+    })
+}));
+
 
 describe('inferContentRoot', () => {
     let mockZipFile;
+    let inferContentRoot;
 
     beforeEach(() => {
-        jest.clearAllMocks();
+        inferContentRoot = createRouter({} as App).inferContentRoot;
         mockZipFile = new AdmZip();
     });
 
@@ -87,47 +96,49 @@ describe('inferContentRoot', () => {
 });
 
 
-// AUTHENTICATION
-// Mock firebaseAdmin and its functions
-import {getAuth} from 'firebase-admin/auth';
 
-jest.mock('firebase-admin/auth', () => ({
-    getAuth: jest.fn().mockReturnValue({
-        verifyIdToken: jest.fn()
-    })
-}));
   
   // Utility function to create mock request
-  const createMockRequest = (authorizationHeader?: string): Partial<Request> => ({
+const createMockRequest = (authorizationHeader?: string): Partial<Request> => ({
     headers: {
-      authorization: authorizationHeader
+        authorization: authorizationHeader
     }
-  });
-  
-  // Utility function to create mock response
-  const createMockResponse = () => {
+});
+
+// Utility function to create mock response
+const createMockResponse = () => {
     const res: Partial<Response> = {};
     res.status = jest.fn().mockReturnValue(res);
     res.send = jest.fn().mockReturnValue(res);
     return res;
-  };
-  
-  describe('validateUserSignedIn', () => {
+};
+
+describe('validateUserSignedIn', () => {
+    let mockFirebaseApp;
+    let validateUserSignedIn;
+
+
+    beforeEach(() => {
+        mockFirebaseApp = jest.fn();
+        validateUserSignedIn = createRouter(mockFirebaseApp).validateUserSignedIn;
+    });
+
+
     it('should return 401 if verifyIdToken throws an error', async () => {
-      const req = createMockRequest('Bearer validToken') as Request;
-      const res = createMockResponse();
-      const next: NextFunction = jest.fn();
-  
-      // Mocking verifyIdToken to simulate an error
-      (getAuth().verifyIdToken as jest.Mock).mockRejectedValue(new Error('Invalid token'));
-  
-      // Call your middleware function
-      await validateUserSignedIn(req, res, next);
-  
-      // Assertions
-      expect(res.status).toHaveBeenCalledWith(401);
-      expect(res.send).toHaveBeenCalledWith({ error: "auth", message: "Invalid auth token" });
-      expect(next).not.toHaveBeenCalled();
+        const req = createMockRequest('Bearer validToken') as Request;
+        const res = createMockResponse();
+        const next: NextFunction = jest.fn();
+
+        // Mocking verifyIdToken to simulate an error
+        (getAuth().verifyIdToken as jest.Mock).mockRejectedValue(new Error('Invalid token'));
+
+        // Call your middleware function
+        await validateUserSignedIn(req, res, next);
+
+        // Assertions
+        expect(res.status).toHaveBeenCalledWith(401);
+        expect(res.send).toHaveBeenCalledWith({ error: "auth", message: "Invalid auth token" });
+        expect(next).not.toHaveBeenCalled();
     });
 
     it('return 401 if no bearer token is provided', async() => {
@@ -144,43 +155,42 @@ jest.mock('firebase-admin/auth', () => ({
 
     it('should return 401 for malformed bearer tokens', async () => {
         const malformedTokens = ['Bearer', 'Bearer123', 'Invalid bearer token', ''];
-      
+        
         for (const token of malformedTokens) {
-          // Setup
-          const req = createMockRequest(token);
-          const res = createMockResponse();
-          const next = jest.fn();
-      
-          // Execute
-          await validateUserSignedIn(req, res, next);
-      
-          // Assert
-          expect(res.status).toHaveBeenCalledWith(401);
-          expect(res.send).toHaveBeenCalled();
-          expect(next).not.toHaveBeenCalled();
+            // Setup
+            const req = createMockRequest(token);
+            const res = createMockResponse();
+            const next = jest.fn();
+        
+            // Execute
+            await validateUserSignedIn(req, res, next);
+        
+            // Assert
+            expect(res.status).toHaveBeenCalledWith(401);
+            expect(res.send).toHaveBeenCalled();
+            expect(next).not.toHaveBeenCalled();
         }
-      });
+        });
 
-      it('should call next() if bearer token is valid', async () => {
+        it('should call next() if bearer token is valid', async () => {
         // Setup
         const req = createMockRequest('Bearer validToken');
         const res = createMockResponse();
         const next = jest.fn();
-      
+        
         // Mock verifyIdToken to resolve
         (getAuth().verifyIdToken as jest.Mock).mockResolvedValue({ uid: '12345' });
-      
+        
         // Execute
         await validateUserSignedIn(req, res, next);
-      
+        
         // Assert
-        console.log(req);
         expect(res.status).not.toHaveBeenCalled();
         expect(req).toHaveProperty('userToken');
         
         expect(next).toHaveBeenCalled();
-      });
-      
-      
-  });
+        });
+    
+    
+});
 
