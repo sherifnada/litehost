@@ -42,5 +42,5 @@ jobs:
         script: |
           sudo docker load < /tmp/litehost.tar
           sudo docker stop litehost
-          sudo docker docker rm -f litehost
+          sudo docker rm -f litehost
           sudo docker run --rm -d -p 8080:3000 --name litehost -v $(pwd)/secrets:/usr/src/app/secrets litehost
