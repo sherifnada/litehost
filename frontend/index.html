@@ -22,6 +22,16 @@
     <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-auth-compat.js"></script>
     
     <link href="images/webclip.png" rel="apple-touch-icon">
+    <style>
+        .scrolling-banner {
+            animation: scroll 20s linear infinite;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+    </style>
 </head>
 <body>
 <!-- FULL PAGE HERO WRAPPER START-->
@@ -59,16 +69,18 @@
             </div>
             <p class="text-white-100 text-left leading-5">Host here</p>
         </div>
-        <div class="rounded-full bg-white-100 px-20 py-5 font-bold text-blue-100 text-center">Free forever for subdomains made before February 28th</div>
+        <div class="rounded-full bg-white-100 px-20 py-5 font-bold text-blue-100 text-center">Unlimited subdomain free forever</div>
     </div>
-    <div id="topright-login-button" class="flex items-center justify-center dark:bg-gray-800">
-        <button class="login-with-google bg-white-100 px-4 py-2 flex gap-2 rounded-lg">
-            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" class="w-6 h-6">
-                <g>
-                    <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path><path fill="none" d="M0 0h48v48H0z"></path>
-                </g>
-            </svg>
-            <span class="font-open-sans font-400">Login with Google</span>
+    <div id="topright-login-button">
+        <button class="login-with-google bg-blue-50 border-2 border-blue-50 hover:border-2 hover:border-white-50 rounded-full transition-all pl-7 pr-15 py-7 flex items-center justify-start gap-2 text-white-100">
+            <div class="rounded-full bg-white-100 p-7">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" class="w-6 h-6">
+                    <g>
+                        <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path><path fill="none" d="M0 0h48v48H0z"></path>
+                    </g>
+                </svg>
+            </div>
+            <span class="font-open-sans font-400">Login</span>
         </button>
     </div>
     <div id="logout-button" class="items-center justify-center dark:bg-gray-800 hidden">
@@ -160,17 +172,17 @@
                     <!-- STEP 2 | LAUNCH BUTTON END -->
                     <!-- CREATE AN ACCOUNT START-->
                     <!-- *** Google button needs work *** -->
-                    <div class="createAccountStep flex-col h-300 justify-center items-center gap-30 px-40 hidden">
-                        <div class="flex items-center justify-center dark:bg-gray-800">
-                            <button class="login-with-google border-2 px-4 py-2 flex gap-2 rounded-lg">
+                    <div class="createAccountStep flex flex-col h-300 justify-center items-center gap-30 px-40 hidden">
+                        <button class="login-with-google w-full border-2 border-blue-100 hover:bg-blue-100 rounded-full transition-all pl-7 pr-15 py-7 flex items-center justify-start gap-2 text-blue-100 hover:text-white-100">
+                            <div class="rounded-full bg-white-100 p-7">
                                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" class="w-6 h-6">
                                     <g>
                                         <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path><path fill="none" d="M0 0h48v48H0z"></path>
                                     </g>
                                 </svg>
-                                <span class="font-open-sans font-400">Login with Google</span>
-                            </button>
-                        </div>
+                            </div>
+                            <span class="font-open-sans font-400 w-full text-center mr-20">Login with Google</span>
+                        </button>
                     </div>
                     <!-- CREATE AN ACCOUNT END -->
                     <!-- STEP 3 | UPLOADING START -->
@@ -251,7 +263,7 @@
                     <div class="grid grid-cols-2 gap-20 w-full">
                         <div class="text-lg">
                             <h3 class="font-bold mb-2 leading-none">Dead Simple</h3>
-                            <p class="leading-6">Just upload a zip file. Re-upload to overwrite. Publishing tools <a href="https://docs.google.com/forms/d/e/1FAIpQLScy1jqKfwk56CMXDcdtXAPERrQJUZb82-lwFZ17kWWLKho42A/viewform?usp=sf_link" target="_blank" class="underline">coming soon</a>.</p>
+                            <p class="leading-6">Just upload a zip file. Re-upload to overwrite. Website builder publishing tools <a href="https://docs.google.com/forms/d/e/1FAIpQLScy1jqKfwk56CMXDcdtXAPERrQJUZb82-lwFZ17kWWLKho42A/viewform?usp=sf_link" target="_blank" class="underline">coming soon</a>.</p>
                         </div>
                         <div class="text-lg">
                             <h3 class="font-bold mb-2 leading-none">SSL included</h3>
@@ -271,6 +283,170 @@
             </div>
         </div>
 <!-- HERO SECTION END -->
+<!-- JOIN WAITLIST INFINITE SCROLL START -->
+<div class="overflow-hidden w-full bg-pink-100 hover:underline text-white-100 h-80">
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLScy1jqKfwk56CMXDcdtXAPERrQJUZb82-lwFZ17kWWLKho42A/viewform?usp=sf_link" target="_blank" >
+        <div class="scrolling-banner whitespace-nowrap h-full bg-blue-500 text-white flex flex-row items-center gap-20 py-0 text-white-100 text-4xl font-bold">
+            <span>Launch custom domains</span>
+            <span>🏴‍☠️</span>
+            <span>Go pro</span>
+            <span>🔥</span>
+            <span>Launch custom domains</span>
+            <span>🏴‍☠️</span>
+            <span>Go pro</span>
+            <span>🔥</span>
+            <span>Launch custom domains</span>
+            <span>🏴‍☠️</span>
+            <span>Go pro</span>
+            <span>🔥</span>
+            <span>Launch custom domains</span>
+            <span>🏴‍☠️</span>
+            <span>Go pro</span>
+            <span>🔥</span>
+            <span>Launch custom domains</span>
+            <span>🏴‍☠️</span>
+            <span>Go pro</span>
+            <span>🔥</span>
+            <span>Launch custom domains</span>
+            <span>🏴‍☠️</span>
+            <span>Go pro</span>
+            <span>🔥</span>
+            <span>Launch custom domains</span>
+            <span>🏴‍☠️</span>
+            <span>Go pro</span>
+            <span>🔥</span>
+            <span>Launch custom domains</span>
+            <span>🏴‍☠️</span>
+            <span>Go pro</span>
+            <span>🔥</span>
+        </div>
+    </a>
+</div>
+<!-- JOIN WAITLIST INFINITE SCROLL END -->
+<!-- HOW IT WORKS START -->
+<div class="py-150 bg-white-100 flex flex-col gap-80">
+    <div>
+        <h3 class="text-center font-bold text-5xl text-black-100 mb-15">How's it work?</h3>
+        <h4  class="text-center font-normal text-2xl text-black-100">What are you launching?</h4>
+    </div>
+    <div class="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8">
+        <p class="mb-20 text-2xl text-black-100 font-normal text-center">My own file:</p>
+        <a href="https://litehost.io/buidlers/zip.html" class="bg-pink-100 transition-all h-95 w-full rounded-lg hover:drop-shadow-blue overflow-clip flex flex-row justify-center items-center gap-25">
+            <p class="text-5xl font-bold whitespace-nowrap text-white-100">ZIP File</p>
+            <img class="rotate-20 w-45" src="./images/zip-icon-blue.svg">
+            <p class="text-5xl font-bold whitespace-nowrap text-white-100">ZIP File</p>
+            <img class="rotate-neg20 w-45" src="./images/zip-icon-blue.svg">
+            <p class="text-5xl font-bold whitespace-nowrap flex flex-row text-white-100">ZIP File</p>
+            <img class="rotate-20 w-45" src="./images/zip-icon-blue.svg">
+            <p class="text-5xl font-bold whitespace-nowrap text-white-100">ZIP File</p>
+            <img class="rotate-neg20 w-45" src="./images/zip-icon-blue.svg">
+            <p class="text-5xl font-bold whitespace-nowrap text-white-100">ZIP File</p>
+            <img class="rotate-20 w-45" src="./images/zip-icon-blue.svg">
+        </a>
+    </div>
+    <div class="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8">
+        <p class="mb-20 text-2xl text-black-100 font-normal text-center">A site from a website builder:</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-20">
+            <a href="https://litehost.io/builders/webflow.html" class="w-full bg-blue-100 h-100 rounded-lg flex justify-center items-center hover:drop-shadow-blue transition-all"><img src="images/webflow-logo.svg"></a>
+            <a href="https://litehost.io/builders/wordpress" class="w-full bg-black-100 h-100 rounded-lg flex justify-center items-center hover:drop-shadow-blue transition-all"><img src="builders/images/wordpress-logo-white.svg"></a>
+            <a href="https://litehost.io/builders/squarespace" class="w-full bg-black-100 h-100 rounded-lg flex justify-center items-center hover:drop-shadow-blue transition-all"><img src="builders/images/squarespace-logo.svg"></a>
+            <a href="https://litehost.io/builders/wix" class="w-full bg-wix h-100 rounded-lg flex justify-center items-center hover:drop-shadow-blue transition-all"><img src="builders/images/wix-white.svg"></a>
+        </div>
+    </div>
+</div>
+<!-- HOW IT WORKS END -->
+<!-- FEATURES START -->
+<div class="py-150 bg-white-50">
+    <h3 class="text-center font-bold text-5xl mb-80 text-black-100">What's included?</h3>
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 sm:grid-cols-1 gap-20">
+        <div class="flex flex-col gap-30 rounded-lg bg-pink-100 p-40">
+            <div class="h-70">
+                <img src="builders/images/maintenance.svg" width="60px">
+            </div>
+            <div class="text-white-100 flex flex-col gap-10">
+                <h3 class="font-bold text-2xl">Zero maintenance</h3>
+                <p class="font-normal text-xl">We handle all aspects of hosting and optimizing your site. Always on, forever. </p>
+            </div>
+        </div>
+        <div class="flex flex-col gap-30 rounded-lg bg-pink-100 p-40">
+            <div class="h-70">
+                <img src="builders/images/security.svg" width="45px">
+            </div>
+            <div class="text-white-100 flex flex-col gap-10">
+                <h3 class="font-bold text-2xl">Free SSL</h3>
+                <p class="font-normal text-xl">SSL is a bi*ch. We handle securing and maintaining your SSL certificates launching your site with https://.</p>
+            </div>
+        </div>
+        <div class="flex flex-col gap-30 rounded-lg bg-pink-100 p-40">
+            <div class="h-70">
+                <img src="builders/images/traffic.svg" width="45px">
+            </div>
+            <div class="text-white-100 flex flex-col gap-10">
+                <h3 class="font-bold text-2xl">Traffic-surge ready</h3>
+                <p class="font-normal text-xl">Litehost is infinitely scalable to handle all your traffic – whether you're just getting started or launching a heavily trafficed site.</p>
+            </div>
+        </div>
+        <div class="flex flex-col gap-30 rounded-lg bg-pink-100 p-40">
+            <div class="h-70">
+                <img src="builders/images/global.svg" width="45px">
+            </div>
+            <div class="text-white-100 flex flex-col gap-10">
+                <h3 class="font-bold text-2xl">Global CDN</h3>
+                <p class="font-normal text-xl">We serve up your website as close to your customers as physically possible. We use a global CDN optimized for speed.</p>
+            </div>
+        </div>
+        <div class="flex flex-col gap-30 rounded-lg bg-pink-100 p-40">
+            <div class="h-70">
+                <img src="builders/images/cache.svg" width="45px">
+            </div>
+            <div class="text-white-100 flex flex-col gap-10">
+                <h3 class="font-bold text-2xl">Advanced caching</h3>
+                <p class="font-normal text-xl">Every launch and update publishes across global caches instantly. Zero maintenance window.</p>
+            </div>
+        </div>
+        <div class="flex flex-col gap-30 rounded-lg bg-transparent border-2 border-black-100 p-40">
+            <div class="h-70 flex flex-row justify-start w-full">
+                <img class="mr-auto" src="builders/images/chrome.svg" width="45px">
+                <a class="flex items-center bg-pink-100 hover:drop-shadow-pink transition-all rounded-md p-15 text-xl font-bold text-white-100" href="https://docs.google.com/forms/d/e/1FAIpQLScy1jqKfwk56CMXDcdtXAPERrQJUZb82-lwFZ17kWWLKho42A/viewform?usp=sf_link" target="_blank">Join waitlist</a>
+            </div>
+            <div class="text-black-100 flex flex-col gap-10">
+                <h3 class="font-bold text-2xl">Quick launch extensions</h3>
+                <p class="font-normal text-xl">Go from your website builder and staging to live on production without lifting a finger.</p>
+            </div>
+        </div>
+        <div class="flex flex-col gap-30 rounded-lg bg-transparent border-2 border-black-100 p-40">
+            <div class="h-70 flex flex-row justify-start w-full">
+                <img class="mr-auto" src="builders/images/form.svg" width="45px">
+                <a class="flex items-center bg-pink-100 hover:drop-shadow-pink transition-all rounded-md p-15 text-xl font-bold text-white-100" href="https://docs.google.com/forms/d/e/1FAIpQLScy1jqKfwk56CMXDcdtXAPERrQJUZb82-lwFZ17kWWLKho42A/viewform?usp=sf_link" target="_blank">Join waitlist</a>
+            </div>
+            <div class="text-black-100 flex flex-col gap-10">
+                <h3 class="font-bold text-2xl">Form support</h3>
+                <p class="font-normal text-xl">Manage your form submissions direction from Litehost. Automatically re-route forms built on website builders.</p>
+            </div>
+        </div>
+        <div class="flex flex-col gap-30 rounded-lg bg-transparent border-2 border-black-100 p-40">
+            <div class="h-70 flex flex-row justify-start w-full">
+                <img class="mr-auto" src="builders/images/cms.svg" width="45px">
+                <a class="flex items-center bg-pink-100 hover:drop-shadow-pink transition-all rounded-md p-15 text-xl font-bold text-white-100" href="https://docs.google.com/forms/d/e/1FAIpQLScy1jqKfwk56CMXDcdtXAPERrQJUZb82-lwFZ17kWWLKho42A/viewform?usp=sf_link" target="_blank">Join waitlist</a>
+            </div>
+            <div class="text-black-100 flex flex-col gap-10">
+                <h3 class="font-bold text-2xl">CMS Support</h3>
+                <p class="font-normal text-xl">Use your website builder's CMS or bring in a third-party. We're here to host flawlessly, not tell you what CMS to use.</p>
+            </div>
+        </div>
+        <div class="flex flex-col gap-30 rounded-lg bg-transparent border-2 border-black-100 p-40">
+            <div class="h-70 flex flex-row justify-start w-full">
+                <img class="mr-auto" src="images/logo-block-black.svg" width="45px">
+                <a class="flex items-center bg-pink-100 hover:drop-shadow-pink transition-all rounded-md p-15 text-xl font-bold text-white-100" href="https://docs.google.com/forms/d/e/1FAIpQLScy1jqKfwk56CMXDcdtXAPERrQJUZb82-lwFZ17kWWLKho42A/viewform?usp=sf_link" target="_blank">Let us know</a>
+            </div>
+            <div class="text-black-100 flex flex-col gap-10">
+                <h3 class="font-bold text-2xl">What else?</h3>
+                <p class="font-normal text-xl">We're building fast – tell us what features you need to switch to litehost and we'll prioritize them.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- FEATURES END -->
 <!-- FOOTER START -->
 <footer class="bg-white-100" aria-labelledby="footer-heading">
     <div class="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
