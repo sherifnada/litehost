@@ -61,7 +61,7 @@
         </div>
         <div class="rounded-full bg-white-100 px-20 py-5 font-bold text-blue-100 text-center">Free forever for subdomains made before February 28th</div>
     </div>
-    <div class="flex items-center justify-center dark:bg-gray-800">
+    <div id="topright-login-button" class="flex items-center justify-center dark:bg-gray-800">
         <button class="login-with-google bg-white-100 px-4 py-2 flex gap-2 rounded-lg">
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" class="w-6 h-6">
                 <g>
@@ -69,6 +69,11 @@
                 </g>
             </svg>
             <span class="font-open-sans font-400">Login with Google</span>
+        </button>
+    </div>
+    <div id="logout-button" class="items-center justify-center dark:bg-gray-800 hidden">
+        <button class="bg-white-100 px-4 py-2 flex gap-2 rounded-lg">
+            <span class="font-open-sans font-400">Logout</span>
         </button>
     </div>
 </nav>
