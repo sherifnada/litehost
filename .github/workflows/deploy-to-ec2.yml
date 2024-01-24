@@ -29,7 +29,7 @@ jobs:
         mkdir secrets
         echo "$DOTENV_FILE" > secrets/.env.prod
         echo "$FIREBASE_SVCACCOUNT_KEY" > secrets/firebase-svcaccount-key.json
-        scp -r -o StrictHostKeyChecking=no -i mysshkey secrets ubuntu@ec2-18-217-17-33.us-east-2.compute.amazonaws.com:~/secrets
+        scp -r -o StrictHostKeyChecking=no -i mysshkey secrets ubuntu@ec2-18-217-17-33.us-east-2.compute.amazonaws.com:~/
         
 
 
@@ -41,5 +41,6 @@ jobs:
         key: ${{ secrets.LITEHOST_HOST_RSA_KEY }}
         script: |
           sudo docker load < /tmp/litehost.tar
-          sudo docker stop litehost || true
+          sudo docker stop litehost
+          sudo docker docker rm -f litehost
           sudo docker run --rm -d -p 8080:3000 --name litehost -v $(pwd)/secrets:/usr/src/app/secrets litehost
