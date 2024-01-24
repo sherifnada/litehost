@@ -1423,6 +1423,7 @@ video {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
+
 .hover\:border-2:hover {
   border-width: 2px;
 }
@@ -1455,6 +1456,7 @@ video {
 .hover\:underline:hover {
   text-decoration-line: underline;
 }
+
 
 .hover\:shadow-md:hover {
   --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);

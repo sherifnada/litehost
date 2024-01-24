@@ -11,7 +11,22 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
+function toggleLoginLogoutButtons(user){
+    if (firebase.auth().currentUser){
+        // show logout
+        document.getElementById("topright-login-button").classList.replace("flex", "hidden");
+        document.getElementById("logout-button").classList.replace("hidden", "flex");
+    } else {
+        // show login
+        document.getElementById("logout-button").classList.replace("flex", "hidden");
+        document.getElementById("topright-login-button").classList.replace("hidden", "flex");
+    }
+}
+
+firebase.auth().onAuthStateChanged(toggleLoginLogoutButtons);
+
 document.addEventListener('DOMContentLoaded', async function () {
+
     const nameYourSub = document.getElementById('nameYourSub');
     const uploadStep = document.querySelectorAll('.uploadStep');
     const fileUpload = document.getElementById('fileUpload');
@@ -91,6 +106,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             // TODO sometimes it seems we upload the files for a website twice. Probably something wonky happening with the waitForUserLogin step above
             fetch('/create_site', {
                 method: 'POST',
+                headers: {Authorization: `Bearer ${await firebase.auth().currentUser.getIdToken(true)}`},
                 body: formData
             }).then(async response => {
                 uploadingStep.forEach(el => el.classList.add("hidden"));
@@ -127,7 +143,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
     }
 
-    function waitForUserLogin() {
+    async function waitForUserLogin() {
         return new Promise((resolve, reject) => {
             // if already logged in then exit
             if (firebase.auth().currentUser){
@@ -141,13 +157,19 @@ document.addEventListener('DOMContentLoaded', async function () {
                     // If a user is logged in, resolve the promise with the user information
                     unsubscribe();
                     resolve(user);
+                    return;
                 }
             });
         });
     }
       
+    function logoutUser(){
+        firebase.auth().signOut();
+        location.reload();
+    }
 
     document.querySelectorAll(".login-with-google").forEach(el => el.addEventListener("click",  signInWithGoogle));
+    document.getElementById("logout-button").addEventListener("click", logoutUser);
 
 // ================ END FIREBASE ====================
 
