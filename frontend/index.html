@@ -53,7 +53,7 @@
 <!-- DRAG AND DROP END -->
 <!-- NAV START -->
 <nav class="bg-transparent flex md:justify-between py-40 px-3 lg:px-100 md:px-50 items-center justify-center font-normal flex-col md:flex-row gap-5 md:gap-0">
-    <div class="md:mr-80">
+    <div class="md:mr-5%">
         <a href="https://litehost.io" class="bg-blue-50 rounded-full flex justify-center items-center p-20">
             <img src="./images/logo-block-white.svg" alt="Litehost logo" width="36">
         </a>
@@ -69,7 +69,7 @@
             </div>
             <p class="text-white-100 text-left leading-5">Host here</p>
         </div>
-        <div class="rounded-full bg-white-100 px-20 py-5 font-bold text-blue-100 text-center">Unlimited subdomain free forever</div>
+        <div class="rounded-full bg-white-100 px-20 py-5 font-bold text-blue-100 text-center">Unlimited subdomains free forever</div>
     </div>
     <div id="topright-login-button">
         <button class="login-with-google bg-blue-50 border-2 border-blue-50 hover:border-2 hover:border-white-50 rounded-full transition-all pl-7 pr-15 py-7 flex items-center justify-start gap-2 text-white-100">
@@ -105,9 +105,12 @@
                                 <p class="text-xl">The world is your oyster.</p>
                             </div>
                             <div class="flex flex-row">
-                                <!-- Input styling could be improved -->
                                 <input name="subdomain" id="subDomain-text" type="text" class="bg-white-50 border-blue-100 border-t-2 border-b-2 border-l-2 px-2 py-2 rounded-l-lg focus:ring-pink-100 text-right w-160" placeholder="anythingyouwant"></input>
                                 <div class="bg-white-100 border-blue-100 border-2 px-2 py-2 rounded-r-lg font-bold text-blue-100">.litehost.io</div>
+                            </div>
+                            <!-- VALIDATION -->
+                            <div>
+                                <p class="text-xl text-pink-100 font-bold">Placeholder for subdomain validation</p>
                             </div>
                         </div>
                     </div>
@@ -206,9 +209,15 @@
                     <!-- ADDITIONAL INFO START -->
                     <!-- STEP 1 | ZIP INFO - PINK START-->
                     <div>
-                        <div class="uploadStep px-40 h-130 flex flex-row justify-center items-center bg-white-50 rounded-b-xl gap-10">
-                            <img src="images/zip-icon-pink.svg" width="30px">
-                            <p class="font-normal text-xl text-pink-100">ZIPs only (for now)</p>
+                        <div class="uploadStep px-40 h-130 flex flex-col justify-center items-center bg-white-50 rounded-b-xl gap-10">
+                            <!-- VALIDATION -->
+                            <div>
+                                <p class="text-xl text-pink-100 font-bold">Placeholder for subheader validation</p>
+                            </div>
+                            <div class="flex flex-row justify-center items-center gap-10">
+                                <img src="images/zip-icon-pink.svg" width="30px">
+                                <p class="font-normal text-xl text-pink-100">ZIPs only (for now)</p>
+                            </div>
                         </div>
                     </div>
                     <!-- STEP 1 | ZIP INFO - PINK END -->
@@ -452,7 +461,7 @@
     <div class="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
     <div class="xl:grid xl:grid-cols-3 xl:gap-8">
         <div class="space-y-8">
-        <img class="h-7" src="images/litehost-logo-pink.svg" alt="Litehost.io">
+        <img class="max-w-150" src="images/litehost-logo-pink.svg" alt="Litehost.io">
         <p class="text-sm leading-6 text-gray-600">Launch websites fast, get back to building.</p>
         <!-- <div class="flex space-x-6">
             <a href="#" class="text-gray-400 hover:text-gray-500">
