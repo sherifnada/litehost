@@ -27,6 +27,16 @@ class SubdomainOwnerModel {
         const result: QueryResult = await this.client.singleQuery(query, [owner]);
         return result.rows;
     }
+
+    async subdomainAlreadyInUse(subdomain: string): Promise<boolean> {
+        return !!(await this.getRowForSubdomain(subdomain));
+    }
+
+    async associateSubdomainWithOwner(subdomain: string, owner: string){
+        const query = 'INSERT INTO subdomain_owner(subdomain, owner) VALUES($1, $2)';
+        const result: QueryResult = await this.client.singleQuery(query, [subdomain, owner]);
+        return result;
+    }
 }
 
 export { SubdomainOwner, SubdomainOwnerModel };
