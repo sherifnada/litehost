@@ -117,7 +117,9 @@ document.addEventListener('DOMContentLoaded', async function() {
         const data = await response.json();
         if (response.status >= 200 && response.status < 300) {
           successStep.forEach(el => el.classList.remove("hidden"));
-          document.getElementById("success-url").innerText = data.websiteUrl;
+          const successAnchor = document.getElementById("success-url");
+          successAnchor.innerText = data.websiteUrl;
+          successAnchor.href = data.websiteUrl;
         } else if (response.status >= 400 < 500) {
           failStep.forEach(el => el.classList.remove("hidden"));
           document.getElementById("serverside-failure-message").innerText = data.message;
