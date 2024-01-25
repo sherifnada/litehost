@@ -1,18 +1,21 @@
-import { Router, Request } from 'express';
-import express from 'express';
+import express, { Request, Router } from 'express';
 
-import { readFile, uploadDir } from '../aws/s3Client.js';
-import { unzipToTmpDir, listZipfileContents } from '../utils/zip.js';
 import AdmZip from 'adm-zip';
-import path from 'path';
-import { HOSTING_BUCKET_NAME } from '../aws/constants.js';
-import { ValidationError } from './errors.js';
 import { UploadedFile } from 'express-fileupload';
 import { App } from 'firebase-admin/app';
 import { getAuth } from 'firebase-admin/auth';
-
-const createRouter = (firebaseApp: App) => {
+import path from 'path';
+import { HOSTING_BUCKET_NAME } from '../aws/constants.js';
+import { readFile, uploadDir } from '../aws/s3Client.js';
+import DbClient from '../models/dbClient.js';
+import { listZipfileContents, unzipToTmpDir } from '../utils/zip.js';
+import { ValidationError } from './errors.js';
+import { SubdomainOwnerModel } from '../models/subdomainOwner.js';
+//
+const createRouter = (firebaseApp: App, dbClient: DbClient) => {
   const router = Router();
+  const subdomainOwnerModel = new SubdomainOwnerModel(dbClient);
+
   function parseBearerToken(token: string): string | undefined {
     const split = token?.split(" ");
     if (split && split.length === 2) {
@@ -39,6 +42,20 @@ const createRouter = (firebaseApp: App) => {
       res.status(401).send({ error: "auth", message: "Invalid auth token" })
     }
   }
+
+  router.post('/is_site_available', async (req, res) => {
+    try {
+      validateSubdomain(req.body);
+      const available = !await subdomainOwnerModel.subdomainAlreadyInUse(req.body.subdomain);
+      res.status(200).send({ available });
+    } catch (error) {
+      if (error instanceof ValidationError) {
+        res.status(error.status).send(error.body);
+      } else {
+        res.status(500).send({ error: "internal", message: "Internal server error" });
+      }
+    }
+  });
 
   router.post('/create_site', validateUserSignedIn, async (req: Request, res) => {
     // TODO add API contract somewhere as middleware, this validation is nuts
