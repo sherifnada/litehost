@@ -174,7 +174,6 @@ jest.mock('firebase-admin/auth', () => ({
         await validateUserSignedIn(req, res, next);
       
         // Assert
-        console.log(req);
         expect(res.status).not.toHaveBeenCalled();
         expect(req).toHaveProperty('userToken');
         

@@ -1,35 +1,32 @@
-import postgres from 'postgres';
+import { QueryResult } from 'pg';
+import DbClient from './dbClient.js';
 
-// Define a type for the SubdomainOwner row
+// Define the TypeScript type for a row in the subdomain_owner table
 type SubdomainOwner = {
     subdomain: string;
-    id: string; // UUIDs are strings in JavaScript/TypeScript
+    id: string;  // UUIDs are represented as strings in JavaScript
     owner: string;
     created_at: Date;
 };
 
-// SubdomainOwnerModel class
 class SubdomainOwnerModel {
-    private dbQueryFn: postgres.Sql;
+    private client: DbClient;
 
-    constructor(dbQueryFn: postgres.Sql) {
-        this.dbQueryFn = dbQueryFn;
+    constructor(client: DbClient) {
+        this.client = client;
     }
 
-    // Method to get a row for a given subdomain
-    async getSubdomainAndOwner(subdomain: string): Promise<SubdomainOwner | null> {
-        const query = await this.dbQueryFn`
-            SELECT * FROM subdomain_owner WHERE subdomain = ${ subdomain }
-        `;
-        return query[0] as SubdomainOwner
+    async getRowForSubdomain(subdomain: string): Promise<SubdomainOwner | null> {
+        const query = 'SELECT * FROM subdomain_owner WHERE subdomain = $1';
+        const result: QueryResult = await this.client.singleQuery(query, [subdomain]);
+        return result.rows.length ? result.rows[0] : null;
     }
 
-    // Method to get rows for a given owner
     async getRowsForOwner(owner: string): Promise<SubdomainOwner[]> {
         const query = 'SELECT * FROM subdomain_owner WHERE owner = $1';
-        const result = await this.dbQueryFn.query(query, [owner]);
+        const result: QueryResult = await this.client.singleQuery(query, [owner]);
         return result.rows;
     }
 }
 
-export { SubdomainOwner, SubdomainOwnerModel, PostgresClient };
+export { SubdomainOwner, SubdomainOwnerModel };
