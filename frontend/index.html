@@ -1,6 +1,15 @@
 <!doctype html>
 <html>
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RG1TG4XW4D"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-RG1TG4XW4D');
+    </script>
     <title>Litehost is the fastest way to launch and host a website with SSL</title>
     <meta charset="UTF-8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,10 +20,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="./output.css" rel="stylesheet">
-    <!-- need to make favicons
     <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
     <link href="images/webclip.png" rel="apple-touch-icon">
-    -->
     <!-- Firebase App is always required and must be first -->
     <script src='https://www.gstatic.com/firebasejs/10.7.2/firebase-app-compat.js'></script>
 
@@ -69,7 +76,7 @@
             </div>
             <p class="text-white-100 text-left leading-5">Host here</p>
         </div>
-        <div class="rounded-full bg-white-100 px-20 py-5 font-bold text-blue-100 text-center">Unlimited subdomains free forever</div>
+        <a href=https://litehost.io/pricing.html" class="rounded-full bg-white-100 px-20 py-5 font-bold text-blue-100 text-center">Unlimited subdomains free forever</a>
     </div>
     <div id="topright-login-button">
         <button class="login-with-google bg-blue-50 border-2 border-blue-50 hover:border-2 hover:border-white-50 rounded-full transition-all pl-7 pr-15 py-7 flex items-center justify-start gap-2 text-white-100">
@@ -80,12 +87,15 @@
                     </g>
                 </svg>
             </div>
-            <span class="font-open-sans font-400">Login</span>
+            <span class="font-open-sans font-400">Sign in</span>
         </button>
     </div>
-    <div id="logout-button" class="items-center justify-center dark:bg-gray-800 hidden">
-        <button class="bg-white-100 px-4 py-2 flex gap-2 rounded-lg">
-            <span class="font-open-sans font-400">Logout</span>
+    <div id="logout-button" class="hidden">
+        <button class="bg-blue-50 border-2 border-blue-50 hover:border-2 hover:border-white-50 rounded-full transition-all pl-7 pr-15 py-7 flex items-center justify-start gap-2 text-white-100">
+            <div class="rounded-full bg-white-100 p-7">
+                <img src="images/sign-out-black.svg" alt="Sign out">
+            </div>
+            <span class="font-open-sans font-400">Sign out</span>
         </button>
     </div>
 </nav>
@@ -105,6 +115,26 @@
                                 <p class="text-xl">The world is your oyster.</p>
                             </div>
                             <div class="flex flex-row">
+                                <div class="relative inline-block text-left mr-5">
+                                    <button id="menu-button" type="button" class="inline-flex items-center justify-center w-full h-full px-4 py-2 text-blue-100 focus:text-white-100 rounded-lg border-2 border-blue-100 bg-white hover:bg-blue-50 focus:bg-blue-100 transition-all">
+                                        <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="13" height="8" viewBox="0 0 13 8" fill="none">
+                                            <path d="M7.22954 7.47183C6.83446 7.89324 6.16554 7.89324 5.77046 7.47183L0.578696 1.93394C-0.0200538 1.29528 0.432792 0.25 1.30823 0.25L11.6918 0.250001C12.5672 0.250001 13.0201 1.29528 12.4213 1.93394L7.22954 7.47183Z"/>
+                                        </svg>
+                                    </button>
+                                    <div id="dropdown" class="overflow-clip bg-white-100 z-10 origin-top-left absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-blue-100 transform scale-95 opacity-0 transition ease-out duration-100" style="display: none;">
+                                        <div class="truncate" role="menu" aria-orientation="vertical" aria-labelledby="menu-button">
+                                            <!-- SUBDOMAINS GO HERE -->
+                                            <a href="#" class="block px-4 py-2 text-lg bg-white-100 hover:bg-white-50 transition-all font-normal text-black-100 hover:bg-gray-100" role="menuitem">pipeweave</a>
+                                            <a href="#" class="block px-4 py-2 text-lg bg-white-100 hover:bg-white-50 transition-all font-normal text-black-100 hover:bg-gray-100" role="menuitem">betonme</a>
+                                            <a href="#" class="block px-4 py-2 text-lg bg-white-100 hover:bg-white-50 transition-all font-normal text-black-100 hover:bg-gray-100" role="menuitem">mindfulcarts</a>
+                                            <a href="#" class="block px-4 py-2 text-lg bg-white-100 hover:bg-white-50 transition-all font-normal text-black-100 hover:bg-gray-100" role="menuitem">mindfulcartsreallylongsubdomain</a>
+                                            <a href="#" class="block px-4 py-2 text-lg bg-white-100 hover:bg-white-50 transition-all font-normal text-black-100 hover:bg-gray-100" role="menuitem">mindfulcarts</a>
+                                            <a href="#" class="block px-4 py-2 text-lg bg-white-100 hover:bg-white-50 transition-all font-normal text-black-100 hover:bg-gray-100" role="menuitem">mindfulcarts</a>
+                                            <a href="#" class="block px-4 py-2 text-lg bg-white-100 hover:bg-white-50 transition-all font-normal text-black-100 hover:bg-gray-100" role="menuitem">mindfulcarts</a>
+                                            <a href="#" class="block px-4 py-2 text-lg bg-white-100 hover:bg-white-50 transition-all font-normal text-black-100 hover:bg-gray-100" role="menuitem">mindfulcarts</a>
+                                        </div>
+                                    </div>
+                                </div>
                                 <input name="subdomain" id="subDomain-text" type="text" class="bg-white-50 border-blue-100 border-t-2 border-b-2 border-l-2 px-2 py-2 rounded-l-lg focus:ring-pink-100 text-right w-160" placeholder="anythingyouwant"></input>
                                 <div class="bg-white-100 border-blue-100 border-2 px-2 py-2 rounded-r-lg font-bold text-blue-100">.litehost.io</div>
                             </div>
@@ -112,6 +142,7 @@
                             <div>
                                 <p class="text-xl text-pink-100 font-bold">Placeholder for subdomain validation</p>
                             </div>
+                            <!-- VALIDATION -->
                         </div>
                     </div>
                     <!-- STEP 1+2 | NAME YOUR SUB END -->
@@ -174,7 +205,6 @@
                     </div>
                     <!-- STEP 2 | LAUNCH BUTTON END -->
                     <!-- CREATE AN ACCOUNT START-->
-                    <!-- *** Google button needs work *** -->
                     <div class="createAccountStep flex flex-col h-300 justify-center items-center gap-30 px-40 hidden">
                         <button class="login-with-google w-full border-2 border-blue-100 hover:bg-blue-100 rounded-full transition-all pl-7 pr-15 py-7 flex items-center justify-start gap-2 text-blue-100 hover:text-white-100">
                             <div class="rounded-full bg-white-100 p-7">
@@ -184,7 +214,7 @@
                                     </g>
                                 </svg>
                             </div>
-                            <span class="font-open-sans font-400 w-full text-center mr-20">Login with Google</span>
+                            <span class="font-open-sans font-400 w-full text-center mr-20">Sign in with Google</span>
                         </button>
                     </div>
                     <!-- CREATE AN ACCOUNT END -->
@@ -272,7 +302,7 @@
                     <div class="grid grid-cols-2 gap-20 w-full">
                         <div class="text-lg">
                             <h3 class="font-bold mb-2 leading-none">Dead Simple</h3>
-                            <p class="leading-6">Just upload a zip file. Re-upload to overwrite. Website builder publishing tools <a href="https://docs.google.com/forms/d/e/1FAIpQLScy1jqKfwk56CMXDcdtXAPERrQJUZb82-lwFZ17kWWLKho42A/viewform?usp=sf_link" target="_blank" class="underline">coming soon</a>.</p>
+                            <p class="leading-6">Just upload a zip file. Re-upload to overwrite. Website builder publishing tools <a href="https://litehost.io/pricing.html?openModal=true" class="underline">coming soon</a>.</p>
                         </div>
                         <div class="text-lg">
                             <h3 class="font-bold mb-2 leading-none">SSL included</h3>
@@ -283,7 +313,7 @@
                             <p class="leading-6">Once you secure a litehost.io subdomain it's yours forever.</p>
                         </div>
                         <div class="text-lg">
-                            <h3 class="font-bold mb-2 leading-none">Custom domains <a class="font-normal underline" href="https://docs.google.com/forms/d/e/1FAIpQLScy1jqKfwk56CMXDcdtXAPERrQJUZb82-lwFZ17kWWLKho42A/viewform?usp=sf_link" target="_blank">(join waitlist)</a></h3>
+                            <h3 class="font-bold mb-2 leading-none">Custom domains <a class="font-normal underline" href="https://litehost.io/pricing.html?openModal=true">(join waitlist)</a></h3>
                             <p class="leading-6">Launch anything you want on any domain you want.</p>
                         </div>
                     </div>
@@ -294,7 +324,7 @@
 <!-- HERO SECTION END -->
 <!-- JOIN WAITLIST INFINITE SCROLL START -->
 <div class="overflow-hidden w-full bg-pink-100 hover:underline text-white-100 h-80">
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLScy1jqKfwk56CMXDcdtXAPERrQJUZb82-lwFZ17kWWLKho42A/viewform?usp=sf_link" target="_blank" >
+    <a href="https://litehost.io/pricing.html?openModal=true" >
         <div class="scrolling-banner whitespace-nowrap h-full bg-blue-500 text-white flex flex-row items-center gap-20 py-0 text-white-100 text-4xl font-bold">
             <span>Launch custom domains</span>
             <span>🏴‍☠️</span>
@@ -357,9 +387,9 @@
         <p class="mb-20 text-2xl text-black-100 font-normal text-center">A site from a website builder:</p>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-20">
             <a href="https://litehost.io/builders/webflow.html" class="w-full bg-blue-100 h-100 rounded-lg flex justify-center items-center hover:drop-shadow-blue transition-all"><img src="images/webflow-logo.svg"></a>
-            <a href="https://litehost.io/builders/wordpress" class="w-full bg-black-100 h-100 rounded-lg flex justify-center items-center hover:drop-shadow-blue transition-all"><img src="builders/images/wordpress-logo-white.svg"></a>
-            <a href="https://litehost.io/builders/squarespace" class="w-full bg-black-100 h-100 rounded-lg flex justify-center items-center hover:drop-shadow-blue transition-all"><img src="builders/images/squarespace-logo.svg"></a>
-            <a href="https://litehost.io/builders/wix" class="w-full bg-wix h-100 rounded-lg flex justify-center items-center hover:drop-shadow-blue transition-all"><img src="builders/images/wix-white.svg"></a>
+            <a href="https://litehost.io/builders/wordpress.html" class="w-full bg-black-100 h-100 rounded-lg flex justify-center items-center hover:drop-shadow-blue transition-all"><img src="builders/images/wordpress-logo-white.svg"></a>
+            <a href="https://litehost.io/builders/squarespace.html" class="w-full bg-black-100 h-100 rounded-lg flex justify-center items-center hover:drop-shadow-blue transition-all"><img src="builders/images/squarespace-logo.svg"></a>
+            <a href="https://litehost.io/builders/wix.html" class="w-full bg-wix h-100 rounded-lg flex justify-center items-center hover:drop-shadow-blue transition-all"><img src="builders/images/wix-white.svg"></a>
         </div>
     </div>
 </div>
@@ -416,7 +446,7 @@
         <div class="flex flex-col gap-30 rounded-lg bg-transparent border-2 border-black-100 p-40">
             <div class="h-70 flex flex-row justify-start w-full">
                 <img class="mr-auto" src="builders/images/chrome.svg" width="45px">
-                <a class="flex items-center bg-pink-100 hover:drop-shadow-pink transition-all rounded-md p-15 text-xl font-bold text-white-100" href="https://docs.google.com/forms/d/e/1FAIpQLScy1jqKfwk56CMXDcdtXAPERrQJUZb82-lwFZ17kWWLKho42A/viewform?usp=sf_link" target="_blank">Join waitlist</a>
+                <a class="flex items-center bg-pink-100 hover:drop-shadow-pink transition-all rounded-md p-15 text-xl font-bold text-white-100" href="https://litehost.io/pricing.html?openModal=true">Join waitlist</a>
             </div>
             <div class="text-black-100 flex flex-col gap-10">
                 <h3 class="font-bold text-2xl">Quick launch extensions</h3>
@@ -426,7 +456,7 @@
         <div class="flex flex-col gap-30 rounded-lg bg-transparent border-2 border-black-100 p-40">
             <div class="h-70 flex flex-row justify-start w-full">
                 <img class="mr-auto" src="builders/images/form.svg" width="45px">
-                <a class="flex items-center bg-pink-100 hover:drop-shadow-pink transition-all rounded-md p-15 text-xl font-bold text-white-100" href="https://docs.google.com/forms/d/e/1FAIpQLScy1jqKfwk56CMXDcdtXAPERrQJUZb82-lwFZ17kWWLKho42A/viewform?usp=sf_link" target="_blank">Join waitlist</a>
+                <a class="flex items-center bg-pink-100 hover:drop-shadow-pink transition-all rounded-md p-15 text-xl font-bold text-white-100" href="https://litehost.io/pricing.html?openModal=true">Join waitlist</a>
             </div>
             <div class="text-black-100 flex flex-col gap-10">
                 <h3 class="font-bold text-2xl">Form support</h3>
@@ -436,7 +466,7 @@
         <div class="flex flex-col gap-30 rounded-lg bg-transparent border-2 border-black-100 p-40">
             <div class="h-70 flex flex-row justify-start w-full">
                 <img class="mr-auto" src="builders/images/cms.svg" width="45px">
-                <a class="flex items-center bg-pink-100 hover:drop-shadow-pink transition-all rounded-md p-15 text-xl font-bold text-white-100" href="https://docs.google.com/forms/d/e/1FAIpQLScy1jqKfwk56CMXDcdtXAPERrQJUZb82-lwFZ17kWWLKho42A/viewform?usp=sf_link" target="_blank">Join waitlist</a>
+                <a class="flex items-center bg-pink-100 hover:drop-shadow-pink transition-all rounded-md p-15 text-xl font-bold text-white-100" href="https://litehost.io/pricing.html?openModal=true">Join waitlist</a>
             </div>
             <div class="text-black-100 flex flex-col gap-10">
                 <h3 class="font-bold text-2xl">CMS Support</h3>
@@ -446,7 +476,7 @@
         <div class="flex flex-col gap-30 rounded-lg bg-transparent border-2 border-black-100 p-40">
             <div class="h-70 flex flex-row justify-start w-full">
                 <img class="mr-auto" src="images/logo-block-black.svg" width="45px">
-                <a class="flex items-center bg-pink-100 hover:drop-shadow-pink transition-all rounded-md p-15 text-xl font-bold text-white-100" href="https://docs.google.com/forms/d/e/1FAIpQLScy1jqKfwk56CMXDcdtXAPERrQJUZb82-lwFZ17kWWLKho42A/viewform?usp=sf_link" target="_blank">Let us know</a>
+                <a class="flex items-center bg-pink-100 hover:drop-shadow-pink transition-all rounded-md p-15 text-xl font-bold text-white-100" href="https://litehost.io/pricing.html?openModal=true">Let us know</a>
             </div>
             <div class="text-black-100 flex flex-col gap-10">
                 <h3 class="font-bold text-2xl">What else?</h3>
@@ -555,5 +585,34 @@
 <!-- FOOTER END -->
     </div>
     <script src="script.js"></script> 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        const menuButton = document.getElementById('menu-button');
+        const dropdown = document.getElementById('dropdown');
+
+            menuButton.addEventListener('click', function () {
+                if (dropdown.style.display === 'none') {
+                    dropdown.style.display = 'block';
+                    setTimeout(() => {
+                        dropdown.classList.remove('opacity-0', 'scale-95');
+                    }, 10); // Small delay to allow display change to take effect
+                } else {
+                    dropdown.classList.add('opacity-0', 'scale-95');
+                    setTimeout(() => {
+                        dropdown.style.display = 'none';
+                    }, 100); // Delay should match the duration of the transition
+                }
+            });
+
+            window.addEventListener('click', function (e) {
+                if (!menuButton.contains(e.target) && !dropdown.contains(e.target)) {
+                    dropdown.classList.add('opacity-0', 'scale-95');
+                    setTimeout(() => {
+                        dropdown.style.display = 'none';
+                    }, 100); // Delay should match the duration of the transition
+                }
+            });
+        });
+    </script>
 </body>
 </html>
