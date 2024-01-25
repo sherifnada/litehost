@@ -35,7 +35,6 @@ document.addEventListener('DOMContentLoaded', async function() {
   const uploadingStep = document.querySelectorAll('.uploadingStep');
   const successStep = document.querySelectorAll('.successStep');
   const failStep = document.querySelectorAll('.failStep');
-  const dropZone = document.getElementById('dropZone')
 
   function replaceHiddenWithFlex(el) {
     el.classList.replace("hidden", "flex");
@@ -268,42 +267,32 @@ document.addEventListener('DOMContentLoaded', async function() {
 
   // /* this code is not working with the above JS. I think something about the fileUpload ID being two variables is the problem?
   // //Two things with this drap and drop functionality. (1) I'm not sure it's actually sending the file to the form. (2) The background goes away when you drag the file over the dropZone text
-  // var dropZone = document.getElementById('dropZone');
-  // var fileInput = document.getElementById('fileUpload');
+  var dropZone = document.getElementById('dropZone');
+  var fileInput = document.getElementById('fileUpload');
 
-  // function showdropZone() {
-  // 	dropZone.style.display = "flex";
-  // }
-  // function hidedropZone() {
-  //     dropZone.style.display = "none";
-  // }
+  document.addEventListener('dragover', function(e) {
+    e.preventDefault();
+    dropZone.classList.remove('hidden');
+  });
 
-  // function allowDrag(e) {
-  //     if (true) {  // Test that the item being dragged is a valid one
-  //         e.dataTransfer.dropEffect = 'copy';
-  //         e.preventDefault();
-  //     }
-  // }
+  document.addEventListener('dragleave', function(e) {
+    e.preventDefault();
+    if (e.pageX === 0 || e.pageY === 0) {
+      dropZone.classList.add('hidden');
+    }
+  });
 
-  // function handleDrop(e) {
-  //     e.preventDefault();
-  //     hidedropZone();
-  //     var dt = e.dataTransfer;
-  //     var files = dt.files;
-  //     fileInput.files = files;
-  // }
+  dropZone.addEventListener('drop', function(event) {
+    event.preventDefault();
+    dropZone.classList.add('hidden');
 
-  // window.addEventListener('dragenter', function(e) {
-  //     showdropZone();
-  // });
+    if (event.dataTransfer.files.length > 0) {
+      const dt = new DataTransfer();
+      dt.items.add(event.dataTransfer.files[0]);
+      fileInput.files = dt.files;
+      fileInput.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+  });
 
-  // dropZone.addEventListener('dragenter', allowDrag);
-  // dropZone.addEventListener('dragover', allowDrag);
-
-  // dropZone.addEventListener('dragleave', function(e) {
-  //     hidedropZone();
-  // });
-
-  // dropZone.addEventListener('drop', handleDrop);
-  // */
+  // ================ END DRAG AND DROP ====================
 });
