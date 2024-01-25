@@ -84,7 +84,7 @@ describe('SubdomainOwnerModel', () => {
     };
     (dbClient.singleQuery as jest.Mock).mockResolvedValue({ rows: [mockSubdomainOwner] });
 
-    
+
     const result = await model.subdomainAlreadyInUse('example.com');
     expect(result).toBe(true);
     expect(dbClient.singleQuery).toHaveBeenCalledWith('SELECT * FROM subdomain_owner WHERE subdomain = $1', ['example.com']);
@@ -92,7 +92,7 @@ describe('SubdomainOwnerModel', () => {
 
   it('should return false if subdomain is not in use', async () => {
     (dbClient.singleQuery as jest.Mock).mockResolvedValue({ rows: [] });
-    
+
     const result = await model.subdomainAlreadyInUse('example.com');
     expect(result).toBe(false);
     expect(dbClient.singleQuery).toHaveBeenCalledWith('SELECT * FROM subdomain_owner WHERE subdomain = $1', ['example.com']);
@@ -104,7 +104,7 @@ describe('SubdomainOwnerModel', () => {
     const subdomain = 'example.com';
     const owner = 'sherif';
 
-    dbClient.singleQuery = jest.fn().mockResolvedValue({ rows: []});
+    dbClient.singleQuery = jest.fn().mockResolvedValue({ rows: [] });
     await model.associateSubdomainWithOwner(subdomain, owner);
     expect(dbClient.singleQuery).toHaveBeenCalledWith('INSERT INTO subdomain_owner(subdomain, owner) VALUES($1, $2)', [subdomain, owner]);
   });

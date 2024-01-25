@@ -4,14 +4,8 @@ import pg from 'pg';
 class DbClient {
   pool: pg.Pool;
 
-  constructor() {
-    this.pool = new pg.Pool({
-      host: 'localhost',
-      port: 5432,
-      database: 'postgres',
-      user: 'postgres',
-      password: 'admin',
-    });
+  constructor(configuration: pg.PoolConfig) {
+    this.pool = new pg.Pool(configuration);
   }
 
   singleQuery = async (query, params) => {
@@ -25,7 +19,6 @@ class DbClient {
      */
     return this.pool.connect();
   }
-
 }
 
 export default DbClient;
