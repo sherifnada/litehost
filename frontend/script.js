@@ -56,6 +56,11 @@ document.addEventListener('DOMContentLoaded', async function() {
   document.getElementById('uploadForm').addEventListener('submit', async function(e) {
     // document.getElementById("response").innerText = "request submitted..";
     e.preventDefault();
+
+    if (!await validateSubdomain() || !validateFileInput()) {
+      return;
+    }
+
     var formData = new FormData(this);
     // TODO only do this if they're not logged in
     launchStep.forEach(el => el.classList.add("hidden"));
@@ -173,6 +178,90 @@ document.addEventListener('DOMContentLoaded', async function() {
   document.getElementById("logout-button").addEventListener("click", logoutUser);
 
   // ================ END FIREBASE ====================
+
+  // ================ FORM VALIDATION ====================
+  async function validateSubdomain() {
+    const subDomainInput = document.getElementById('subDomain-text');
+    const subDomain = subDomainInput.value;
+    const validationErrorElement = document.getElementById('subdomain-input-validation-error-message');
+    const subdomainInputContainer = document.getElementById('subdomain-input-container');
+    const litehostIoPlaceholder = subdomainInputContainer.children[1];
+
+    // Validate the length and character constraints
+    if (!/^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/.test(subDomain)) {
+      validationErrorElement.innerText = 'Subdomain must be 1-63 characters long, alphanumeric, and cannot start or end with a dash.';
+      validationErrorElement.classList.remove('hidden');
+      updateInputStyles(subDomainInput, false);
+      updateInputStyles(litehostIoPlaceholder, false)
+      return false;
+    }
+
+    // Check if the subdomain is available
+    const isAvailable = await checkSubdomainAvailability(subDomain);
+    if (!isAvailable) {
+      validationErrorElement.innerText = 'Subdomain is already taken :( Please try another one.';
+      validationErrorElement.classList.remove('hidden');
+      updateInputStyles(subDomainInput, false);
+      updateInputStyles(litehostIoPlaceholder, false)
+      return false;
+    }
+
+    // If everything is valid
+    updateInputStyles(subDomainInput, true);
+    updateInputStyles(litehostIoPlaceholder, true)
+    validationErrorElement.classList.add('hidden');
+    return true;
+  }
+
+  function updateInputStyles(container, isValid) {
+    if (isValid) {
+      container.classList.replace('border-pink-100', 'border-blue-100');
+      container.classList.replace('text-pink-100', 'text-blue-100');
+    } else {
+      container.classList.replace('border-blue-100', 'border-pink-100');
+      container.classList.replace('text-blue-100', 'text-pink-100');
+    }
+  }
+
+  async function checkSubdomainAvailability(subdomain) {
+    try {
+      const response = await fetch('/is_site_available', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${await firebase.auth().currentUser.getIdToken()}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ subdomain })
+      });
+      const data = await response.json();
+      return data.available;
+    } catch (error) {
+      console.error('Error checking subdomain availability:', error);
+      return false;
+    }
+  }
+
+  function validateFileInput() {
+    const fileInput = document.getElementById('fileUpload');
+    const files = fileInput.files;
+    const validationErrorElement = document.getElementById('subdomain-input-validation-error-message');
+    // Check if any file is selected
+    if (files.length === 1) {
+      validationErrorElement.classList.add('hidden');
+      return true;
+    } else {
+      validationErrorElement.classList.remove('hidden');
+      validationErrorElement.innerText = "Please upload a file.";
+      return false;
+    }
+  }
+
+  document.getElementById('fileUpload').addEventListener('change', validateFileInput);
+  document.getElementById('subDomain-text').addEventListener('change', validateSubdomain)
+
+
+
+  // ================ END FORM VALIDATION ====================
 
 
 
