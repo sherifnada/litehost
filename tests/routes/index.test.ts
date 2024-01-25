@@ -2,7 +2,6 @@ import { createRouter } from '../../src/routes/index.js';
 import { Request, Response, NextFunction } from 'express';
 import { App } from 'firebase-admin/app';
 import AdmZip from 'adm-zip';
-
 import { getAuth } from 'firebase-admin/auth';
 jest.mock('firebase-admin/auth', () => ({
   getAuth: jest.fn().mockReturnValue({
@@ -16,7 +15,13 @@ describe('inferContentRoot', () => {
   let inferContentRoot;
 
   beforeEach(() => {
-    inferContentRoot = createRouter({} as App).inferContentRoot;
+    const dbClient = {
+      singleQuery: jest.fn(),
+      getClient: jest.fn(),
+      pool: undefined
+    };
+
+    inferContentRoot = createRouter({} as App, dbClient).inferContentRoot;
     mockZipFile = new AdmZip();
   });
 
@@ -119,8 +124,13 @@ describe('validateUserSignedIn', () => {
 
 
   beforeEach(() => {
+    const dbClient = {
+      singleQuery: jest.fn(),
+      getClient: jest.fn(),
+      pool: undefined
+    };
     mockFirebaseApp = jest.fn();
-    validateUserSignedIn = createRouter(mockFirebaseApp).validateUserSignedIn;
+    validateUserSignedIn = createRouter(mockFirebaseApp, dbClient).validateUserSignedIn;
   });
 
 

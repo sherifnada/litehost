@@ -46,6 +46,7 @@ const createRouter = (firebaseApp: App, dbClient: DbClient) => {
   router.post('/is_site_available', async (req, res) => {
     try {
       validateSubdomain(req.body);
+      // this is a bug, it should also check if the user is the one already owning that subdomain
       const available = !await subdomainOwnerModel.subdomainAlreadyInUse(req.body.subdomain);
       res.status(200).send({ available });
     } catch (error) {
@@ -63,6 +64,8 @@ const createRouter = (firebaseApp: App, dbClient: DbClient) => {
       // TODO replace this with specific origins
       // validate the uploaded file is a zip file
       res.setHeader("Access-Control-Allow-Origin", "*");
+      const subdomain = req.body.subdomain;
+      assertSubdomainAvailableForUser(subdomain, req.userToken.uid)
       validateSubdomain(req.body);
       assertZipFile(req);
 
@@ -72,7 +75,7 @@ const createRouter = (firebaseApp: App, dbClient: DbClient) => {
       const contentRoot: string = inferContentRoot(zipFile);
       console.log(`contentRoot: ${contentRoot}`);
 
-      const subdomain = req.body.subdomain;
+
       const bucketSiteUrl = `https://${subdomain}.litehost.io`;
       const tmpDir = unzipToTmpDir(zipFile);
       const uploadRoot = path.join(tmpDir, contentRoot);
@@ -114,6 +117,19 @@ const createRouter = (firebaseApp: App, dbClient: DbClient) => {
   });
 
   router.use("/", express.static("frontend"));
+
+  async function assertSubdomainAvailableForUser(subdomain: string, user: string) {
+    const subdomainOwnershipRecord = await subdomainOwnerModel.getRowForSubdomain(subdomain);
+    if (subdomainOwnershipRecord && subdomainOwnershipRecord.owner !== user) {
+      throw new ValidationError(
+        400,
+        {
+          error: "subdomain_already_in_use",
+          message: `Subdomain ${subdomain} is already in use`
+        }
+      );
+    }
+  }
 
   function extractSubdomainFromHost(host: string) {
     const url = new URL("http://" + host);
