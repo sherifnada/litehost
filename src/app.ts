@@ -17,6 +17,7 @@ const dbClient = new DbClient(dbConfig);
 
 const app = express();
 app.use(fileUpload());
+app.use(express.json());
 
 const { router } = createRouter(firebaseApp, dbClient);
 app.use('/', router);

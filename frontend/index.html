@@ -139,7 +139,7 @@
                                     <p class="text-3xl font-bold">Name your subdomain</p>
                                     <p class="text-xl">The world is your oyster.</p>
                                 </div>
-                                <div class="flex flex-row">
+                                <div id="subdomain-input-container" class="flex flex-row">
                                     <input name="subdomain" id="subDomain-text" type="text"
                                         class="bg-white-50 border-blue-100 border-t-2 border-b-2 border-l-2 px-2 py-2 rounded-l-lg focus:ring-pink-100 text-right w-160"
                                         placeholder="anythingyouwant"></input>
@@ -149,7 +149,9 @@
                                 </div>
                                 <!-- VALIDATION -->
                                 <div>
-                                    <p class="text-xl text-pink-100 font-bold">Placeholder for subdomain validation</p>
+                                    <p id="subdomain-input-validation-error-message"
+                                        class="text-xl text-pink-100 font-400 hidden">Placeholder
+                                        for subdomain validation</p>
                                 </div>
                             </div>
                         </div>
@@ -253,13 +255,10 @@
                         </div>
                         <!-- STEP 3 | UPLOADING END -->
                         <!-- STEP 4 | SUCCESS START -->
-                        <div>
-                            <div
-                                class="successStep px-40 h-130 flex flex-col justify-center items-center hidden bg-white-100 border-b-2 border-white-50">
-                                <p id="success-url"
-                                    class="bg-white-100 border-blue-100 border-2 px-2 py-2 rounded-lg font-bold text-blue-100 animate-pulse w-full truncate">
-                                </p>
-                            </div>
+                        <div class="successStep px-40 h-130 flex flex-col justify-center items-center bg-white-100
+                        border-b-2 border-white-50 animate-pulse hidden">
+                            <a href="" target="_blank" id="success-url"
+                                class="bg-white-100 border-blue-100 border-2 px-2 py-2 rounded-lg font-bold text-blue-100 w-full truncate"></a>
                         </div>
                         <!-- STEP 4 | SUCCESS END -->
                         <!-- STEP 5 | FAIL START -->
@@ -275,9 +274,6 @@
                             <div
                                 class="uploadStep px-40 h-130 flex flex-col justify-center items-center bg-white-50 rounded-b-xl gap-10">
                                 <!-- VALIDATION -->
-                                <div>
-                                    <p class="text-xl text-pink-100 font-bold">Placeholder for subheader validation</p>
-                                </div>
                                 <div class="flex flex-row justify-center items-center gap-10">
                                     <img src="images/zip-icon-pink.svg" width="30px">
                                     <p class="font-normal text-xl text-pink-100">ZIPs only (for now)</p>
