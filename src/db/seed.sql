@@ -1,8 +1,8 @@
 CREATE TABLE subdomain_owner (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     subdomain TEXT NOT NULL UNIQUE,
-    id UUID NOT NULL PRIMARY KEY,
-    owner TEXT NOT NULL,
-    created_at TIMESTAMPTZ NOT NULL
+    owner TEXT NOT NULL
 );
 
 CREATE INDEX idx_subdomain ON subdomain_owner (subdomain);

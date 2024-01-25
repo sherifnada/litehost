@@ -1,14 +1,17 @@
 <!doctype html>
 <html>
+
 <head>
     <title>Litehost is the fastest way to launch and host a website with SSL</title>
     <meta charset="UTF-8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- Lexend -->
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
     <!-- Open Sans -->
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="./output.css" rel="stylesheet">
     <!-- need to make favicons
@@ -20,7 +23,7 @@
 
     <!-- Add Firebase products that you want to use -->
     <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-auth-compat.js"></script>
-    
+
     <link href="images/webclip.png" rel="apple-touch-icon">
     <style>
         .scrolling-banner {
@@ -28,442 +31,551 @@
         }
 
         @keyframes scroll {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
+            0% {
+                transform: translateX(100%);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
         }
     </style>
 </head>
+
 <body>
-<!-- FULL PAGE HERO WRAPPER START-->
+    <!-- FULL PAGE HERO WRAPPER START-->
     <div class="bg-blue-100 bg-zag-pattern w-full">
-<!-- DRAG AND DROP START -->
-<div id="dropZone" class="w-full h-full items-center justify-center bg-pink-100 fixed z-50 text-white-100 text-center flex-col hidden">
-    <img class="w-150 fixed rotate-neg20 top-25% left-15%" src="images/zip-icon-blue.svg">
-    <img class="w-150 fixed rotate-neg20 bottom-15% right-30%" src="images/PDFIcon.svg">
-    <img class="w-150 fixed rotate-20 top-25% right-15%" src="images/FolderIcon.svg">
-    <img class="w-150 fixed rotate-20 bottom-15% left-30%" src="images/FileIcon.svg">
-    <img class="w-150 fixed top-15%" src="images/ImageIcon.svg">
-    <div class="flex items-center justify-center flex-row">
-      <img src="images/Upload icon.svg" width="15px">
-      <p class="text-4xl text-white-100 mb-10 mx-20 font-bold">Drop it like it's hot</p>
-      <img src="images/Upload icon.svg" width="15px">
-    </div>
-    <p class="text-2xl font-normal"">Drag and drop your file here</p>
+        <!-- DRAG AND DROP START -->
+        <div id="dropZone"
+            class="w-full h-full items-center justify-center bg-pink-100 fixed z-50 text-white-100 text-center flex-col hidden">
+            <img class="w-150 fixed rotate-neg20 top-25% left-15%" src="images/zip-icon-blue.svg">
+            <img class="w-150 fixed rotate-neg20 bottom-15% right-30%" src="images/PDFIcon.svg">
+            <img class="w-150 fixed rotate-20 top-25% right-15%" src="images/FolderIcon.svg">
+            <img class="w-150 fixed rotate-20 bottom-15% left-30%" src="images/FileIcon.svg">
+            <img class="w-150 fixed top-15%" src="images/ImageIcon.svg">
+            <div class="flex items-center justify-center flex-row">
+                <img src="images/Upload icon.svg" width="15px">
+                <p class="text-4xl text-white-100 mb-10 mx-20 font-bold">Drop it like it's hot</p>
+                <img src="images/Upload icon.svg" width="15px">
+            </div>
+            <p class="text-2xl font-normal"">Drag and drop your file here</p>
 </div>
 <!-- DRAG AND DROP END -->
 <!-- NAV START -->
-<nav class="bg-transparent flex md:justify-between py-40 px-3 lg:px-100 md:px-50 items-center justify-center font-normal flex-col md:flex-row gap-5 md:gap-0">
-    <div class="md:mr-5%">
-        <a href="https://litehost.io" class="bg-blue-50 rounded-full flex justify-center items-center p-20">
-            <img src="./images/logo-block-white.svg" alt="Litehost logo" width="36">
-        </a>
-    </div>
-    <div class="flex flex-col items-center gap-2 md:gap-3 md: px-20">
-        <div class="flex justify-center items-center gap-x-3">
-            <p class="text-white-100 text-right leading-5">Build on</p>
-            <div class="flex gap-x-2">
-                <a href="https://litehost.io/builders/webflow.html" class="bg-white-100 flex hover:shadow-md transition-all items-center justify-center w-38 h-38 rounded-full"><img src="images/webflow.svg" alt="webflow logo"></a>
-                <a href="https://litehost.io/builders/wix.html" class="bg-white-100 flex hover:shadow-md transition-all items-center justify-center w-38 h-38 rounded-full"><img src="images/wix.svg" alt="wix logo"></a>
-                <a href="https://litehost.io/builders/wordpress.html" class="bg-white-100 flex hover:shadow-md transition-all items-center justify-center w-38 h-38 rounded-full"><img src="images/wordpress.svg" alt="wordpress logo"></a>
-                <a href="https://litehost.io/builders/squarespace.html" class="bg-white-100 flex hover:shadow-md transition-all items-center justify-center w-38 h-38 rounded-full"><img src="images/squarespace.svg" alt="squarespace logo"></a>
+<nav class=" bg-transparent flex md:justify-between py-40 px-3 lg:px-100 md:px-50 items-center justify-center
+                font-normal flex-col md:flex-row gap-5 md:gap-0">
+            <div class="md:mr-5%">
+                <a href="https://litehost.io" class="bg-blue-50 rounded-full flex justify-center items-center p-20">
+                    <img src="./images/logo-block-white.svg" alt="Litehost logo" width="36">
+                </a>
             </div>
-            <p class="text-white-100 text-left leading-5">Host here</p>
-        </div>
-        <div class="rounded-full bg-white-100 px-20 py-5 font-bold text-blue-100 text-center">Unlimited subdomains free forever</div>
-    </div>
-    <div id="topright-login-button">
-        <button class="login-with-google bg-blue-50 border-2 border-blue-50 hover:border-2 hover:border-white-50 rounded-full transition-all pl-7 pr-15 py-7 flex items-center justify-start gap-2 text-white-100">
-            <div class="rounded-full bg-white-100 p-7">
-                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" class="w-6 h-6">
-                    <g>
-                        <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path><path fill="none" d="M0 0h48v48H0z"></path>
-                    </g>
-                </svg>
+            <div class="flex flex-col items-center gap-2 md:gap-3 md: px-20">
+                <div class="flex justify-center items-center gap-x-3">
+                    <p class="text-white-100 text-right leading-5">Build on</p>
+                    <div class="flex gap-x-2">
+                        <a href="https://litehost.io/builders/webflow.html"
+                            class="bg-white-100 flex hover:shadow-md transition-all items-center justify-center w-38 h-38 rounded-full"><img
+                                src="images/webflow.svg" alt="webflow logo"></a>
+                        <a href="https://litehost.io/builders/wix.html"
+                            class="bg-white-100 flex hover:shadow-md transition-all items-center justify-center w-38 h-38 rounded-full"><img
+                                src="images/wix.svg" alt="wix logo"></a>
+                        <a href="https://litehost.io/builders/wordpress.html"
+                            class="bg-white-100 flex hover:shadow-md transition-all items-center justify-center w-38 h-38 rounded-full"><img
+                                src="images/wordpress.svg" alt="wordpress logo"></a>
+                        <a href="https://litehost.io/builders/squarespace.html"
+                            class="bg-white-100 flex hover:shadow-md transition-all items-center justify-center w-38 h-38 rounded-full"><img
+                                src="images/squarespace.svg" alt="squarespace logo"></a>
+                    </div>
+                    <p class="text-white-100 text-left leading-5">Host here</p>
+                </div>
+                <div class="rounded-full bg-white-100 px-20 py-5 font-bold text-blue-100 text-center">Unlimited
+                    subdomains free forever</div>
             </div>
-            <span class="font-open-sans font-400">Login</span>
-        </button>
-    </div>
-    <div id="logout-button" class="items-center justify-center dark:bg-gray-800 hidden">
-        <button class="bg-white-100 px-4 py-2 flex gap-2 rounded-lg">
-            <span class="font-open-sans font-400">Logout</span>
-        </button>
-    </div>
-</nav>
-<!-- NAV END -->
-<!-- HERO SECTION START -->
+            <div id="topright-login-button" class="flex">
+                <button
+                    class="login-with-google bg-blue-50 border-2 border-blue-50 hover:border-2 hover:border-white-50 rounded-full transition-all pl-7 pr-15 py-7 flex items-center justify-start gap-2 text-white-100">
+                    <div class="rounded-full bg-white-100 p-7">
+                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" class="w-6 h-6">
+                            <g>
+                                <path fill="#EA4335"
+                                    d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z">
+                                </path>
+                                <path fill="#4285F4"
+                                    d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z">
+                                </path>
+                                <path fill="#FBBC05"
+                                    d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z">
+                                </path>
+                                <path fill="#34A853"
+                                    d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z">
+                                </path>
+                                <path fill="none" d="M0 0h48v48H0z"></path>
+                            </g>
+                        </svg>
+                    </div>
+                    <span class="font-open-sans font-400">Login</span>
+                </button>
+            </div>
+            <div id="logout-button" class="hidden">
+                <button
+                    class="login-with-google bg-blue-50 border-2 border-blue-50 hover:border-2 hover:border-white-50 rounded-full transition-all pl-15 pr-15 py-7 flex items-center justify-start gap-2 text-white-100">
+                    <span class="font-open-sans font-400">Logout</span>
+                </button>
+            </div>
+            </nav>
+            <!-- NAV END -->
+            <!-- HERO SECTION START -->
             <!-- **** width needs work **** -->
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 pt-50 pb-150 flex items-center justify-center lg:px-100">
-            <div class="flex flex-col lg:flex-row w-full justify-center items-center">
-                <!-- UPLOAD FORM START-->
-                <form id="uploadForm" class="md:min-w-450 bg-white-100 rounded-xl text-center w-full md:max-w-450 " enctype="multipart/form-data">
-                    <!-- STEP DIRECTIONS START -->
-                    <!-- STEP 1+2 | NAME YOUR SUB START -->
-                    <div id="nameYourSub" class="border-b-2 border-white-50 px-20 py-40 md:p-40 rounded-t-xl">
-                        <div class="flex flex-col items-center gap-20">
-                            <div class="flex flex-col items-center gap-5 font-normal">
-                                <p class="text-3xl font-bold">Name your subdomain</p>
-                                <p class="text-xl">The world is your oyster.</p>
-                            </div>
-                            <div class="flex flex-row">
-                                <input name="subdomain" id="subDomain-text" type="text" class="bg-white-50 border-blue-100 border-t-2 border-b-2 border-l-2 px-2 py-2 rounded-l-lg focus:ring-pink-100 text-right w-160" placeholder="anythingyouwant"></input>
-                                <div class="bg-white-100 border-blue-100 border-2 px-2 py-2 rounded-r-lg font-bold text-blue-100">.litehost.io</div>
-                            </div>
-                            <!-- VALIDATION -->
-                            <div>
-                                <p class="text-xl text-pink-100 font-bold">Placeholder for subdomain validation</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- STEP 1+2 | NAME YOUR SUB END -->
-                    <!-- CREATE AN ACCOUNT START -->
-                    <div class="createAccountStep border-b-2 border-white-50 px-20 py-40 lg:p-40 rounded-t-xl hidden">
-                        <div class="flex flex-col items-center gap-20">
-                            <div class="flex flex-col items-center gap-5 font-normal">
-                                <p class="text-3xl font-bold">Create an account</p>
-                                <p class="text-xl">Let's get to know each other.</p>
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 pt-50 pb-150 flex items-center justify-center lg:px-100">
+                <div class="flex flex-col lg:flex-row w-full justify-center items-center">
+                    <!-- UPLOAD FORM START-->
+                    <form id="uploadForm" class="md:min-w-450 bg-white-100 rounded-xl text-center w-full md:max-w-450 "
+                        enctype="multipart/form-data">
+                        <!-- STEP DIRECTIONS START -->
+                        <!-- STEP 1+2 | NAME YOUR SUB START -->
+                        <div id="nameYourSub" class="border-b-2 border-white-50 px-20 py-40 md:p-40 rounded-t-xl">
+                            <div class="flex flex-col items-center gap-20">
+                                <div class="flex flex-col items-center gap-5 font-normal">
+                                    <p class="text-3xl font-bold">Name your subdomain</p>
+                                    <p class="text-xl">The world is your oyster.</p>
+                                </div>
+                                <div class="flex flex-row">
+                                    <input name="subdomain" id="subDomain-text" type="text"
+                                        class="bg-white-50 border-blue-100 border-t-2 border-b-2 border-l-2 px-2 py-2 rounded-l-lg focus:ring-pink-100 text-right w-160"
+                                        placeholder="anythingyouwant"></input>
+                                    <div
+                                        class="bg-white-100 border-blue-100 border-2 px-2 py-2 rounded-r-lg font-bold text-blue-100">
+                                        .litehost.io</div>
+                                </div>
+                                <!-- VALIDATION -->
+                                <div>
+                                    <p class="text-xl text-pink-100 font-bold">Placeholder for subdomain validation</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- CREATE AN ACCOUNT END -->
-                    <!-- STEP 3 | UPLOADING START -->
-                    <div class="uploadingStep border-b-2 border-white-50 px-20 py-40 lg:p-40 rounded-t-xl hidden">
-                        <div class="flex flex-col items-center gap-20">
-                            <div class="flex flex-col items-center gap-5 font-normal">
-                                <p class="text-3xl font-bold">✋ Hang tight ✋</p>
-                                <p class="text-xl">We're doing important things.</p>
+                        <!-- STEP 1+2 | NAME YOUR SUB END -->
+                        <!-- CREATE AN ACCOUNT START -->
+                        <div
+                            class="createAccountStep border-b-2 border-white-50 px-20 py-40 lg:p-40 rounded-t-xl hidden">
+                            <div class="flex flex-col items-center gap-20">
+                                <div class="flex flex-col items-center gap-5 font-normal">
+                                    <p class="text-3xl font-bold">Create an account</p>
+                                    <p class="text-xl">Let's get to know each other.</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- STEP 3 | UPLOADING END -->
-                    <!-- STEP 4 | SUCCESS START -->
-                    <div class="successStep border-b-2 border-white-50 px-20 py-40 lg:p-40 rounded-t-xl hidden">
-                        <div class="flex flex-col items-center gap-20">
-                            <div class="flex flex-col items-center gap-5 font-normal">
-                                <p class="text-3xl font-bold">🗣️ We're live 👀</p>
-                                <p class="text-xl">Go forth and conquer!</p>
+                        <!-- CREATE AN ACCOUNT END -->
+                        <!-- STEP 3 | UPLOADING START -->
+                        <div class="uploadingStep border-b-2 border-white-50 px-20 py-40 lg:p-40 rounded-t-xl hidden">
+                            <div class="flex flex-col items-center gap-20">
+                                <div class="flex flex-col items-center gap-5 font-normal">
+                                    <p class="text-3xl font-bold">✋ Hang tight ✋</p>
+                                    <p class="text-xl">We're doing important things.</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- STEP 4 | SUCCESS END -->
-                    <!-- STEP 5 | FAIL START -->
-                    <div class="failStep border-b-2 border-white-50 px-20 py-40 lg:p-40 rounded-t-xl hidden">
-                        <div class="flex flex-col items-center gap-20">
-                            <div class="flex flex-col items-center gap-5 font-normal">
-                                <p class="text-3xl font-bold">🤔 Uh oh 🤔</p>
-                                <p class="text-xl">It looks like something broke.</p>
+                        <!-- STEP 3 | UPLOADING END -->
+                        <!-- STEP 4 | SUCCESS START -->
+                        <div class="successStep border-b-2 border-white-50 px-20 py-40 lg:p-40 rounded-t-xl hidden">
+                            <div class="flex flex-col items-center gap-20">
+                                <div class="flex flex-col items-center gap-5 font-normal">
+                                    <p class="text-3xl font-bold">🗣️ We're live 👀</p>
+                                    <p class="text-xl">Go forth and conquer!</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- STEP 5 | FAIL END -->
-                    <!-- STEP DIRECTIONS END -->
-                    <!-- CENTER CONTENT START -->
-                    <!-- STEP 1 | UPLOAD BUTTON START -->
-                    <div class="uploadStep flex flex-col h-300 justify-center items-center gap-30 px-40">
-                        <input type="file" id="fileUpload" name="zipFile" hidden>
-                        <label for="fileUpload" class="bg-pink-100 rounded-full w-200 h-200 flex items-center justify-center drop-shadow-pink cursor-pointer hover:scale-102 hover:drop-shadow-pinkhover active:drop-shadow-pinkpress active:scale-98 transition-all"><img src="images/plus-icon.svg"></label>
-                        <div class="text-grey text-xl font-normal">Upload a file</div>
-                    </div>
-                    <!-- STEP 1 | UPLOAD BUTTON END -->
-                    <!-- STEP 2 | LAUNCH BUTTON START -->
-                    <div class="launchStep flex flex-col h-300 justify-center items-center gap-30 px-40 hidden">
-                        <input id="launch" type="submit" value="Upload" hidden>
-                        <label for="launch" class="bg-blue-100 animate-pulse rounded-full w-200 h-200 drop-shadow-blue cursor-pointer flex items-center justify-center hover:scale-102 hover:drop-shadow-bluehover active:drop-shadow-bluepress active:scale-98 transition-all">
-                            <p class="font-bold text-3xl text-white-100">Launch</p>
-                        </label>
-                        <div class="text-grey text-xl font-normal">Prepare for takeoff</div>
-                    </div>
-                    <!-- STEP 2 | LAUNCH BUTTON END -->
-                    <!-- CREATE AN ACCOUNT START-->
-                    <!-- *** Google button needs work *** -->
-                    <div class="createAccountStep flex flex-col h-300 justify-center items-center gap-30 px-40 hidden">
-                        <button class="login-with-google w-full border-2 border-blue-100 hover:bg-blue-100 rounded-full transition-all pl-7 pr-15 py-7 flex items-center justify-start gap-2 text-blue-100 hover:text-white-100">
-                            <div class="rounded-full bg-white-100 p-7">
-                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" class="w-6 h-6">
-                                    <g>
-                                        <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path><path fill="none" d="M0 0h48v48H0z"></path>
-                                    </g>
-                                </svg>
-                            </div>
-                            <span class="font-open-sans font-400 w-full text-center mr-20">Login with Google</span>
-                        </button>
-                    </div>
-                    <!-- CREATE AN ACCOUNT END -->
-                    <!-- STEP 3 | UPLOADING START -->
-                    <div class= "uploadingStep flex flex-col h-300 justify-center items-center gap-30 px-40 hidden">
-                        <img class="rounded-sm w-full max-w-450" src="https://media.giphy.com/media/pFZTlrO0MV6LoWSDXd/giphy.gif">
-                    </div>
-                    <!-- STEP 3 | UPLOADING END -->
-                    <!-- STEP 4 | SUCCESS START -->
-                    <div>
-                        <div class="successStep px-40 h-130 flex flex-col justify-center items-center hidden bg-white-100 border-b-2 border-white-50">
-                            <p id="success-url" class="bg-white-100 border-blue-100 border-2 px-2 py-2 rounded-lg font-bold text-blue-100 animate-pulse w-full truncate"></p>
-                        </div>
-                    </div>
-                    <!-- STEP 4 | SUCCESS END -->
-                    <!-- STEP 5 | FAIL START -->
-                    <div class= "failStep flex flex-col h-300 justify-center items-center gap-30 px-40 hidden">
-                        <img class="rounded-sm w-full max-w-450" src="https://media.giphy.com/media/5Zesu5VPNGJlm/giphy.gif">
-                    </div>
-                    <!-- STEP 5 | FAIL END -->
-                    <!-- CENTER CONTENT END -->
-                    <!-- ADDITIONAL INFO START -->
-                    <!-- STEP 1 | ZIP INFO - PINK START-->
-                    <div>
-                        <div class="uploadStep px-40 h-130 flex flex-col justify-center items-center bg-white-50 rounded-b-xl gap-10">
-                            <!-- VALIDATION -->
-                            <div>
-                                <p class="text-xl text-pink-100 font-bold">Placeholder for subheader validation</p>
-                            </div>
-                            <div class="flex flex-row justify-center items-center gap-10">
-                                <img src="images/zip-icon-pink.svg" width="30px">
-                                <p class="font-normal text-xl text-pink-100">ZIPs only (for now)</p>
+                        <!-- STEP 4 | SUCCESS END -->
+                        <!-- STEP 5 | FAIL START -->
+                        <div class="failStep border-b-2 border-white-50 px-20 py-40 lg:p-40 rounded-t-xl hidden">
+                            <div class="flex flex-col items-center gap-20">
+                                <div class="flex flex-col items-center gap-5 font-normal">
+                                    <p class="text-3xl font-bold">🤔 Uh oh 🤔</p>
+                                    <p id="serverside-failure-message" class="text-xl"></p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- STEP 1 | ZIP INFO - PINK END -->
-                    <!-- STEP 2 | ZIP INFO - BLUE START -->
-                    <div>
-                        <div class="launchStep px-40 h-130 flex flex-row justify-center items-center bg-white-50 rounded-b-xl hidden gap-10">
-                            <img src="images/zip-icon-blue.svg" width="30px">
-                            <p class="font-normal text-xl text-blue-100">ZIPs only (for now)</p>
+                        <!-- STEP 5 | FAIL END -->
+                        <!-- STEP DIRECTIONS END -->
+                        <!-- CENTER CONTENT START -->
+                        <!-- STEP 1 | UPLOAD BUTTON START -->
+                        <div class="uploadStep flex flex-col h-300 justify-center items-center gap-30 px-40">
+                            <input type="file" id="fileUpload" name="zipFile" hidden>
+                            <label for="fileUpload"
+                                class="bg-pink-100 rounded-full w-200 h-200 flex items-center justify-center drop-shadow-pink cursor-pointer hover:scale-102 hover:drop-shadow-pinkhover active:drop-shadow-pinkpress active:scale-98 transition-all"><img
+                                    src="images/plus-icon.svg"></label>
+                            <div class="text-grey text-xl font-normal">Upload a file</div>
                         </div>
-                    </div>
+                        <!-- STEP 1 | UPLOAD BUTTON END -->
+                        <!-- STEP 2 | LAUNCH BUTTON START -->
+                        <div class="launchStep flex flex-col h-300 justify-center items-center gap-30 px-40 hidden">
+                            <input id="launch" type="submit" value="Upload" hidden>
+                            <label for="launch"
+                                class="bg-blue-100 animate-pulse rounded-full w-200 h-200 drop-shadow-blue cursor-pointer flex items-center justify-center hover:scale-102 hover:drop-shadow-bluehover active:drop-shadow-bluepress active:scale-98 transition-all">
+                                <p class="font-bold text-3xl text-white-100">Launch</p>
+                            </label>
+                            <div class="text-grey text-xl font-normal">Prepare for takeoff</div>
+                        </div>
+                        <!-- STEP 2 | LAUNCH BUTTON END -->
+                        <!-- CREATE AN ACCOUNT START-->
+                        <!-- *** Google button needs work *** -->
+                        <div
+                            class="createAccountStep flex flex-col h-300 justify-center items-center gap-30 px-40 hidden">
+                            <button
+                                class="login-with-google w-full border-2 border-blue-100 hover:bg-blue-100 rounded-full transition-all pl-7 pr-15 py-7 flex items-center justify-start gap-2 text-blue-100 hover:text-white-100">
+                                <div class="rounded-full bg-white-100 p-7">
+                                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+                                        class="w-6 h-6">
+                                        <g>
+                                            <path fill="#EA4335"
+                                                d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z">
+                                            </path>
+                                            <path fill="#4285F4"
+                                                d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z">
+                                            </path>
+                                            <path fill="#FBBC05"
+                                                d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z">
+                                            </path>
+                                            <path fill="#34A853"
+                                                d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z">
+                                            </path>
+                                            <path fill="none" d="M0 0h48v48H0z"></path>
+                                        </g>
+                                    </svg>
+                                </div>
+                                <span class="font-open-sans font-400 w-full text-center mr-20">Login with Google</span>
+                            </button>
+                        </div>
+                        <!-- CREATE AN ACCOUNT END -->
+                        <!-- STEP 3 | UPLOADING START -->
+                        <div class="uploadingStep flex flex-col h-300 justify-center items-center gap-30 px-40 hidden">
+                            <img class="rounded-sm w-full max-w-450"
+                                src="https://media.giphy.com/media/pFZTlrO0MV6LoWSDXd/giphy.gif">
+                        </div>
+                        <!-- STEP 3 | UPLOADING END -->
+                        <!-- STEP 4 | SUCCESS START -->
+                        <div>
+                            <div
+                                class="successStep px-40 h-130 flex flex-col justify-center items-center hidden bg-white-100 border-b-2 border-white-50">
+                                <p id="success-url"
+                                    class="bg-white-100 border-blue-100 border-2 px-2 py-2 rounded-lg font-bold text-blue-100 animate-pulse w-full truncate">
+                                </p>
+                            </div>
+                        </div>
+                        <!-- STEP 4 | SUCCESS END -->
+                        <!-- STEP 5 | FAIL START -->
+                        <div class="failStep flex flex-col h-300 justify-center items-center gap-30 px-40 hidden">
+                            <img class="rounded-sm w-full max-w-450"
+                                src="https://media.giphy.com/media/5Zesu5VPNGJlm/giphy.gif">
+                        </div>
+                        <!-- STEP 5 | FAIL END -->
+                        <!-- CENTER CONTENT END -->
+                        <!-- ADDITIONAL INFO START -->
+                        <!-- STEP 1 | ZIP INFO - PINK START-->
+                        <div>
+                            <div
+                                class="uploadStep px-40 h-130 flex flex-col justify-center items-center bg-white-50 rounded-b-xl gap-10">
+                                <!-- VALIDATION -->
+                                <div>
+                                    <p class="text-xl text-pink-100 font-bold">Placeholder for subheader validation</p>
+                                </div>
+                                <div class="flex flex-row justify-center items-center gap-10">
+                                    <img src="images/zip-icon-pink.svg" width="30px">
+                                    <p class="font-normal text-xl text-pink-100">ZIPs only (for now)</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- STEP 1 | ZIP INFO - PINK END -->
+                        <!-- STEP 2 | ZIP INFO - BLUE START -->
+                        <div>
+                            <div
+                                class="launchStep px-40 h-130 flex flex-row justify-center items-center bg-white-50 rounded-b-xl hidden gap-10">
+                                <img src="images/zip-icon-blue.svg" width="30px">
+                                <p class="font-normal text-xl text-blue-100">ZIPs only (for now)</p>
+                            </div>
+                        </div>
 
-                    <div>
-                        <div class="createAccountStep px-40 h-130 flex flex-col justify-center items-center bg-white-50 rounded-b-xl hidden">
-                            <p class="font-normal text-xl text-black-100">Accounts allows you to manage and update your website at any point.</p>
+                        <div>
+                            <div
+                                class="createAccountStep px-40 h-130 flex flex-col justify-center items-center bg-white-50 rounded-b-xl hidden">
+                                <p class="font-normal text-xl text-black-100">Accounts allows you to manage and update
+                                    your website at any point.</p>
+                            </div>
                         </div>
-                    </div>
 
-                    <div>
-                        <div class="uploadingStep px-40 h-130 flex flex-col justify-center items-center bg-white-50 rounded-b-xl hidden">
-                            <p class="font-normal text-xl text-black-100 leading-normal">This shouldn't take too long.</p>
+                        <div>
+                            <div
+                                class="uploadingStep px-40 h-130 flex flex-col justify-center items-center bg-white-50 rounded-b-xl hidden">
+                                <p class="font-normal text-xl text-black-100 leading-normal">This shouldn't take too
+                                    long.</p>
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- STEP 2 | ZIP INFO - BLUE END -->
-                    <!-- STEP 3 | SUCCESS START -->
-                    <div class= "successStep flex flex-col h-300 justify-center items-center gap-30 p-40 hidden">
-                        <img class="rounded-sm h-full w-full max-w-450 text-center" src="https://media.giphy.com/media/ZKTNelSY55g4w/giphy.gif">
-                    </div>
-                    <!-- STEP 3 | SUCCESS END -->
-                    <div>
-                        <div class="successStep px-40 h-130 flex flex-col justify-center items-center bg-white-50 rounded-b-xl hidden">
-                            <p class="font-bold text-xl">Want to update your site?</p>
-                            <p class="font-normal text-lg mt-5 leading-6">Sign in, type in your subdomain, and reload your zip.</p>
+                        <!-- STEP 2 | ZIP INFO - BLUE END -->
+                        <!-- STEP 3 | SUCCESS START -->
+                        <div class="successStep flex flex-col h-300 justify-center items-center gap-30 p-40 hidden">
+                            <img class="rounded-sm h-full w-full max-w-450 text-center"
+                                src="https://media.giphy.com/media/ZKTNelSY55g4w/giphy.gif">
+                        </div>
+                        <!-- STEP 3 | SUCCESS END -->
+                        <div>
+                            <div
+                                class="successStep px-40 h-130 flex flex-col justify-center items-center bg-white-50 rounded-b-xl hidden">
+                                <p class="font-bold text-xl">Want to update your site?</p>
+                                <p class="font-normal text-lg mt-5 leading-6">Sign in, type in your subdomain, and
+                                    reload your zip.</p>
+                            </div>
+                        </div>
+                        <!-- STEP 4 | FAIL START -->
+                        <div>
+                            <div
+                                class="failStep px-40 h-130 flex flex-col justify-center items-center bg-white-50 rounded-b-xl hidden">
+                                <p class="font-normal text-xl text-black-100 my-auto">Start a chat with us to get this
+                                    solved, or email us at <a class="underline"
+                                        href="mailto:support@litehost.io">support@litehost.io</a>.</p>
+                            </div>
+                        </div>
+                        <!-- STEP 34| FAIL END -->
+                        <!-- ADDITIONAL INFO END -->
+                    </form>
+                    <!-- UPLOAD FORM END -->
+                    <!-- LITEHOST INFORMATION START -->
+                    <div
+                        class="flex flex-col items-center justify-center font-normal mt-80 lg:mt-0 md:ml-50 text-white-100 gap-40">
+                        <div class="flex flex-col gap-15">
+                            <h1 class="text-5xl font-bold">Launch anything online, instantly.</h1>
+                            <h2 class="text-2xl ">Setting up hosting for websites sucks, and website builders charge an
+                                💪 and a 🦵 for the same thing AWS gives you out of the box. Litehost gives you even
+                                more, for less.</h2>
+                        </div>
+                        <div class="grid grid-cols-2 gap-20 w-full">
+                            <div class="text-lg">
+                                <h3 class="font-bold mb-2 leading-none">Dead Simple</h3>
+                                <p class="leading-6">Just upload a zip file. Re-upload to overwrite. Website builder
+                                    publishing tools <a
+                                        href="https://docs.google.com/forms/d/e/1FAIpQLScy1jqKfwk56CMXDcdtXAPERrQJUZb82-lwFZ17kWWLKho42A/viewform?usp=sf_link"
+                                        target="_blank" class="underline">coming soon</a>.</p>
+                            </div>
+                            <div class="text-lg">
+                                <h3 class="font-bold mb-2 leading-none">SSL included</h3>
+                                <p class="leading-6">Litehost includes SSL by default and maintains the certificate for
+                                    you.</p>
+                            </div>
+                            <div class="text-lg">
+                                <h3 class="font-bold mb-2 leading-none">Personalized subdomains</h3>
+                                <p class="leading-6">Once you secure a litehost.io subdomain it's yours forever.</p>
+                            </div>
+                            <div class="text-lg">
+                                <h3 class="font-bold mb-2 leading-none">Custom domains <a class="font-normal underline"
+                                        href="https://docs.google.com/forms/d/e/1FAIpQLScy1jqKfwk56CMXDcdtXAPERrQJUZb82-lwFZ17kWWLKho42A/viewform?usp=sf_link"
+                                        target="_blank">(join waitlist)</a></h3>
+                                <p class="leading-6">Launch anything you want on any domain you want.</p>
+                            </div>
                         </div>
                     </div>
-                    <!-- STEP 4 | FAIL START -->
-                    <div>
-                        <div class="failStep px-40 h-130 flex flex-col justify-center items-center bg-white-50 rounded-b-xl hidden">
-                            <p class="font-normal text-xl text-black-100 my-auto">Start a chat with us to get this solved, or email us at <a class="underline" href="mailto:support@litehost.io">support@litehost.io</a>.</p>
+                    <!-- LITEHOST INFORMATION END -->
+                </div>
+            </div>
+            <!-- HERO SECTION END -->
+            <!-- JOIN WAITLIST INFINITE SCROLL START -->
+            <div class="overflow-hidden w-full bg-pink-100 hover:underline text-white-100 h-80">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScy1jqKfwk56CMXDcdtXAPERrQJUZb82-lwFZ17kWWLKho42A/viewform?usp=sf_link"
+                    target="_blank">
+                    <div
+                        class="scrolling-banner whitespace-nowrap h-full bg-blue-500 text-white flex flex-row items-center gap-20 py-0 text-white-100 text-4xl font-bold">
+                        <span>Launch custom domains</span>
+                        <span>🏴‍☠️</span>
+                        <span>Go pro</span>
+                        <span>🔥</span>
+                        <span>Launch custom domains</span>
+                        <span>🏴‍☠️</span>
+                        <span>Go pro</span>
+                        <span>🔥</span>
+                        <span>Launch custom domains</span>
+                        <span>🏴‍☠️</span>
+                        <span>Go pro</span>
+                        <span>🔥</span>
+                        <span>Launch custom domains</span>
+                        <span>🏴‍☠️</span>
+                        <span>Go pro</span>
+                        <span>🔥</span>
+                        <span>Launch custom domains</span>
+                        <span>🏴‍☠️</span>
+                        <span>Go pro</span>
+                        <span>🔥</span>
+                        <span>Launch custom domains</span>
+                        <span>🏴‍☠️</span>
+                        <span>Go pro</span>
+                        <span>🔥</span>
+                        <span>Launch custom domains</span>
+                        <span>🏴‍☠️</span>
+                        <span>Go pro</span>
+                        <span>🔥</span>
+                        <span>Launch custom domains</span>
+                        <span>🏴‍☠️</span>
+                        <span>Go pro</span>
+                        <span>🔥</span>
+                    </div>
+                </a>
+            </div>
+            <!-- JOIN WAITLIST INFINITE SCROLL END -->
+            <!-- HOW IT WORKS START -->
+            <div class="py-150 bg-white-100 flex flex-col gap-80">
+                <div>
+                    <h3 class="text-center font-bold text-5xl text-black-100 mb-15">How's it work?</h3>
+                    <h4 class="text-center font-normal text-2xl text-black-100">What are you launching?</h4>
+                </div>
+                <div class="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8">
+                    <p class="mb-20 text-2xl text-black-100 font-normal text-center">My own file:</p>
+                    <a href="https://litehost.io/buidlers/zip.html"
+                        class="bg-pink-100 transition-all h-95 w-full rounded-lg hover:drop-shadow-blue overflow-clip flex flex-row justify-center items-center gap-25">
+                        <p class="text-5xl font-bold whitespace-nowrap text-white-100">ZIP File</p>
+                        <img class="rotate-20 w-45" src="./images/zip-icon-blue.svg">
+                        <p class="text-5xl font-bold whitespace-nowrap text-white-100">ZIP File</p>
+                        <img class="rotate-neg20 w-45" src="./images/zip-icon-blue.svg">
+                        <p class="text-5xl font-bold whitespace-nowrap flex flex-row text-white-100">ZIP File</p>
+                        <img class="rotate-20 w-45" src="./images/zip-icon-blue.svg">
+                        <p class="text-5xl font-bold whitespace-nowrap text-white-100">ZIP File</p>
+                        <img class="rotate-neg20 w-45" src="./images/zip-icon-blue.svg">
+                        <p class="text-5xl font-bold whitespace-nowrap text-white-100">ZIP File</p>
+                        <img class="rotate-20 w-45" src="./images/zip-icon-blue.svg">
+                    </a>
+                </div>
+                <div class="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8">
+                    <p class="mb-20 text-2xl text-black-100 font-normal text-center">A site from a website builder:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-20">
+                        <a href="https://litehost.io/builders/webflow.html"
+                            class="w-full bg-blue-100 h-100 rounded-lg flex justify-center items-center hover:drop-shadow-blue transition-all"><img
+                                src="images/webflow-logo.svg"></a>
+                        <a href="https://litehost.io/builders/wordpress"
+                            class="w-full bg-black-100 h-100 rounded-lg flex justify-center items-center hover:drop-shadow-blue transition-all"><img
+                                src="builders/images/wordpress-logo-white.svg"></a>
+                        <a href="https://litehost.io/builders/squarespace"
+                            class="w-full bg-black-100 h-100 rounded-lg flex justify-center items-center hover:drop-shadow-blue transition-all"><img
+                                src="builders/images/squarespace-logo.svg"></a>
+                        <a href="https://litehost.io/builders/wix"
+                            class="w-full bg-wix h-100 rounded-lg flex justify-center items-center hover:drop-shadow-blue transition-all"><img
+                                src="builders/images/wix-white.svg"></a>
+                    </div>
+                </div>
+            </div>
+            <!-- HOW IT WORKS END -->
+            <!-- FEATURES START -->
+            <div class="py-150 bg-white-50">
+                <h3 class="text-center font-bold text-5xl mb-80 text-black-100">What's included?</h3>
+                <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 sm:grid-cols-1 gap-20">
+                    <div class="flex flex-col gap-30 rounded-lg bg-pink-100 p-40">
+                        <div class="h-70">
+                            <img src="builders/images/maintenance.svg" width="60px">
+                        </div>
+                        <div class="text-white-100 flex flex-col gap-10">
+                            <h3 class="font-bold text-2xl">Zero maintenance</h3>
+                            <p class="font-normal text-xl">We handle all aspects of hosting and optimizing your site.
+                                Always on, forever. </p>
                         </div>
                     </div>
-                    <!-- STEP 34| FAIL END -->
-                    <!-- ADDITIONAL INFO END -->
-                </form>
-                <!-- UPLOAD FORM END -->
-                <!-- LITEHOST INFORMATION START -->
-                <div class="flex flex-col items-center justify-center font-normal mt-80 lg:mt-0 md:ml-50 text-white-100 gap-40">
-                    <div class="flex flex-col gap-15">
-                        <h1 class="text-5xl font-bold">Launch anything online, instantly.</h1>
-                        <h2 class="text-2xl ">Setting up hosting for websites sucks, and website builders charge an 💪 and a 🦵 for the same thing AWS gives you out of the box. Litehost gives you even more, for less.</h2>
+                    <div class="flex flex-col gap-30 rounded-lg bg-pink-100 p-40">
+                        <div class="h-70">
+                            <img src="builders/images/security.svg" width="45px">
+                        </div>
+                        <div class="text-white-100 flex flex-col gap-10">
+                            <h3 class="font-bold text-2xl">Free SSL</h3>
+                            <p class="font-normal text-xl">SSL is a bi*ch. We handle securing and maintaining your SSL
+                                certificates launching your site with https://.</p>
+                        </div>
                     </div>
-                    <div class="grid grid-cols-2 gap-20 w-full">
-                        <div class="text-lg">
-                            <h3 class="font-bold mb-2 leading-none">Dead Simple</h3>
-                            <p class="leading-6">Just upload a zip file. Re-upload to overwrite. Website builder publishing tools <a href="https://docs.google.com/forms/d/e/1FAIpQLScy1jqKfwk56CMXDcdtXAPERrQJUZb82-lwFZ17kWWLKho42A/viewform?usp=sf_link" target="_blank" class="underline">coming soon</a>.</p>
+                    <div class="flex flex-col gap-30 rounded-lg bg-pink-100 p-40">
+                        <div class="h-70">
+                            <img src="builders/images/traffic.svg" width="45px">
                         </div>
-                        <div class="text-lg">
-                            <h3 class="font-bold mb-2 leading-none">SSL included</h3>
-                            <p class="leading-6">Litehost includes SSL by default and maintains the certificate for you.</p>
+                        <div class="text-white-100 flex flex-col gap-10">
+                            <h3 class="font-bold text-2xl">Traffic-surge ready</h3>
+                            <p class="font-normal text-xl">Litehost is infinitely scalable to handle all your traffic –
+                                whether you're just getting started or launching a heavily trafficed site.</p>
                         </div>
-                        <div class="text-lg">
-                            <h3 class="font-bold mb-2 leading-none">Personalized subdomains</h3>
-                            <p class="leading-6">Once you secure a litehost.io subdomain it's yours forever.</p>
+                    </div>
+                    <div class="flex flex-col gap-30 rounded-lg bg-pink-100 p-40">
+                        <div class="h-70">
+                            <img src="builders/images/global.svg" width="45px">
                         </div>
-                        <div class="text-lg">
-                            <h3 class="font-bold mb-2 leading-none">Custom domains <a class="font-normal underline" href="https://docs.google.com/forms/d/e/1FAIpQLScy1jqKfwk56CMXDcdtXAPERrQJUZb82-lwFZ17kWWLKho42A/viewform?usp=sf_link" target="_blank">(join waitlist)</a></h3>
-                            <p class="leading-6">Launch anything you want on any domain you want.</p>
+                        <div class="text-white-100 flex flex-col gap-10">
+                            <h3 class="font-bold text-2xl">Global CDN</h3>
+                            <p class="font-normal text-xl">We serve up your website as close to your customers as
+                                physically possible. We use a global CDN optimized for speed.</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-30 rounded-lg bg-pink-100 p-40">
+                        <div class="h-70">
+                            <img src="builders/images/cache.svg" width="45px">
+                        </div>
+                        <div class="text-white-100 flex flex-col gap-10">
+                            <h3 class="font-bold text-2xl">Advanced caching</h3>
+                            <p class="font-normal text-xl">Every launch and update publishes across global caches
+                                instantly. Zero maintenance window.</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-30 rounded-lg bg-transparent border-2 border-black-100 p-40">
+                        <div class="h-70 flex flex-row justify-start w-full">
+                            <img class="mr-auto" src="builders/images/chrome.svg" width="45px">
+                            <a class="flex items-center bg-pink-100 hover:drop-shadow-pink transition-all rounded-md p-15 text-xl font-bold text-white-100"
+                                href="https://docs.google.com/forms/d/e/1FAIpQLScy1jqKfwk56CMXDcdtXAPERrQJUZb82-lwFZ17kWWLKho42A/viewform?usp=sf_link"
+                                target="_blank">Join waitlist</a>
+                        </div>
+                        <div class="text-black-100 flex flex-col gap-10">
+                            <h3 class="font-bold text-2xl">Quick launch extensions</h3>
+                            <p class="font-normal text-xl">Go from your website builder and staging to live on
+                                production without lifting a finger.</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-30 rounded-lg bg-transparent border-2 border-black-100 p-40">
+                        <div class="h-70 flex flex-row justify-start w-full">
+                            <img class="mr-auto" src="builders/images/form.svg" width="45px">
+                            <a class="flex items-center bg-pink-100 hover:drop-shadow-pink transition-all rounded-md p-15 text-xl font-bold text-white-100"
+                                href="https://docs.google.com/forms/d/e/1FAIpQLScy1jqKfwk56CMXDcdtXAPERrQJUZb82-lwFZ17kWWLKho42A/viewform?usp=sf_link"
+                                target="_blank">Join waitlist</a>
+                        </div>
+                        <div class="text-black-100 flex flex-col gap-10">
+                            <h3 class="font-bold text-2xl">Form support</h3>
+                            <p class="font-normal text-xl">Manage your form submissions direction from Litehost.
+                                Automatically re-route forms built on website builders.</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-30 rounded-lg bg-transparent border-2 border-black-100 p-40">
+                        <div class="h-70 flex flex-row justify-start w-full">
+                            <img class="mr-auto" src="builders/images/cms.svg" width="45px">
+                            <a class="flex items-center bg-pink-100 hover:drop-shadow-pink transition-all rounded-md p-15 text-xl font-bold text-white-100"
+                                href="https://docs.google.com/forms/d/e/1FAIpQLScy1jqKfwk56CMXDcdtXAPERrQJUZb82-lwFZ17kWWLKho42A/viewform?usp=sf_link"
+                                target="_blank">Join waitlist</a>
+                        </div>
+                        <div class="text-black-100 flex flex-col gap-10">
+                            <h3 class="font-bold text-2xl">CMS Support</h3>
+                            <p class="font-normal text-xl">Use your website builder's CMS or bring in a third-party.
+                                We're here to host flawlessly, not tell you what CMS to use.</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-30 rounded-lg bg-transparent border-2 border-black-100 p-40">
+                        <div class="h-70 flex flex-row justify-start w-full">
+                            <img class="mr-auto" src="images/logo-block-black.svg" width="45px">
+                            <a class="flex items-center bg-pink-100 hover:drop-shadow-pink transition-all rounded-md p-15 text-xl font-bold text-white-100"
+                                href="https://docs.google.com/forms/d/e/1FAIpQLScy1jqKfwk56CMXDcdtXAPERrQJUZb82-lwFZ17kWWLKho42A/viewform?usp=sf_link"
+                                target="_blank">Let us know</a>
+                        </div>
+                        <div class="text-black-100 flex flex-col gap-10">
+                            <h3 class="font-bold text-2xl">What else?</h3>
+                            <p class="font-normal text-xl">We're building fast – tell us what features you need to
+                                switch to litehost and we'll prioritize them.</p>
                         </div>
                     </div>
                 </div>
-                <!-- LITEHOST INFORMATION END -->
             </div>
-        </div>
-<!-- HERO SECTION END -->
-<!-- JOIN WAITLIST INFINITE SCROLL START -->
-<div class="overflow-hidden w-full bg-pink-100 hover:underline text-white-100 h-80">
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLScy1jqKfwk56CMXDcdtXAPERrQJUZb82-lwFZ17kWWLKho42A/viewform?usp=sf_link" target="_blank" >
-        <div class="scrolling-banner whitespace-nowrap h-full bg-blue-500 text-white flex flex-row items-center gap-20 py-0 text-white-100 text-4xl font-bold">
-            <span>Launch custom domains</span>
-            <span>🏴‍☠️</span>
-            <span>Go pro</span>
-            <span>🔥</span>
-            <span>Launch custom domains</span>
-            <span>🏴‍☠️</span>
-            <span>Go pro</span>
-            <span>🔥</span>
-            <span>Launch custom domains</span>
-            <span>🏴‍☠️</span>
-            <span>Go pro</span>
-            <span>🔥</span>
-            <span>Launch custom domains</span>
-            <span>🏴‍☠️</span>
-            <span>Go pro</span>
-            <span>🔥</span>
-            <span>Launch custom domains</span>
-            <span>🏴‍☠️</span>
-            <span>Go pro</span>
-            <span>🔥</span>
-            <span>Launch custom domains</span>
-            <span>🏴‍☠️</span>
-            <span>Go pro</span>
-            <span>🔥</span>
-            <span>Launch custom domains</span>
-            <span>🏴‍☠️</span>
-            <span>Go pro</span>
-            <span>🔥</span>
-            <span>Launch custom domains</span>
-            <span>🏴‍☠️</span>
-            <span>Go pro</span>
-            <span>🔥</span>
-        </div>
-    </a>
-</div>
-<!-- JOIN WAITLIST INFINITE SCROLL END -->
-<!-- HOW IT WORKS START -->
-<div class="py-150 bg-white-100 flex flex-col gap-80">
-    <div>
-        <h3 class="text-center font-bold text-5xl text-black-100 mb-15">How's it work?</h3>
-        <h4  class="text-center font-normal text-2xl text-black-100">What are you launching?</h4>
-    </div>
-    <div class="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8">
-        <p class="mb-20 text-2xl text-black-100 font-normal text-center">My own file:</p>
-        <a href="https://litehost.io/buidlers/zip.html" class="bg-pink-100 transition-all h-95 w-full rounded-lg hover:drop-shadow-blue overflow-clip flex flex-row justify-center items-center gap-25">
-            <p class="text-5xl font-bold whitespace-nowrap text-white-100">ZIP File</p>
-            <img class="rotate-20 w-45" src="./images/zip-icon-blue.svg">
-            <p class="text-5xl font-bold whitespace-nowrap text-white-100">ZIP File</p>
-            <img class="rotate-neg20 w-45" src="./images/zip-icon-blue.svg">
-            <p class="text-5xl font-bold whitespace-nowrap flex flex-row text-white-100">ZIP File</p>
-            <img class="rotate-20 w-45" src="./images/zip-icon-blue.svg">
-            <p class="text-5xl font-bold whitespace-nowrap text-white-100">ZIP File</p>
-            <img class="rotate-neg20 w-45" src="./images/zip-icon-blue.svg">
-            <p class="text-5xl font-bold whitespace-nowrap text-white-100">ZIP File</p>
-            <img class="rotate-20 w-45" src="./images/zip-icon-blue.svg">
-        </a>
-    </div>
-    <div class="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8">
-        <p class="mb-20 text-2xl text-black-100 font-normal text-center">A site from a website builder:</p>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-20">
-            <a href="https://litehost.io/builders/webflow.html" class="w-full bg-blue-100 h-100 rounded-lg flex justify-center items-center hover:drop-shadow-blue transition-all"><img src="images/webflow-logo.svg"></a>
-            <a href="https://litehost.io/builders/wordpress" class="w-full bg-black-100 h-100 rounded-lg flex justify-center items-center hover:drop-shadow-blue transition-all"><img src="builders/images/wordpress-logo-white.svg"></a>
-            <a href="https://litehost.io/builders/squarespace" class="w-full bg-black-100 h-100 rounded-lg flex justify-center items-center hover:drop-shadow-blue transition-all"><img src="builders/images/squarespace-logo.svg"></a>
-            <a href="https://litehost.io/builders/wix" class="w-full bg-wix h-100 rounded-lg flex justify-center items-center hover:drop-shadow-blue transition-all"><img src="builders/images/wix-white.svg"></a>
-        </div>
-    </div>
-</div>
-<!-- HOW IT WORKS END -->
-<!-- FEATURES START -->
-<div class="py-150 bg-white-50">
-    <h3 class="text-center font-bold text-5xl mb-80 text-black-100">What's included?</h3>
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 sm:grid-cols-1 gap-20">
-        <div class="flex flex-col gap-30 rounded-lg bg-pink-100 p-40">
-            <div class="h-70">
-                <img src="builders/images/maintenance.svg" width="60px">
-            </div>
-            <div class="text-white-100 flex flex-col gap-10">
-                <h3 class="font-bold text-2xl">Zero maintenance</h3>
-                <p class="font-normal text-xl">We handle all aspects of hosting and optimizing your site. Always on, forever. </p>
-            </div>
-        </div>
-        <div class="flex flex-col gap-30 rounded-lg bg-pink-100 p-40">
-            <div class="h-70">
-                <img src="builders/images/security.svg" width="45px">
-            </div>
-            <div class="text-white-100 flex flex-col gap-10">
-                <h3 class="font-bold text-2xl">Free SSL</h3>
-                <p class="font-normal text-xl">SSL is a bi*ch. We handle securing and maintaining your SSL certificates launching your site with https://.</p>
-            </div>
-        </div>
-        <div class="flex flex-col gap-30 rounded-lg bg-pink-100 p-40">
-            <div class="h-70">
-                <img src="builders/images/traffic.svg" width="45px">
-            </div>
-            <div class="text-white-100 flex flex-col gap-10">
-                <h3 class="font-bold text-2xl">Traffic-surge ready</h3>
-                <p class="font-normal text-xl">Litehost is infinitely scalable to handle all your traffic – whether you're just getting started or launching a heavily trafficed site.</p>
-            </div>
-        </div>
-        <div class="flex flex-col gap-30 rounded-lg bg-pink-100 p-40">
-            <div class="h-70">
-                <img src="builders/images/global.svg" width="45px">
-            </div>
-            <div class="text-white-100 flex flex-col gap-10">
-                <h3 class="font-bold text-2xl">Global CDN</h3>
-                <p class="font-normal text-xl">We serve up your website as close to your customers as physically possible. We use a global CDN optimized for speed.</p>
-            </div>
-        </div>
-        <div class="flex flex-col gap-30 rounded-lg bg-pink-100 p-40">
-            <div class="h-70">
-                <img src="builders/images/cache.svg" width="45px">
-            </div>
-            <div class="text-white-100 flex flex-col gap-10">
-                <h3 class="font-bold text-2xl">Advanced caching</h3>
-                <p class="font-normal text-xl">Every launch and update publishes across global caches instantly. Zero maintenance window.</p>
-            </div>
-        </div>
-        <div class="flex flex-col gap-30 rounded-lg bg-transparent border-2 border-black-100 p-40">
-            <div class="h-70 flex flex-row justify-start w-full">
-                <img class="mr-auto" src="builders/images/chrome.svg" width="45px">
-                <a class="flex items-center bg-pink-100 hover:drop-shadow-pink transition-all rounded-md p-15 text-xl font-bold text-white-100" href="https://docs.google.com/forms/d/e/1FAIpQLScy1jqKfwk56CMXDcdtXAPERrQJUZb82-lwFZ17kWWLKho42A/viewform?usp=sf_link" target="_blank">Join waitlist</a>
-            </div>
-            <div class="text-black-100 flex flex-col gap-10">
-                <h3 class="font-bold text-2xl">Quick launch extensions</h3>
-                <p class="font-normal text-xl">Go from your website builder and staging to live on production without lifting a finger.</p>
-            </div>
-        </div>
-        <div class="flex flex-col gap-30 rounded-lg bg-transparent border-2 border-black-100 p-40">
-            <div class="h-70 flex flex-row justify-start w-full">
-                <img class="mr-auto" src="builders/images/form.svg" width="45px">
-                <a class="flex items-center bg-pink-100 hover:drop-shadow-pink transition-all rounded-md p-15 text-xl font-bold text-white-100" href="https://docs.google.com/forms/d/e/1FAIpQLScy1jqKfwk56CMXDcdtXAPERrQJUZb82-lwFZ17kWWLKho42A/viewform?usp=sf_link" target="_blank">Join waitlist</a>
-            </div>
-            <div class="text-black-100 flex flex-col gap-10">
-                <h3 class="font-bold text-2xl">Form support</h3>
-                <p class="font-normal text-xl">Manage your form submissions direction from Litehost. Automatically re-route forms built on website builders.</p>
-            </div>
-        </div>
-        <div class="flex flex-col gap-30 rounded-lg bg-transparent border-2 border-black-100 p-40">
-            <div class="h-70 flex flex-row justify-start w-full">
-                <img class="mr-auto" src="builders/images/cms.svg" width="45px">
-                <a class="flex items-center bg-pink-100 hover:drop-shadow-pink transition-all rounded-md p-15 text-xl font-bold text-white-100" href="https://docs.google.com/forms/d/e/1FAIpQLScy1jqKfwk56CMXDcdtXAPERrQJUZb82-lwFZ17kWWLKho42A/viewform?usp=sf_link" target="_blank">Join waitlist</a>
-            </div>
-            <div class="text-black-100 flex flex-col gap-10">
-                <h3 class="font-bold text-2xl">CMS Support</h3>
-                <p class="font-normal text-xl">Use your website builder's CMS or bring in a third-party. We're here to host flawlessly, not tell you what CMS to use.</p>
-            </div>
-        </div>
-        <div class="flex flex-col gap-30 rounded-lg bg-transparent border-2 border-black-100 p-40">
-            <div class="h-70 flex flex-row justify-start w-full">
-                <img class="mr-auto" src="images/logo-block-black.svg" width="45px">
-                <a class="flex items-center bg-pink-100 hover:drop-shadow-pink transition-all rounded-md p-15 text-xl font-bold text-white-100" href="https://docs.google.com/forms/d/e/1FAIpQLScy1jqKfwk56CMXDcdtXAPERrQJUZb82-lwFZ17kWWLKho42A/viewform?usp=sf_link" target="_blank">Let us know</a>
-            </div>
-            <div class="text-black-100 flex flex-col gap-10">
-                <h3 class="font-bold text-2xl">What else?</h3>
-                <p class="font-normal text-xl">We're building fast – tell us what features you need to switch to litehost and we'll prioritize them.</p>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- FEATURES END -->
-<!-- FOOTER START -->
-<footer class="bg-white-100" aria-labelledby="footer-heading">
-    <div class="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
-    <div class="xl:grid xl:grid-cols-3 xl:gap-8">
-        <div class="space-y-8">
-        <img class="max-w-150" src="images/litehost-logo-pink.svg" alt="Litehost.io">
-        <p class="text-sm leading-6 text-gray-600">Launch websites fast, get back to building.</p>
-        <!-- <div class="flex space-x-6">
+            <!-- FEATURES END -->
+            <!-- FOOTER START -->
+            <footer class="bg-white-100" aria-labelledby="footer-heading">
+                <div class="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
+                    <div class="xl:grid xl:grid-cols-3 xl:gap-8">
+                        <div class="space-y-8">
+                            <img class="max-w-150" src="images/litehost-logo-pink.svg" alt="Litehost.io">
+                            <p class="text-sm leading-6 text-gray-600">Launch websites fast, get back to building.</p>
+                            <!-- <div class="flex space-x-6">
             <a href="#" class="text-gray-400 hover:text-gray-500">
             <span class="sr-only">Facebook</span>
             <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -495,65 +607,76 @@
             </svg>
             </a>
         </div> -->
+                        </div>
+                        <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
+                            <div class="md:grid md:grid-cols-2 md:gap-8">
+                                <div>
+                                    <h3 class="text-sm font-normal leading-6 text-gray-900">Launch</h3>
+                                    <ul role="list" class="mt-6 space-y-4">
+                                        <li>
+                                            <a href="https://litehost.io"
+                                                class="text-sm leading-6 text-gray-600 hover:text-gray-900">Get
+                                                started</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="mt-10 md:mt-0">
+                                    <h3 class="text-sm font-normal leading-6 text-gray-900">Support</h3>
+                                    <ul role="list" class="mt-6 space-y-4">
+                                        <li>
+                                            <a href="mailto:support@litehost.io"
+                                                class="text-sm leading-6 text-gray-600 hover:text-gray-900">Get in
+                                                touch</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="md:grid md:grid-cols-2 md:gap-8">
+                                <div>
+                                    <h3 class="text-sm font-normal leading-6 text-gray-900">Web Builders</h3>
+                                    <ul role="list" class="mt-6 space-y-4">
+                                        <li>
+                                            <a href="https://litehost.io/builders/webflow.html"
+                                                class="text-sm leading-6 text-gray-600 hover:text-gray-900">Webflow</a>
+                                        </li>
+                                        <li>
+                                            <a href="https://litehost.io/builders/wix.html"
+                                                class="text-sm leading-6 text-gray-600 hover:text-gray-900">Wix</a>
+                                        </li>
+                                        <li>
+                                            <a href="https://litehost.io/builders/wordpress.html"
+                                                class="text-sm leading-6 text-gray-600 hover:text-gray-900">Wordpress</a>
+                                        </li>
+                                        <li>
+                                            <a href="https://litehost.io/builders/squarespace.html"
+                                                class="text-sm leading-6 text-gray-600 hover:text-gray-900">Squarespace</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="mt-10 md:mt-0">
+                                    <h3 class="text-sm font-normal leading-6 text-gray-900">Legal</h3>
+                                    <ul role="list" class="mt-6 space-y-4">
+                                        <li>
+                                            <a href="https://litehost.io/legal/privacy.html"
+                                                class="text-sm leading-6 text-gray-600 hover:text-gray-900">Privacy</a>
+                                        </li>
+                                        <li>
+                                            <a href="https://litehost.io/legal/terms-and-conditions.html"
+                                                class="text-sm leading-6 text-gray-600 hover:text-gray-900">Terms</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-16 border-t border-gray-900/10 pt-8 sm:mt-20 lg:mt-24">
+                        <p class="text-xs leading-5 text-gray-500">&copy; 2024 BGSN, Inc. All rights reserved.</p>
+                    </div>
+                </div>
+            </footer>
+            <!-- FOOTER END -->
         </div>
-        <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
-        <div class="md:grid md:grid-cols-2 md:gap-8">
-            <div>
-            <h3 class="text-sm font-normal leading-6 text-gray-900">Launch</h3>
-            <ul role="list" class="mt-6 space-y-4">
-                <li>
-                <a href="https://litehost.io" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Get started</a>
-                </li>
-            </ul>
-            </div>
-            <div class="mt-10 md:mt-0">
-            <h3 class="text-sm font-normal leading-6 text-gray-900">Support</h3>
-            <ul role="list" class="mt-6 space-y-4">
-                <li>
-                <a href="mailto:support@litehost.io" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Get in touch</a>
-                </li>
-            </ul>
-            </div>
-        </div>
-        <div class="md:grid md:grid-cols-2 md:gap-8">
-            <div>
-            <h3 class="text-sm font-normal leading-6 text-gray-900">Web Builders</h3>
-            <ul role="list" class="mt-6 space-y-4">
-                <li>
-                <a href="https://litehost.io/builders/webflow.html" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Webflow</a>
-                </li>
-                <li>
-                <a href="https://litehost.io/builders/wix.html" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Wix</a>
-                </li>
-                <li>
-                <a href="https://litehost.io/builders/wordpress.html" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Wordpress</a>
-                </li>
-                <li>
-                <a href="https://litehost.io/builders/squarespace.html" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Squarespace</a>
-                </li>
-            </ul>
-            </div>
-            <div class="mt-10 md:mt-0">
-            <h3 class="text-sm font-normal leading-6 text-gray-900">Legal</h3>
-            <ul role="list" class="mt-6 space-y-4">
-                <li>
-                <a href="https://litehost.io/legal/privacy.html" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Privacy</a>
-                </li>
-                <li>
-                <a href="https://litehost.io/legal/terms-and-conditions.html" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Terms</a>
-                </li>
-            </ul>
-            </div>
-        </div>
-        </div>
-    </div>
-    <div class="mt-16 border-t border-gray-900/10 pt-8 sm:mt-20 lg:mt-24">
-        <p class="text-xs leading-5 text-gray-500">&copy; 2024 BGSN, Inc. All rights reserved.</p>
-    </div>
-    </div>
-</footer>  
-<!-- FOOTER END -->
-    </div>
-    <script src="script.js"></script> 
+        <script src="script.js"></script>
 </body>
+
 </html>

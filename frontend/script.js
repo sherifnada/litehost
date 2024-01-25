@@ -1,219 +1,218 @@
 const firebaseConfig = {
-    apiKey: "AIzaSyDX0tTmeX5iCWILENwfZKT-SU1lfBn9P0M",
-    authDomain: "litehost-io-e7bdd.firebaseapp.com",
-    projectId: "litehost-io-e7bdd",
-    storageBucket: "litehost-io-e7bdd.appspot.com",
-    messagingSenderId: "994834323379",
-    appId: "1:994834323379:web:c34a969c3a25cb77149dc6",
-    measurementId: "G-HNLDD4X11K"
+  apiKey: "AIzaSyDX0tTmeX5iCWILENwfZKT-SU1lfBn9P0M",
+  authDomain: "litehost-io-e7bdd.firebaseapp.com",
+  projectId: "litehost-io-e7bdd",
+  storageBucket: "litehost-io-e7bdd.appspot.com",
+  messagingSenderId: "994834323379",
+  appId: "1:994834323379:web:c34a969c3a25cb77149dc6",
+  measurementId: "G-HNLDD4X11K"
 };
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-function toggleLoginLogoutButtons(user){
-    if (firebase.auth().currentUser){
-        // show logout
-        document.getElementById("topright-login-button").classList.replace("flex", "hidden");
-        document.getElementById("logout-button").classList.replace("hidden", "flex");
-    } else {
-        // show login
-        document.getElementById("logout-button").classList.replace("flex", "hidden");
-        document.getElementById("topright-login-button").classList.replace("hidden", "flex");
-    }
+function toggleLoginLogoutButtons(user) {
+  if (firebase.auth().currentUser) {
+    // show logout
+    document.getElementById("topright-login-button").classList.replace("flex", "hidden");
+    document.getElementById("logout-button").classList.replace("hidden", "flex");
+  } else {
+    // show login
+    document.getElementById("logout-button").classList.replace("flex", "hidden");
+    document.getElementById("topright-login-button").classList.replace("hidden", "flex");
+  }
 }
 
 firebase.auth().onAuthStateChanged(toggleLoginLogoutButtons);
 
-document.addEventListener('DOMContentLoaded', async function () {
+document.addEventListener('DOMContentLoaded', async function() {
 
-    const nameYourSub = document.getElementById('nameYourSub');
-    const uploadStep = document.querySelectorAll('.uploadStep');
-    const fileUpload = document.getElementById('fileUpload');
-    const launchStep = document.querySelectorAll('.launchStep');
-    const createAccountStep = document.querySelectorAll('.createAccountStep');
-    const uploadingStep = document.querySelectorAll('.uploadingStep');
-    const successStep = document.querySelectorAll('.successStep');
-    const failStep = document.querySelectorAll('.failStep');
-    const dropZone = document.getElementById('dropZone')
+  const nameYourSub = document.getElementById('nameYourSub');
+  const uploadStep = document.querySelectorAll('.uploadStep');
+  const fileUpload = document.getElementById('fileUpload');
+  const launchStep = document.querySelectorAll('.launchStep');
+  const createAccountStep = document.querySelectorAll('.createAccountStep');
+  const uploadingStep = document.querySelectorAll('.uploadingStep');
+  const successStep = document.querySelectorAll('.successStep');
+  const failStep = document.querySelectorAll('.failStep');
+  const dropZone = document.getElementById('dropZone')
 
-    function replaceHiddenWithFlex(el){
-        el.classList.replace("hidden", "flex");
+  function replaceHiddenWithFlex(el) {
+    el.classList.replace("hidden", "flex");
+  }
+
+  function replaceFlexWithHidden(el) {
+    el.classList.replace("flex", "hidden");
+  }
+
+  // Listen for changes in the file input
+  fileUpload.addEventListener('change', function() {
+    if (fileUpload.files.length === 1) {
+      uploadStep.forEach(replaceFlexWithHidden);
+      launchStep.forEach(replaceHiddenWithFlex);
     }
+  });
 
-    function replaceFlexWithHidden(el){
-        el.classList.replace("flex", "hidden");
-    }
+  document.getElementById('uploadForm').addEventListener('submit', async function(e) {
+    // document.getElementById("response").innerText = "request submitted..";
+    e.preventDefault();
+    var formData = new FormData(this);
+    // TODO only do this if they're not logged in
+    launchStep.forEach(el => el.classList.add("hidden"));
+    nameYourSub.classList.add("hidden");
+    const urlParams = new URLSearchParams(window.location.search);
+    const debug = urlParams.get('debug');
 
-    // Listen for changes in the file input
-    fileUpload.addEventListener('change', function() {
-        if(fileUpload.files.length === 1) {
-            uploadStep.forEach(replaceFlexWithHidden);
-            launchStep.forEach(replaceHiddenWithFlex);
-        }
-    });
+    if (debug === 'true') {
+      // Debug mode actions here
+      // TODO remove after adding check for being logged in
+      createAccountStep.forEach(el => el.classList.remove("hidden"));
+      setTimeout(() => {
+        createAccountStep.forEach(el => el.classList.add("hidden"));
 
-    document.getElementById('uploadForm').addEventListener('submit', async function(e) {
-        // document.getElementById("response").innerText = "request submitted..";
-        e.preventDefault();
-        var formData = new FormData(this);
-        // TODO only do this if they're not logged in
-        launchStep.forEach(el => el.classList.add("hidden"));
-        nameYourSub.classList.add("hidden");
-        const urlParams = new URLSearchParams(window.location.search);
-        const debug = urlParams.get('debug');
+        setTimeout(() => {
+          uploadingStep.forEach(el => el.classList.add("hidden"));
+          const isRequestSuccessful = true;
+          if (isRequestSuccessful) {
+            successStep.forEach(el => el.classList.remove("hidden"));
+            const response = { "status": 200, "websiteUrl": "https://pipeweave.litehost.io" };
+            const successUrlElement = document.getElementById("success-url");
+            successUrlElement.innerHTML = '';
+            const link = document.createElement('a');
+            link.href = response.websiteUrl;
+            link.target = '_blank';
+            link.textContent = response.websiteUrl;
 
-        if (debug === 'true') {
-            // Debug mode actions here
-            // TODO remove after adding check for being logged in
-            createAccountStep.forEach(el => el.classList.remove("hidden"));
-            setTimeout(() => {
-                createAccountStep.forEach(el => el.classList.add("hidden"));
+            successUrlElement.appendChild(link);
+          } else {
+            failStep.forEach(el => el.classList.remove("hidden"));
+            const response = { "status": 400, error: "bucket_creation_failure", message: "Failed to create S3 bucket! (this is a sample error message)" };
 
-                setTimeout(() => {
-                    uploadingStep.forEach(el => el.classList.add("hidden"));
-                    const isRequestSuccessful = true;
-                    if (isRequestSuccessful) {
-                        successStep.forEach(el => el.classList.remove("hidden"));
-                        const response = {"status": 200, "websiteUrl": "https://pipeweave.litehost.io"};
-                        const successUrlElement = document.getElementById("success-url");
-                        successUrlElement.innerHTML = '';
-                        const link = document.createElement('a');
-                        link.href = response.websiteUrl;
-                        link.target = '_blank';
-                        link.textContent = response.websiteUrl;
-                    
-                        successUrlElement.appendChild(link);
-                    } else {
-                        failStep.forEach(el => el.classList.remove("hidden"));
-                        const response = {"status": 400, error: "bucket_creation_failure", message: "Failed to create S3 bucket! (this is a sample error message)"};
-           
-                        // hides stuff from the form
-                    }
-                }, 4000); 
-            }, 2000)
+            // hides stuff from the form
+          }
+        }, 4000);
+      }, 2000)
+    } else {
+      // Normal mode actions here
+      // TODO show createAccountStep if not logged in
+      const loggedIn = firebase.auth().currentUser;
+      if (!loggedIn) {
+        createAccountStep.forEach(el => el.classList.remove("hidden"));
+        await waitForUserLogin();
+        createAccountStep.forEach(el => el.classList.add("hidden"));
+      }
+
+      uploadingStep.forEach(el => el.classList.remove("hidden"));
+      fetch('/create_site', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${await firebase.auth().currentUser.getIdToken(true)}` },
+        body: formData
+      }).then(async response => {
+        uploadingStep.forEach(el => el.classList.add("hidden"));
+        const data = await response.json();
+        if (response.status >= 200 && response.status < 300) {
+          successStep.forEach(el => el.classList.remove("hidden"));
+          document.getElementById("success-url").innerText = data.websiteUrl;
+        } else if (response.status >= 400 < 500) {
+          failStep.forEach(el => el.classList.remove("hidden"));
+          document.getElementById("serverside-failure-message").innerText = data.message;
         } else {
-            // Normal mode actions here
-            // TODO show createAccountStep if not logged in
-            const loggedIn = firebase.auth().currentUser;
-            if (!loggedIn){
-                createAccountStep.forEach(el => el.classList.remove("hidden"));
-                await waitForUserLogin();
-                createAccountStep.forEach(el => el.classList.add("hidden"));
-            } 
-
-            uploadingStep.forEach(el => el.classList.remove("hidden"));
-            // TODO sometimes it seems we upload the files for a website twice. Probably something wonky happening with the waitForUserLogin step above
-            fetch('/create_site', {
-                method: 'POST',
-                headers: {Authorization: `Bearer ${await firebase.auth().currentUser.getIdToken(true)}`},
-                body: formData
-            }).then(async response => {
-                uploadingStep.forEach(el => el.classList.add("hidden"));
-                const data = await response.json();
-                if (response.status >= 200 && response.status < 300){
-                    successStep.forEach(el => el.classList.remove("hidden"));
-                    document.getElementById("success-url").innerText = data.websiteUrl;
-                } else if (response.status >= 400 < 500) {
-                    failStep.forEach(el => el.classList.remove("hidden"));
-                    // TODO show actual error message
-                } else {
-                    failStep.forEach(el => el.classList.remove("hidden"));
-                    // TODO show generic error message
-                }
-            }).catch(error => {
-
-            });
+          failStep.forEach(el => el.classList.remove("hidden"));
+          document.getElementById("serverside-failure-message").innerText = "It looks like something broke unexpectedly."
         }
+      }).catch(error => {
+        throw error;
+      });
+    }
+  });
+
+  // ================ FIREBASE ====================
+
+
+
+  await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+
+  async function signInWithGoogle() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    try {
+      await firebase.auth().signInWithPopup(provider);
+    } catch (error) {
+      // TODO Handle Errors here https://firebase.google.com/docs/reference/js/v8/firebase.auth.Auth#signinwithpopupf
+      throw error;
+    }
+  }
+
+  async function waitForUserLogin() {
+    return new Promise((resolve, reject) => {
+      // if already logged in then exit
+      if (firebase.auth().currentUser) {
+        resolve(firebase.auth().currentUser);
+        return;
+      }
+
+      // Otherwise wait for authentication state changes
+      const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          // If a user is logged in, resolve the promise with the user information
+          unsubscribe();
+          resolve(user);
+          return;
+        }
+      });
     });
+  }
 
-    // ================ FIREBASE ====================    
+  function logoutUser() {
+    firebase.auth().signOut();
+    location.reload();
+  }
 
+  document.querySelectorAll(".login-with-google").forEach(el => el.addEventListener("click", signInWithGoogle));
+  document.getElementById("logout-button").addEventListener("click", logoutUser);
 
-
-    await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
-
-    async function signInWithGoogle(){
-        const provider = new firebase.auth.GoogleAuthProvider();
-        try {
-            await firebase.auth().signInWithPopup(provider);
-        } catch(error){
-            // TODO Handle Errors here https://firebase.google.com/docs/reference/js/v8/firebase.auth.Auth#signinwithpopupf
-            throw error;
-        }
-    }
-
-    async function waitForUserLogin() {
-        return new Promise((resolve, reject) => {
-            // if already logged in then exit
-            if (firebase.auth().currentUser){
-                resolve(firebase.auth().currentUser);
-                return;
-            }
-        
-            // Otherwise wait for authentication state changes
-            const unsubscribe = firebase.auth().onAuthStateChanged(user => {
-                if (user) {
-                    // If a user is logged in, resolve the promise with the user information
-                    unsubscribe();
-                    resolve(user);
-                    return;
-                }
-            });
-        });
-    }
-      
-    function logoutUser(){
-        firebase.auth().signOut();
-        location.reload();
-    }
-
-    document.querySelectorAll(".login-with-google").forEach(el => el.addEventListener("click",  signInWithGoogle));
-    document.getElementById("logout-button").addEventListener("click", logoutUser);
-
-// ================ END FIREBASE ====================
+  // ================ END FIREBASE ====================
 
 
-        
 
-// /* this code is not working with the above JS. I think something about the fileUpload ID being two variables is the problem?
-// //Two things with this drap and drop functionality. (1) I'm not sure it's actually sending the file to the form. (2) The background goes away when you drag the file over the dropZone text
-// var dropZone = document.getElementById('dropZone');
-// var fileInput = document.getElementById('fileUpload');
 
-// function showdropZone() {
-// 	dropZone.style.display = "flex";
-// }
-// function hidedropZone() {
-//     dropZone.style.display = "none";
-// }
+  // /* this code is not working with the above JS. I think something about the fileUpload ID being two variables is the problem?
+  // //Two things with this drap and drop functionality. (1) I'm not sure it's actually sending the file to the form. (2) The background goes away when you drag the file over the dropZone text
+  // var dropZone = document.getElementById('dropZone');
+  // var fileInput = document.getElementById('fileUpload');
 
-// function allowDrag(e) {
-//     if (true) {  // Test that the item being dragged is a valid one
-//         e.dataTransfer.dropEffect = 'copy';
-//         e.preventDefault();
-//     }
-// }
+  // function showdropZone() {
+  // 	dropZone.style.display = "flex";
+  // }
+  // function hidedropZone() {
+  //     dropZone.style.display = "none";
+  // }
 
-// function handleDrop(e) {
-//     e.preventDefault();
-//     hidedropZone();
-//     var dt = e.dataTransfer;
-//     var files = dt.files;
-//     fileInput.files = files;
-// }
+  // function allowDrag(e) {
+  //     if (true) {  // Test that the item being dragged is a valid one
+  //         e.dataTransfer.dropEffect = 'copy';
+  //         e.preventDefault();
+  //     }
+  // }
 
-// window.addEventListener('dragenter', function(e) {
-//     showdropZone();
-// });
+  // function handleDrop(e) {
+  //     e.preventDefault();
+  //     hidedropZone();
+  //     var dt = e.dataTransfer;
+  //     var files = dt.files;
+  //     fileInput.files = files;
+  // }
 
-// dropZone.addEventListener('dragenter', allowDrag);
-// dropZone.addEventListener('dragover', allowDrag);
+  // window.addEventListener('dragenter', function(e) {
+  //     showdropZone();
+  // });
 
-// dropZone.addEventListener('dragleave', function(e) {
-//     hidedropZone();
-// });
+  // dropZone.addEventListener('dragenter', allowDrag);
+  // dropZone.addEventListener('dragover', allowDrag);
 
-// dropZone.addEventListener('drop', handleDrop);
-// */
+  // dropZone.addEventListener('dragleave', function(e) {
+  //     hidedropZone();
+  // });
+
+  // dropZone.addEventListener('drop', handleDrop);
+  // */
 });

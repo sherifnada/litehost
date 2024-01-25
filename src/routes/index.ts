@@ -3,7 +3,7 @@ import express, { Request, Router } from 'express';
 import AdmZip from 'adm-zip';
 import { UploadedFile } from 'express-fileupload';
 import { App } from 'firebase-admin/app';
-import { getAuth } from 'firebase-admin/auth';
+import { DecodedIdToken, getAuth } from 'firebase-admin/auth';
 import path from 'path';
 import { HOSTING_BUCKET_NAME } from '../aws/constants.js';
 import { readFile, uploadDir } from '../aws/s3Client.js';
@@ -11,7 +11,12 @@ import DbClient from '../models/dbClient.js';
 import { listZipfileContents, unzipToTmpDir } from '../utils/zip.js';
 import { ValidationError } from './errors.js';
 import { SubdomainOwnerModel } from '../models/subdomainOwner.js';
-//
+
+
+interface AuthorizedRequest extends Request {
+  userToken: DecodedIdToken;
+}
+
 const createRouter = (firebaseApp: App, dbClient: DbClient) => {
   const router = Router();
   const subdomainOwnerModel = new SubdomainOwnerModel(dbClient);
@@ -33,7 +38,6 @@ const createRouter = (firebaseApp: App, dbClient: DbClient) => {
     }
 
     try {
-      // TODO unit test this
       const auth = getAuth(firebaseApp);
       const decodedToken = await auth.verifyIdToken(idToken);
       req.userToken = decodedToken;
@@ -43,55 +47,73 @@ const createRouter = (firebaseApp: App, dbClient: DbClient) => {
     }
   }
 
-  router.post('/is_site_available', async (req, res) => {
-    try {
-      validateSubdomain(req.body);
-      // this is a bug, it should also check if the user is the one already owning that subdomain
-      const available = !await subdomainOwnerModel.subdomainAlreadyInUse(req.body.subdomain);
-      res.status(200).send({ available });
-    } catch (error) {
-      if (error instanceof ValidationError) {
-        res.status(error.status).send(error.body);
-      } else {
-        res.status(500).send({ error: "internal", message: "Internal server error" });
+  async function validateUserCanUpdateSite(req: AuthorizedRequest, _, next) {
+    validateSubdomain(req.body);
+    const subdomain = req.body.subdomain;
+    await assertSubdomainAvailableForUser(subdomain, req.userToken.uid);
+    next();
+  }
+
+  function asyncHandler(fn) {
+    return async (req, res, next) => {
+      try {
+        await fn(req, res, next);
+      } catch (error) {
+        if (error instanceof ValidationError) {
+          res.status(error.status).send(error.body);
+        } else {
+          // You can log the error here if needed
+          console.log(error);
+          res.status(500).send({ error: "internal", message: "Internal server error" });
+        }
+      }
+    };
+  }
+
+  router.post('/is_site_available', asyncHandler(async (req, res) => {
+    validateSubdomain(req.body);
+    const available = !await subdomainOwnerModel.subdomainAlreadyInUse(req.body.subdomain);
+    if (!available && req.userToken) {
+      const subdomainOwner = await subdomainOwnerModel.getRowForSubdomain(req.body.subdomain);
+      if (subdomainOwner.owner === req.userToken.uid) {
+        res.status(200).send({ available: true });
+        return;
       }
     }
-  });
+    res.status(200).send({ available });
+  }));
 
-  router.post('/create_site', validateUserSignedIn, async (req: Request, res) => {
-    // TODO add API contract somewhere as middleware, this validation is nuts
-    try {
-      // TODO replace this with specific origins
-      // validate the uploaded file is a zip file
-      res.setHeader("Access-Control-Allow-Origin", "*");
-      const subdomain = req.body.subdomain;
-      assertSubdomainAvailableForUser(subdomain, req.userToken.uid)
-      validateSubdomain(req.body);
+
+
+  router.post('/create_site',
+    validateUserSignedIn,
+    asyncHandler(validateUserCanUpdateSite),
+    asyncHandler(async (req: AuthorizedRequest, res) => {
+      // TODO add API contract somewhere as middleware, this validation is nuts
       assertZipFile(req);
 
       // in zipFile, find the content root i.e the shallowest directory which contains an index.html file.
       // If no such directory exists then raise a ValidationError
       const zipFile = new AdmZip((req.files.zipFile as UploadedFile).data);
       const contentRoot: string = inferContentRoot(zipFile);
-      console.log(`contentRoot: ${contentRoot}`);
 
+      const subdomain = req.body.subdomain;
+      const uid = req.userToken.uid;
+      const thisIsANewDomain = !await subdomainOwnerModel.getRowForSubdomain(subdomain);
+      if (thisIsANewDomain) {
+        await subdomainOwnerModel.associateSubdomainWithOwner(subdomain, uid);
+      }
 
       const bucketSiteUrl = `https://${subdomain}.litehost.io`;
       const tmpDir = unzipToTmpDir(zipFile);
       const uploadRoot = path.join(tmpDir, contentRoot);
       await uploadDir(HOSTING_BUCKET_NAME, subdomain, uploadRoot, uploadRoot);
+      // TODO replace this with specific origins
+      res.setHeader("Access-Control-Allow-Origin", "*");
       res.status(200).send({ message: `Site created at ${bucketSiteUrl}`, websiteUrl: bucketSiteUrl });
-    } catch (error) {
-      if (error instanceof ValidationError) {
-        res.status(error.status).send(error.body);
-      } else {
-        console.error(error);
-        res.status(500).send('An error occurred while creating the site');
-      }
-    }
-  });
+    }));
 
-  router.get('*', async (req, res, next) => {
+  router.get('*', asyncHandler(async (req, res, next) => {
     try {
       const subdomain = extractSubdomainFromHost(req.headers.host);
       if (subdomain) {
@@ -111,10 +133,11 @@ const createRouter = (firebaseApp: App, dbClient: DbClient) => {
       if (error.name === "NoSuchKey") {
         res.status(404).send("File does not exist");
       } else {
-        res.status(500).send("An unkonwn error happened");
+        throw error;
       }
     }
-  });
+  }));
+
 
   router.use("/", express.static("frontend"));
 
