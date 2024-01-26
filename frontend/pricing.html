@@ -1,6 +1,15 @@
 <!doctype html>
 <html>
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RG1TG4XW4D"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-RG1TG4XW4D');
+    </script>
     <title>Litehost is the fastest way to launch and host a website with SSL</title>
     <meta charset="UTF-8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,16 +20,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="./output.css" rel="stylesheet">
-    <!-- need to make favicons
     <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
     <link href="images/webclip.png" rel="apple-touch-icon">
-    -->
     <!-- Firebase App is always required and must be first -->
     <script src='https://www.gstatic.com/firebasejs/10.7.2/firebase-app-compat.js'></script>
 
     <!-- Add Firebase products that you want to use -->
     <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-auth-compat.js"></script>
-    
     <link href="images/webclip.png" rel="apple-touch-icon">
     <style>
         .scrolling-banner {
@@ -54,7 +60,7 @@
             </div>
             <p class="text-white-100 text-left leading-5">Host here</p>
         </div>
-        <div class="rounded-full bg-white-100 px-20 py-5 font-bold text-blue-100 text-center">Unlimited subdomains free forever</div>
+        <a href=https://litehost.io/pricing.html" class="rounded-full bg-white-100 px-20 py-5 font-bold text-blue-100 text-center">Unlimited subdomains free forever</a>
     </div>
     <div id="topright-login-button">
         <button class="login-with-google bg-blue-50 border-2 border-blue-50 hover:border-2 hover:border-white-50 rounded-full transition-all pl-7 pr-15 py-7 flex items-center justify-start gap-2 text-white-100">
@@ -65,18 +71,21 @@
                     </g>
                 </svg>
             </div>
-            <span class="font-open-sans font-400">Login</span>
+            <span class="font-open-sans font-400">Sign in</span>
         </button>
     </div>
-    <div id="logout-button" class="items-center justify-center dark:bg-gray-800 hidden">
-        <button class="bg-white-100 px-4 py-2 flex gap-2 rounded-lg">
-            <span class="font-open-sans font-400">Logout</span>
+    <div id="logout-button" class="hidden">
+        <button class="bg-blue-50 border-2 border-blue-50 hover:border-2 hover:border-white-50 rounded-full transition-all pl-7 pr-15 py-7 flex items-center justify-start gap-2 text-white-100">
+            <div class="rounded-full bg-white-100 p-7">
+                <img src="images/sign-out-black.svg" alt="Sign out">
+            </div>
+            <span class="font-open-sans font-400">Sign out</span>
         </button>
     </div>
 </nav>
 <!-- NAV END -->
 <!-- PRICING START -->
-<div class="pt-100 text-white-100">
+<div class="pt-80 text-white-100">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <h2 class="text-center font-bold text-2xl mb-20">Pricing</h2>
         <H1 class="text-center font-bold text-5xl mb-40">Scale your business, not your hosting bills.</H1>
@@ -94,7 +103,7 @@
                     <span class="text-base font-semibold leading-7 text-gray-600">/forever</span>
                   </div>
                   <p class="mt-6 text-gray-600 text-2xl mb-20">Make as many subdomains as you want with as many files as you want.</p>
-                  <ul role="list" class="mt-10 space-y-4 text-lg leading-6 text-gray-600 font-normal">
+                  <ul role="list" class="mt-10 space-y-3 text-lg leading-6 text-gray-600 font-normal">
                     <li class="flex gap-x-3">
                       <svg class="h-6 w-5 flex-none" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                         <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
@@ -111,29 +120,28 @@
                       <svg class="h-6 w-5 flex-none" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                         <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
                       </svg>
-                      Basic analytics (coming soon)
+                      Site analytics (coming soon)
                     </li>
                   </ul>
                 </div>
-                <a href="https://litehost.io" aria-describedby="tier-hobby" class="mt-8 block rounded-md bg-indigo-600 px-3.5 py-2 text-center text-lg font-semibold leading-6 text-white shadow-sm hover:underline hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Launch something today</a>
+                <a href="https://litehost.io" aria-describedby="tier-hobby" class="mt-8 block rounded-md bg-blue-100 hover:drop-shadow-pinkhover px-3.5 text-center text-lg font-bold transition-all py-10 leading-6 text-white-100">Launch something today</a>
               </div>
               <div class="flex flex-col justify-between rounded-lg p-40 drop-shadow-bluehover bg-white-100 text-black-100 ring-1 ring-gray-900/10">
                 <div>
-                  <h3 id="tier-Pro" class="text-base font-bold leading-7">Pro</h3>
+                  <h3 id="tier-Pro" class="text-base font-bold leading-7">Pro (coming soon)</h3>
                   <div class="mt-4 flex justify-between items-center gap-x-2">
                     <div class="text-left">
                         <span class="text-5xl font-bold tracking-tight text-gray-900">$</span>
                         <span class="text-base font-semibold leading-7 text-gray-600">/month</span>
                     </div>
-                    <button class="text-right bg-pink-100 rounded-lg p-10 text-white-100 hover:drop-shadow-blue transition-all">Choose your price</button>
                   </div>
                   <p class="mt-6 text-2xl text-gray-600 mb-20">Host your website using a custom domain</p>
-                  <ul role="list" class="mt-10 space-y-4 text-lg font-normal leading-6 text-gray-600">
+                  <ul role="list" class="mt-10 space-y-3 text-lg font-normal leading-6 text-gray-600">
                     <li class="flex gap-x-3">
                         <svg class="h-6 w-5 flex-none" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                             <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
                         </svg>
-                        Unlimited custom domains
+                        Custom domains
                     </li>
                     <li class="flex gap-x-3">
                         <svg class="h-6 w-5 flex-none" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -145,7 +153,7 @@
                         <svg class="h-6 w-5 flex-none" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                             <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
                         </svg>
-                        Advanced analytics (coming soon)
+                        Site analytics (coming soon)
                     </li>
                     <li class="flex gap-x-3">
                         <svg class="h-6 w-5 flex-none" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -167,7 +175,7 @@
                     </li>
                   </ul>
                 </div>
-                <button href="#" aria-describedby="tier-hobby" class="mt-8 block rounded-md bg-indigo-600 px-3.5 py-2 text-center text-lg font-semibold hover:underline leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Give your feedback</button>
+                <button aria-describedby="tier-hobby" class="open-modal mt-8 block rounded-md bg-blue-100 hover:drop-shadow-pinkhover px-3.5 text-center text-lg font-bold transition-all py-10 leading-6 text-white-100">Get early access</button>
             </div>
           </div>
         </div>
@@ -175,9 +183,15 @@
       </div>
 </div>
 <div class="h-200 bg-white-100"></div>
-
-
 <!-- PRICING END -->
+<!-- MODAL START -->
+<div id="modal" class="fixed inset-0 bg-black-100 bg-opacity-20 backdrop-blur-sm justify-center items-center hidden flex py-20">
+    <div class="bg-white-100 p-2 md:p-8 rounded-lg shadow-lg flex flex-col justify-start w-11/12 h-full my-20 md:w-3/4 md:h-4/5 max-w-3xl">
+        <iframe class="w-full" src="https://docs.google.com/forms/d/e/1FAIpQLScy1jqKfwk56CMXDcdtXAPERrQJUZb82-lwFZ17kWWLKho42A/viewform?embedded=true" height="100%" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+        <button id="close-modal" class="mt-20">Close</button>
+    </div>
+</div>
+<!-- MODAL END -->
 <!-- FOOTER START -->
 <footer class="bg-white-100" aria-labelledby="footer-heading">
     <div class="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
@@ -276,6 +290,40 @@
 </footer>  
 <!-- FOOTER END -->
     </div>
-    <script src="script.js"></script> 
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('modal');
+        const openModalButtons = document.querySelectorAll('.open-modal');
+        const closeModalButton = document.getElementById('close-modal');
+
+        // Function to open modal
+        function openModal() {
+            modal.classList.remove('hidden');
+        }
+
+        // Add click event listener to all open-modal buttons
+        openModalButtons.forEach(button => {
+            button.addEventListener('click', openModal);
+        });
+
+        // Close modal button
+        closeModalButton.addEventListener('click', function() {
+            modal.classList.add('hidden');
+        });
+
+        // Close modal on click outside
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.classList.add('hidden');
+            }
+        });
+
+        // Check URL query parameters to see if the modal should be opened
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('openModal') === 'true') {
+            openModal();
+        }
+    });
+    </script>
 </body>
 </html>

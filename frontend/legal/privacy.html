@@ -1,6 +1,15 @@
 <!doctype html>
 <html>
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RG1TG4XW4D"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-RG1TG4XW4D');
+    </script>
     <title>Litehost Privacy Policy</title>
     <meta charset="UTF-8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -9,14 +18,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../output.css" rel="stylesheet">
-    <!-- need to make favicons
-    <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
-    <link href="images/webclip.png" rel="apple-touch-icon"> -->
+    <link href="../images/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <link href="../images/webclip.png" rel="apple-touch-icon">
 </head>
 <body class="bg-white-50">
 <!-- NAV START -->
 <nav class="bg-white-100 flex md:justify-between bg-transparent lg:px-100 md:px-50 py-40 px-3 items-center justify-center font-normal flex-col md:flex-row gap-5 md:gap-0">
-    <div class="md:mr-5%">
+    <div class="md:mr-5% hover:drop-shadow-pinkhover transition-all">
         <a href="https://litehost.io" class="bg-pink-100 rounded-full flex justify-center items-center p-20">
             <img src="../images/logo-block-white.svg" alt="Litehost logo" width="36">
         </a>
@@ -32,26 +40,13 @@
             </div>
             <p class="text-pink-100 text-left leading-5">Host here</p>
         </div>
-        <div class="rounded-full bg-pink-100 px-20 py-5 font-bold text-white-100 text-center">Unlimited subdomains free forever</div>
+                <a href="https://litehost.io/pricing.html" class="rounded-full bg-pink-100 px-20 py-5 font-bold text-white-100 text-center">Unlimited subdomains free forever</a>
     </div>
     <!-- *** Google button needs work *** -->
-    <div>
-        <script src="https://accounts.google.com/gsi/client" async></script>
-        <div id="g_id_onload"
-            data-client_id="YOUR_GOOGLE_CLIENT_ID"
-            data-login_uri="https://your.domain/your_login_endpoint"
-            data-auto_prompt="false">
-        </div>
-        <div class="g_id_signin"
-            data-type="standard"
-            data-size="large"
-            data-theme="outline"
-            data-text="sign_in_with"
-            data-shape="pill"
-            data-logo_alignment="left"
-            data-ux_mode="popup">
-        </div>
-    </div>
+    <a href="https://litehost.io/" class=" bg-pink-100 rounded-full flex items-center justify-center px-20 py-20 gap-15 hover:drop-shadow-pink hover:scale-102 active:drop-shadow-none active:scale-98 transition-all group"> 
+        <img class="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" src="../builders/images/launch-arrow.svg">
+    </a>
+
 </nav>
 <!-- NAV END -->
 <!-- BODY START -->

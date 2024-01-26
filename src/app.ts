@@ -1,21 +1,25 @@
 import express from 'express';
 import fileUpload from 'express-fileupload';
-import { readFileSync } from 'fs';
-import path from 'path';
-import {initializeApp, cert} from 'firebase-admin/app';
+import { cert, initializeApp } from 'firebase-admin/app';
+import DbClient from './models/dbClient.js';
+import { createRouter } from './routes/index.js';
+import { readJsonSecret } from './utils/index.js';
 
-const firebaseKey = JSON.parse(readFileSync(path.join(process.cwd(), 'secrets/firebase-svcaccount-key.json')).toString());
+
+
+const firebaseKey = readJsonSecret('firebase-svcaccount-key.json');
 const firebaseApp = initializeApp({
-    credential: cert(firebaseKey),
+  credential: cert(firebaseKey),
 });
 
+const dbConfig = readJsonSecret('db-config.json');
+const dbClient = new DbClient(dbConfig);
+
 const app = express();
-
 app.use(fileUpload());
+app.use(express.json());
 
-// Import routes
-import {createRouter} from './routes/index.js';
-const {router} = createRouter(firebaseApp);
-app.use('/', router);  
+const { router } = createRouter(firebaseApp, dbClient);
+app.use('/', router);
 
 export default app;
