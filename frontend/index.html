@@ -151,26 +151,18 @@
                                 </div>
                                 <div id="subdomain-input-container" class="flex flex-row">
                                     <div class="relative inline-block text-left mr-5">
-                                        <button id="menu-button" type="button" class="inline-flex items-center justify-center w-full h-full px-4 py-2 text-blue-100 focus:text-white-100 rounded-lg border-2 border-blue-100 bg-white hover:bg-blue-50 focus:bg-blue-100 transition-all">
+                                        <button id="subdomain-menu-button" type="button" class="inline-flex items-center justify-center w-full h-full px-4 py-2 text-blue-100 focus:text-white-100 rounded-lg border-2 border-blue-100 bg-white hover:bg-blue-50 focus:bg-blue-100 transition-all hidden">
                                             <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="13" height="8" viewBox="0 0 13 8" fill="none">
                                                 <path d="M7.22954 7.47183C6.83446 7.89324 6.16554 7.89324 5.77046 7.47183L0.578696 1.93394C-0.0200538 1.29528 0.432792 0.25 1.30823 0.25L11.6918 0.250001C12.5672 0.250001 13.0201 1.29528 12.4213 1.93394L7.22954 7.47183Z"/>
                                             </svg>
                                         </button>
-                                        <div id="dropdown" class="overflow-clip bg-white-100 z-10 origin-top-left absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-blue-100 transform scale-95 opacity-0 transition ease-out duration-100" style="display: none;">
-                                            <div class="truncate" role="menu" aria-orientation="vertical" aria-labelledby="menu-button">
-                                                <!-- SUBDOMAINS GO HERE -->
-                                                <a href="#" class="block px-4 py-2 text-lg bg-white-100 hover:bg-white-50 transition-all font-normal text-black-100 hover:bg-gray-100" role="menuitem">pipeweave</a>
-                                                <a href="#" class="block px-4 py-2 text-lg bg-white-100 hover:bg-white-50 transition-all font-normal text-black-100 hover:bg-gray-100" role="menuitem">betonme</a>
-                                                <a href="#" class="block px-4 py-2 text-lg bg-white-100 hover:bg-white-50 transition-all font-normal text-black-100 hover:bg-gray-100" role="menuitem">mindfulcarts</a>
-                                                <a href="#" class="block px-4 py-2 text-lg bg-white-100 hover:bg-white-50 transition-all font-normal text-black-100 hover:bg-gray-100" role="menuitem">mindfulcartsreallylongsubdomain</a>
-                                                <a href="#" class="block px-4 py-2 text-lg bg-white-100 hover:bg-white-50 transition-all font-normal text-black-100 hover:bg-gray-100" role="menuitem">mindfulcarts</a>
-                                                <a href="#" class="block px-4 py-2 text-lg bg-white-100 hover:bg-white-50 transition-all font-normal text-black-100 hover:bg-gray-100" role="menuitem">mindfulcarts</a>
-                                                <a href="#" class="block px-4 py-2 text-lg bg-white-100 hover:bg-white-50 transition-all font-normal text-black-100 hover:bg-gray-100" role="menuitem">mindfulcarts</a>
-                                                <a href="#" class="block px-4 py-2 text-lg bg-white-100 hover:bg-white-50 transition-all font-normal text-black-100 hover:bg-gray-100" role="menuitem">mindfulcarts</a>
+                                        <div id="subdomain-dropdown" class="overflow-clip bg-white-100 z-10 origin-top-left absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-blue-100 transform scale-95 opacity-0 transition ease-out duration-100" style="display: none;">
+                                            <div id="subdomain-dropdown-item-container" class="truncate" role="menu" aria-orientation="vertical" aria-labelledby="subdomain-menu-button">
+                                                <!-- Subdomains will programmatically be added here from javascript -->
                                             </div>
                                         </div>
                                     </div>
-                                    <input name="subdomain" id="subDomain-text" type="text"
+                                    <input name="subdomain" id="subdomain-text" type="text"
                                         class="bg-white-50 border-blue-100 border-t-2 border-b-2 border-l-2 px-2 py-2 rounded-l-lg focus:ring-pink-100 text-right w-160"
                                         placeholder="anythingyouwant"></input>
                                     <div
@@ -698,8 +690,8 @@
         <script src="script.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
-            const menuButton = document.getElementById('menu-button');
-            const dropdown = document.getElementById('dropdown');
+                const menuButton = document.getElementById('subdomain-menu-button');
+                const dropdown = document.getElementById('subdomain-dropdown');
     
                 menuButton.addEventListener('click', function () {
                     if (dropdown.style.display === 'none') {
