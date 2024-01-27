@@ -70,6 +70,12 @@ const createRouter = (firebaseApp: App, dbClient: DbClient) => {
     };
   }
 
+  router.get('/user/subdomains', validateUserSignedIn, asyncHandler(async (req, res) => {
+    // this is not working because the UID is of right now
+    const subdomains = (await subdomainOwnerModel.getRowsForOwner(req.userToken.uid)).map(s => s.subdomain);
+    res.status(200).send({subdomains});
+  }));
+
   router.post('/is_site_available', asyncHandler(async (req, res) => {
     validateSubdomain(req.body);
     const available = !await subdomainOwnerModel.subdomainAlreadyInUse(req.body.subdomain);

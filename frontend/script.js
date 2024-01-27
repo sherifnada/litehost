@@ -23,7 +23,70 @@ function toggleLoginLogoutButtons(user) {
   }
 }
 
-firebase.auth().onAuthStateChanged(toggleLoginLogoutButtons);
+async function getSubdomainsForUser(userIdToken){
+   // fetch subdomains for the user
+   const response = await fetch("/user/subdomains", {
+    method: "GET", 
+    headers: {
+      "Authorization": `Bearer ${userIdToken}`
+    }
+  });
+
+  if (response.status >= 200 && response.status < 300){
+    const responseJson = await response.json();
+    return responseJson.subdomains;
+  } else if (response.status >= 400 && response.status < 500){
+    const responseJson = await response.json();
+    console.error(responseJson);
+  }
+  return [];
+}
+
+function createSubdomainDropdownItem(subdomain){
+  const item = document.createElement('span');
+  for (let clazz of "block px-4 py-2 text-lg bg-white-100 hover:bg-white-50 transition-all font-normal text-black-100 hover:bg-gray-100".split(" ")){
+    item.classList.add(clazz);
+  }
+
+  item.innerText = subdomain;
+
+  item.addEventListener('click', function(){
+    document.getElementById("subdomain-text").value = item.innerText;
+  });
+
+  return item;
+}
+
+async function toggleSubdomainDropdown(user){
+  const subdomainDropdown = document.getElementById('subdomain-menu-button');
+  if (firebase.auth().currentUser){
+    const subdomains = await getSubdomainsForUser(await firebase.auth().currentUser.getIdToken());
+    if (subdomains && subdomains.length > 0){
+      const subdomainItemContainer = document.getElementById("subdomain-dropdown-item-container");
+      removeAllChildren(subdomainItemContainer);
+      subdomains.forEach(subdomain => {
+        subdomainItemContainer.appendChild(createSubdomainDropdownItem(subdomain));
+      });
+      subdomainDropdown.classList.remove('hidden');
+    }
+  } else {
+    subdomainDropdown.classList.add('hidden');
+  }
+}
+
+function removeAllChildren(htmlElement){
+  const children = htmlElement.children;
+  for (let child of children) {
+    subdomainItemContainer.removeChild(child);
+  }
+}
+
+async function authStateChangedEventListener(user){
+  toggleLoginLogoutButtons(user);
+  await toggleSubdomainDropdown(user);
+}
+
+firebase.auth().onAuthStateChanged(authStateChangedEventListener);
 
 document.addEventListener('DOMContentLoaded', async function() {
 
@@ -180,7 +243,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
   // ================ FORM VALIDATION ====================
   async function validateSubdomain() {
-    const subDomainInput = document.getElementById('subDomain-text');
+  const subDomainInput = document.getElementById('subdomain-text');
     const subDomain = subDomainInput.value;
     const validationErrorElement = document.getElementById('subdomain-input-validation-error-message');
     const subdomainInputContainer = document.getElementById('subdomain-input-container');
@@ -256,7 +319,7 @@ document.addEventListener('DOMContentLoaded', async function() {
   }
 
   document.getElementById('fileUpload').addEventListener('change', validateFileInput);
-  document.getElementById('subDomain-text').addEventListener('change', validateSubdomain)
+  document.getElementById('subdomain-text').addEventListener('change', validateSubdomain)
 
 
 
