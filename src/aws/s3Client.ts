@@ -2,9 +2,8 @@ import { S3 } from '@aws-sdk/client-s3';
 import { REGION } from './constants.js';
 import * as fs from 'fs';
 import * as path from 'path';
-import * as dotenv from 'dotenv';
 import getContentTypeFromFileName from '../utils/contentTypes.js';
-dotenv.config({ path: "secrets/.env.prod" });
+
 
 const AWSConfig = {
   region: REGION
