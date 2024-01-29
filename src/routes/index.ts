@@ -110,6 +110,7 @@ const createRouter = (firebaseApp: App, dbClient: DbClient) => {
   router.post('/create_site',
     validateUserSignedIn,
     asyncHandler(validateUserCanUpdateSite),
+    asyncHandler(validateUserOwnsLessThan10Domains),
     asyncHandler(async (req: AuthorizedRequest, res) => {
       // TODO add API contract somewhere as middleware, this validation is nuts
       assertZipFile(req);
