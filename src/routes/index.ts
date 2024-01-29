@@ -96,6 +96,16 @@ const createRouter = (firebaseApp: App, dbClient: DbClient) => {
   }));
 
 
+  async function validateUserOwnsLessThan10Domains(req: AuthorizedRequest, res, next){
+    // TODO adapt for priced plan
+    const userToken = req.userToken;
+    const subdomains = await subdomainOwnerModel.getRowsForOwner(userToken.uid);
+    if (subdomains.length > 10) {
+      res.status(400).send({ error: "too_many_domains", message: "You can only own up to 10 domains on the free plan." });
+      return;
+    }
+    next();
+  }
 
   router.post('/create_site',
     validateUserSignedIn,
