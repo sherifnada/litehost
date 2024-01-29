@@ -78,8 +78,9 @@ const createRouter = (firebaseApp: App, dbClient: DbClient) => {
 
   router.post('/is_site_available', asyncHandler(async (req, res) => {
     validateSubdomain(req.body);
+    const userToken = parseBearerToken(req.headers?.authorization);
     const available = !await subdomainOwnerModel.subdomainAlreadyInUse(req.body.subdomain);
-    if (!available && req.userToken) {
+    if (!available && userToken) {
       const subdomainOwner = await subdomainOwnerModel.getRowForSubdomain(req.body.subdomain);
       if (subdomainOwner.owner === req.userToken.uid) {
         res.status(200).send({ available: true });
