@@ -879,6 +879,10 @@ video {
   width: 200px;
 }
 
+.w-300 {
+  width: 300px;
+}
+
 .w-38 {
   width: 38px;
 }
@@ -909,10 +913,6 @@ video {
 
 .w-full {
   width: 100%;
-}
-
-.w-300 {
-  width: 300px;
 }
 
 .min-w-45 {
@@ -1884,20 +1884,16 @@ video {
     gap: 0px;
   }
 
+  .md\:gap-20 {
+    gap: 20px;
+  }
+
   .md\:gap-3 {
     gap: 0.75rem;
   }
 
-  .md\:gap-40 {
-    gap: 40px;
-  }
-
   .md\:gap-8 {
     gap: 2rem;
-  }
-
-  .md\:gap-20 {
-    gap: 20px;
   }
 
   .md\:p-40 {
