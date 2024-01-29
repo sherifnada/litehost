@@ -68,9 +68,12 @@ async function toggleSubdomainDropdown(user){
         subdomainItemContainer.appendChild(createSubdomainDropdownItem(subdomain));
       });
       subdomainDropdown.classList.remove('hidden');
+
+      document.getElementById("subdomain-naming-subheader").innerText = 'Or update one of your existing subdomains.';
     }
   } else {
     subdomainDropdown.classList.add('hidden');
+    document.getElementById("subdomain-naming-subheader").innerText = 'The world is your oyster';
   }
 }
 
