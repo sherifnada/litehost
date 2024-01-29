@@ -15,6 +15,9 @@
     <meta charset="UTF-8">
 <!-- Social media image -->
     <meta property="og:image" content="https://litehost-public-assets.s3.us-east-2.amazonaws.com/socialshare.jpg">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:description" content="Launch and update your site in less 30 seconds">
+    <meta property="og:description" content="Launch and update your site in less 30 seconds">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -285,7 +288,7 @@
                         <!-- STEP 3 | UPLOADING END -->
                         <!-- STEP 4 | SUCCESS START -->
                         <div class="successStep px-40 h-130 flex flex-col justify-center items-center bg-white-100 border-b-2 border-white-50 animate-pulse hidden">
-                            <a href="" target="_blank" id="success-url" class="bg-white-100 border-blue-100 border-2 px-2 py-2 rounded-lg font-bold text-blue-100 w-full truncate" onclick="copyToClipboard(event)"></a>
+                            <a href="" target="_blank" id="success-url" class="bg-white-100 border-blue-100 border-2 px-2 py-2 rounded-lg font-bold text-blue-100 w-full truncate"></a>
                         </div>
                         <!-- STEP 4 | SUCCESS END -->
                         <!-- STEP 5 | FAIL START -->
@@ -444,7 +447,7 @@
                         <h3 class="text-center font-bold text-5xl text-black-100 mb-15">Litehost in the wild</h3>
                         <h4 class="text-center font-normal text-2xl text-black-100">Use Litehost for everything from staging a website for feedback to launching a site to production in seconds.</h4>
                     </div>
-                    <div class="flex flex-col sm:flex-row items-center justify-center gap-10 md:gap-20">
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-20 md:gap-20">
                         <a href="https://mindfulcarts.litehost.io" target="_blank" class="flex flex-col items-center justify-center border-2 border-blue-100 bg-white-50 hover:bg-blue-100 hover:text-white-100 rounded-lg w-300 overflow-clip hover:drop-shadow-pinkhover transition-all">
                             <div class="w-full border-b-2 border-blue-100  text-sm text-center py-7 font-normal rounded-sm">mindfulcarts.litehost.io</div>
                             <img class="w-full" src="images/mindfulcarts.png">
@@ -749,24 +752,6 @@
                     }
                 });
             });
-        </script>
-        <script>
-        function copyToClipboard(event) {
-            event.preventDefault(); // Prevent the default anchor action
-            var copyText = event.currentTarget.getAttribute('href'); // Get the href attribute
-    
-            // Create a temporary text area element to hold the link
-            var textArea = document.createElement("textarea");
-            textArea.value = copyText;
-            document.body.appendChild(textArea);
-            
-            // Select the text and copy it
-            textArea.select();
-            document.execCommand("copy");
-            
-            // Remove the temporary text area
-            document.body.removeChild(textArea);
-        }
         </script>
 </body>
 </html>
