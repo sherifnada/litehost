@@ -91,7 +91,6 @@ const createRouter = (firebaseApp: App, dbClient: DbClient) => {
     if (!domainOwner || domainOwner.owner === userToken.uid) {
       res.status(200).send({ available: true });
       return;
-      
     }
     res.status(200).send({ available: false });
   }));
