@@ -50,6 +50,7 @@ export default {
           'pinkpress': '0 3px 0px rgba(250, 195, 209, 1)',
           'blue': '0 7px 0px rgba(135, 150, 255, 1)',
           'bluehover': '0 9px 0px rgba(135, 150, 255, 1)',
+          'darkbluehover': '0 9px 0px rgba(84, 105, 250, 1)',
           'bluepress': '0 3px 0px rgba(135, 150, 255, 1)',
         },
       },
