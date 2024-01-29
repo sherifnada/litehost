@@ -147,7 +147,7 @@ describe('validateUserSignedIn', () => {
 
     // Assertions
     expect(res.status).toHaveBeenCalledWith(401);
-    expect(res.send).toHaveBeenCalledWith({ error: "auth", message: "Invalid auth token" });
+    expect(res.send).toHaveBeenCalledWith({ error: "auth", message: "Expected a valid bearer token in the Authorization header." });
     expect(next).not.toHaveBeenCalled();
   });
 
