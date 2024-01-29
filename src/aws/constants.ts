@@ -1,3 +1,3 @@
-const HOSTING_BUCKET_NAME = 'litehost-main-bucket';
+const HOSTING_BUCKET_NAME = process.env['AWS_HOSTING_BUCKET'];
 const AWS_REGION = 'us-east-2';
 export { HOSTING_BUCKET_NAME, AWS_REGION as REGION };

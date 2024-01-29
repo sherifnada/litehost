@@ -5,6 +5,8 @@ import DbClient from './models/dbClient.js';
 import { createRouter } from './routes/index.js';
 import { readJsonSecret } from './utils/index.js';
 
+import * as dotenv from 'dotenv';
+dotenv.config({ path: "secrets/.env" });
 
 
 const firebaseKey = readJsonSecret('firebase-svcaccount-key.json');
