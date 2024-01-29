@@ -40,6 +40,7 @@ const createRouter = (firebaseApp: App, dbClient: DbClient) => {
         console.log("Invalid ID token. Not returning decodedIdToken.");
       }
     }
+    return undefined;
   }
 
   async function validateUserSignedIn(req, res, next) {
