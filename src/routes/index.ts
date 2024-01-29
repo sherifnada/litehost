@@ -30,21 +30,28 @@ const createRouter = (firebaseApp: App, dbClient: DbClient) => {
     return undefined;
   }
 
+  async function getDecodedIdToken(authorizationHeader: string): Promise<DecodedIdToken | undefined> {
+    const idToken = parseBearerToken(authorizationHeader);
+    if (idToken) {
+      try {
+        const auth = getAuth(firebaseApp);
+        return await auth.verifyIdToken(idToken);
+      } catch (error) {
+        console.log("Invalid ID token. Not returning decodedIdToken.");
+      }
+    }
+    return undefined;
+  }
+
   async function validateUserSignedIn(req, res, next) {
-    const idToken = parseBearerToken(req.headers?.authorization);
+    const idToken = await getDecodedIdToken(req.headers?.authorization);
     if (!idToken) {
-      res.status(401).send({ error: "auth", message: "Expected a bearer token" });
+      res.status(401).send({ error: "auth", message: "Expected a valid bearer token in the Authorization header." });
       return;
     }
 
-    try {
-      const auth = getAuth(firebaseApp);
-      const decodedToken = await auth.verifyIdToken(idToken);
-      req.userToken = decodedToken;
-      next();
-    } catch (error) {
-      res.status(401).send({ error: "auth", message: "Invalid auth token" })
-    }
+    req.userToken = idToken;
+    next();
   }
 
   async function validateUserCanUpdateSite(req: AuthorizedRequest, _, next) {
@@ -78,16 +85,14 @@ const createRouter = (firebaseApp: App, dbClient: DbClient) => {
 
   router.post('/is_site_available', asyncHandler(async (req, res) => {
     validateSubdomain(req.body);
-    const userToken = parseBearerToken(req.headers?.authorization);
-    const available = !await subdomainOwnerModel.subdomainAlreadyInUse(req.body.subdomain);
-    if (!available && userToken) {
-      const subdomainOwner = await subdomainOwnerModel.getRowForSubdomain(req.body.subdomain);
-      if (subdomainOwner.owner === req.userToken.uid) {
-        res.status(200).send({ available: true });
-        return;
-      }
+    const subdomain = req.body.subdomain;
+    const userToken = await getDecodedIdToken(req.headers?.authorization);
+    const domainOwner = await subdomainOwnerModel.getRowForSubdomain(subdomain);
+    if (!domainOwner || domainOwner.owner === userToken.uid) {
+      res.status(200).send({ available: true });
+      return;
     }
-    res.status(200).send({ available });
+    res.status(200).send({ available: false });
   }));
 
 
