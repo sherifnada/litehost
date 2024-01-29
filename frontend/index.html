@@ -11,8 +11,12 @@
 
         gtag('config', 'G-RG1TG4XW4D');
     </script>
-    <title>Litehost - Instantly launch sites</title>
+    <title>Litehost - Fast and easy website hosting</title>
     <meta charset="UTF-8">
+<!-- Social media image -->
+    <meta property="og:image" content="https://litehost-public-assets.s3.us-east-2.amazonaws.com/socialshare.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- Lexend -->
@@ -79,7 +83,7 @@
                 </a>
             </div>
             <div class="flex flex-col items-center gap-2 md:gap-3 md: px-20">
-                <a href="https://litehost.io/pricing.html" class="rounded-full bg-white-100 px-20 py-5 font-bold text-blue-100 text-center">Unlimited subdomains free forever</a>
+                <a href="https://litehost.io/pricing.html" class="rounded-full bg-white-100 px-20 py-5 font-bold text-blue-100 text-center">Launch 10 Free Subdomains</a>
                 <div class="flex justify-center items-center gap-x-3">
                     <p class="text-white-100 text-right leading-5">Build on</p>
                     <div class="flex gap-x-2">
@@ -278,10 +282,8 @@
                         </div>
                         <!-- STEP 3 | UPLOADING END -->
                         <!-- STEP 4 | SUCCESS START -->
-                        <div
-                            class="successStep px-40 h-130 flex flex-col justify-center items-center bg-white-100 border-b-2 border-white-50 animate-pulse hidden">
-                            <a href="" target="_blank" id="success-url"
-                                class="bg-white-100 border-blue-100 border-2 px-2 py-2 rounded-lg font-bold text-blue-100 w-full truncate"></a>
+                        <div class="successStep px-40 h-130 flex flex-col justify-center items-center bg-white-100 border-b-2 border-white-50 animate-pulse hidden">
+                            <a href="" target="_blank" id="success-url" class="bg-white-100 border-blue-100 border-2 px-2 py-2 rounded-lg font-bold text-blue-100 w-full truncate" onclick="copyToClipboard(event)"></a>
                         </div>
                         <!-- STEP 4 | SUCCESS END -->
                         <!-- STEP 5 | FAIL START -->
@@ -340,8 +342,7 @@
                             <div
                                 class="successStep px-40 h-130 flex flex-col justify-center items-center bg-white-50 rounded-b-xl hidden">
                                 <p class="font-bold text-xl">Want to update your site?</p>
-                                <p class="font-normal text-lg mt-5 leading-6">Sign in, type in your subdomain, and
-                                    reload your zip.</p>
+                                <p class="font-normal text-lg mt-5 leading-6">When logged in, select your subdomain from the dropdown and upload your new ZIP file.</p>
                             </div>
                         </div>
                         <!-- STEP 4 | FAIL START -->
@@ -371,7 +372,7 @@
                                 <h3 class="font-bold mb-2 leading-none">Dead Simple</h3>
                                 <p class="leading-6">Just upload a zip file. Re-upload to overwrite. Website builder
                                     publishing tools <a
-                                        href="https://litehost.io/pricing.html?openModal=true" class="underline">coming soon</a>.</p>
+                                        href="https://litehost.io/pricing.html" class="underline">coming soon</a>.</p>
                             </div>
                             <div class="text-lg">
                                 <h3 class="font-bold mb-2 leading-none">SSL included</h3>
@@ -384,7 +385,7 @@
                             </div>
                             <div class="text-lg">
                                 <h3 class="font-bold mb-2 leading-none">Custom domains <a class="font-normal underline"
-                                        href="https://litehost.io/pricing.html?openModal=true">(join waitlist)</a></h3>
+                                        href="https://litehost.io/pricing.html">(join waitlist)</a></h3>
                                 <p class="leading-6">Launch anything you want on any domain you want.</p>
                             </div>
                         </div>
@@ -434,6 +435,35 @@
                 </a>
             </div>
             <!-- JOIN WAITLIST INFINITE SCROLL END -->
+            <!-- LITEHOST IN THE WILD START -->
+            <div class="py-150 bg-white-50">
+                <div class="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8">
+                    <div class="mb-80">
+                        <h3 class="text-center font-bold text-5xl text-black-100 mb-15">Litehost in the wild</h3>
+                        <h4 class="text-center font-normal text-2xl text-black-100">Use Litehost for everything from staging a website for feedback to launching a site to production in seconds.</h4>
+                    </div>
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-10 md:gap-20">
+                        <a href="https://mindfulcarts.litehost.io" target="_blank" class="flex flex-col items-center justify-center border-2 border-blue-100 bg-white-50 hover:bg-blue-100 hover:text-white-100 rounded-lg w-300 overflow-clip hover:drop-shadow-pinkhover transition-all">
+                            <div class="w-full border-b-2 border-blue-100  text-sm text-center py-7 font-normal rounded-sm">mindfulcarts.litehost.io</div>
+                            <img class="w-full" src="images/mindfulcarts.png">
+                        </a>
+                        <a href="https://betonme.litehost.io" target="_blank" class="flex flex-col items-center justify-center border-2 border-blue-100 bg-white-50 hover:bg-blue-100 hover:text-white-100 rounded-lg w-300 overflow-clip hover:drop-shadow-pinkhover transition-all">
+                            <div class="w-full border-b-2 border-blue-100  text-sm text-center py-7 font-normal rounded-sm">betonme.litehost.io</div>
+                            <img class="w-full" src="images/betonme.png">
+                        </a>
+                        <a href="https://pipeweave.litehost.io" target="_blank" class="flex flex-col items-center justify-center border-2 border-blue-100 bg-white-50 hover:bg-blue-100 hover:text-white-100 rounded-lg w-300 overflow-clip hover:drop-shadow-pinkhover transition-all">
+                            <div class="w-full border-b-2 border-blue-100  text-sm text-center py-7 font-normal rounded-sm">pipeweave.litehost.io</div>
+                            <img class="w-full" src="images/pipeweave.png">
+                        </a>
+                        <a href="https://bgsn.litehost.io" target="_blank" class="flex flex-col items-center justify-center border-2 border-blue-100 bg-white-50 hover:bg-blue-100 hover:text-white-100 rounded-lg w-300 overflow-clip hover:drop-shadow-pinkhover transition-all">
+                            <div class="w-full border-b-2 border-blue-100  text-sm text-center py-7 font-normal rounded-sm">bgsn.litehost.io</div>
+                            <img class="w-full" src="images/bgsn.png">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LITEHOST IN THE WILD END -->
             <!-- HOW IT WORKS START -->
             <div class="py-150 bg-white-100 flex flex-col gap-80">
                 <div>
@@ -717,6 +747,24 @@
                     }
                 });
             });
+        </script>
+        <script>
+        function copyToClipboard(event) {
+            event.preventDefault(); // Prevent the default anchor action
+            var copyText = event.currentTarget.getAttribute('href'); // Get the href attribute
+    
+            // Create a temporary text area element to hold the link
+            var textArea = document.createElement("textarea");
+            textArea.value = copyText;
+            document.body.appendChild(textArea);
+            
+            // Select the text and copy it
+            textArea.select();
+            document.execCommand("copy");
+            
+            // Remove the temporary text area
+            document.body.removeChild(textArea);
+        }
         </script>
 </body>
 </html>
