@@ -147,13 +147,8 @@ document.addEventListener('DOMContentLoaded', async function() {
             successStep.forEach(el => el.classList.remove("hidden"));
             const response = { "status": 200, "websiteUrl": "https://pipeweave.litehost.io" };
             const successUrlElement = document.getElementById("success-url");
-            successUrlElement.innerHTML = '';
-            const link = document.createElement('a');
-            link.href = response.websiteUrl;
-            link.target = '_blank';
-            link.textContent = response.websiteUrl;
-
-            successUrlElement.appendChild(link);
+            successUrlElement.innerText = response.websiteUrl;
+            successUrlElement.href = response.websiteUrl;
           } else {
             failStep.forEach(el => el.classList.remove("hidden"));
             const response = { "status": 400, error: "bucket_creation_failure", message: "Failed to create S3 bucket! (this is a sample error message)" };
